@@ -1,0 +1,196 @@
+/* ONOUR IMPRAM VENTURES LTD — kurumsal sicil sayfası.
+   Sahne (renk kararının gerekçesi): Londra'da bir kapının yanındaki pirinç
+   levha, gündüz ışığında; masada basılı tescil belgesi. Bu yüzden yüzey açık
+   ve SOĞUK nötr — krem/kâğıt değil (playbook §2.3); sıcaklık yalnız pirinç
+   vurguda ve levhanın kendisinde taşınır (Restrained strateji).
+   Tipografi: Familjen Grotesk (başlık) + Literata (düzyazı) + Martian Mono
+   (tanımlayıcılar). Üçü de latin-ext taşır; Türkçe diakritik sert kısıttı. */
+
+:root {
+  color-scheme: light;
+
+  --surface: oklch(0.984 0.003 250);
+  --surface-2: oklch(0.955 0.005 250);
+  --ink: oklch(0.24 0.028 255);
+  --ink-2: oklch(0.46 0.021 255);
+  --rule: oklch(0.885 0.008 255);
+  --brass: oklch(0.545 0.095 68);
+
+  --plate: oklch(0.255 0.028 255);
+  --plate-deep: oklch(0.205 0.026 255);
+  --plate-ink: oklch(0.93 0.012 80);
+  --plate-brass: oklch(0.78 0.105 78);
+
+  --mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "Familjen Grotesk", system-ui, -apple-system, Segoe UI, sans-serif;
+  --serif: "Literata", Georgia, "Times New Roman", serif;
+
+  --gap: clamp(1rem, 0.6rem + 1.6vw, 2rem);
+  --bleed: clamp(1.25rem, 0.5rem + 3vw, 4.5rem);
+  --measure: 66ch;
+
+  --z-skip: 50;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  line-height: 1.65;
+  font-optical-sizing: auto;
+}
+
+/* Odak halkası tasarlanmıştır, tarayıcı varsayılanı değil: pirinç bir kenar +
+   yüzey boşluğu, koyu levhada da açık zeminde de görünür. */
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+a { color: inherit; text-decoration-color: var(--brass); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+
+.skip {
+  position: absolute; left: -9999px; z-index: var(--z-skip);
+  background: var(--plate); color: var(--plate-ink);
+  padding: 0.6rem 0.9rem; font-family: var(--sans);
+}
+.skip:focus { left: var(--bleed); top: 0.6rem; }
+
+.wrap { width: min(72rem, 100% - 2 * var(--bleed)); margin-inline: auto; }
+
+/* ---- Belge başlığı: tek satır, bir evrakın üst künyesi gibi ---- */
+.doc-head {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem;
+  align-items: baseline; justify-content: space-between;
+  padding: 1.1rem 0 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+.doc-head b { font-weight: 600; color: var(--ink); }
+.doc-head nav { display: flex; gap: 0.9rem; }
+.doc-head [aria-current="page"] { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--brass); }
+
+/* ---- İmza öğesi: kazınmış pirinç levha ---- */
+.plate-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  align-items: end;
+  padding: clamp(2.5rem, 1.5rem + 5vw, 5.5rem) 0 clamp(2rem, 1rem + 3vw, 3.5rem);
+}
+@media (max-width: 54rem) { .plate-row { grid-template-columns: 1fr; align-items: start; } }
+
+.plate {
+  position: relative;
+  background:
+    linear-gradient(176deg, oklch(0.29 0.03 255) 0%, var(--plate) 38%, var(--plate-deep) 100%);
+  color: var(--plate-ink);
+  padding: clamp(1.4rem, 1rem + 2vw, 2.4rem);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 1px 0 oklch(0.62 0.07 78 / 0.55),
+    inset 0 0 0 1px oklch(0.55 0.06 78 / 0.28),
+    0 1px 1px oklch(0.24 0.028 255 / 0.10),
+    0 14px 34px oklch(0.24 0.028 255 / 0.16);
+}
+.plate::after {
+  /* vida başı değil, levhanın kenarındaki ince pirinç tırnak: tek detay */
+  content: ""; position: absolute; inset: 7px; border: 1px solid oklch(0.62 0.07 78 / 0.22);
+  border-radius: 1px; pointer-events: none;
+}
+.plate-kicker {
+  margin: 0 0 0.9rem; font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--plate-brass);
+}
+.plate h1 {
+  margin: 0; font-family: var(--sans); font-weight: 700;
+  font-size: clamp(1.5rem, 1.05rem + 2.1vw, 2.55rem);
+  line-height: 1.08; letter-spacing: -0.025em; text-wrap: balance;
+  /* kazıma: üstte ince karanlık, altta ince ışık */
+  text-shadow: 0 -1px 0 oklch(0.18 0.02 255 / 0.55), 0 1px 0 oklch(0.72 0.06 78 / 0.18);
+}
+.plate-no {
+  margin: 1.15rem 0 0; padding-top: 0.9rem;
+  border-top: 1px solid oklch(0.62 0.07 78 / 0.22);
+  font-family: var(--mono); font-size: 0.72rem; line-height: 1.8;
+  color: oklch(0.86 0.012 80);
+  font-variant-numeric: tabular-nums;
+}
+.plate-no span { color: var(--plate-brass); }
+
+.lede { margin: 0; max-width: var(--measure); }
+.lede p { margin: 0 0 1rem; }
+.lede p:last-child { margin-bottom: 0; }
+.lede strong { font-weight: 600; }
+
+/* ---- Bölümler ---- */
+section { padding: clamp(2.2rem, 1.4rem + 3vw, 4rem) 0; border-top: 1px solid var(--rule); }
+h2 {
+  margin: 0 0 1.6rem; font-family: var(--sans); font-weight: 600;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.4rem); letter-spacing: -0.015em;
+}
+
+/* Sicil: tanım listesi, iki kolon, satır çizgili — kart değil (playbook §5) */
+/* İki kolon tavanı: üç kolonda satırlar arasındaki okuma sırası kayboluyor ve
+   uzun adres satırı komşu hücrelerde boşluk bırakıyordu (masaüstü ekran
+   görüntüsünde görüldü). */
+/* min(25rem, 100%): çıplak minmax(25rem,…) dar ekranda kabı taşırır — 320/360/390'da
+   ölçüldü, sw=420 > cw=320. auto-fit'in minimumu kaptan büyük olamaz. */
+.register { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(25rem, 100%), 1fr)); gap: 0 clamp(1.5rem, 1rem + 3vw, 4rem); }
+.register div { display: grid; grid-template-columns: minmax(9rem, 34%) 1fr; gap: 0.75rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.register dt { font-family: var(--sans); font-size: 0.8rem; font-weight: 500; color: var(--ink-2); }
+.register dd { margin: 0; font-family: var(--mono); font-size: 0.72rem; line-height: 1.7; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.register dd.prose { font-family: var(--serif); font-size: 0.95rem; }
+/* Dar ekranda etiket-değer yan yana kalırsa değer sütunu ~200 px'e iner ve
+   mono adres satırı taşar (mobil ekran görüntüsünde görüldü): alt alta al. */
+@media (max-width: 34rem) {
+  .register div { grid-template-columns: 1fr; gap: 0.15rem; padding: 0.6rem 0; }
+  .register dt { font-size: 0.74rem; }
+}
+
+/* Yayımlanan yazılım: gerçek tablo — incelemeci tabloyu tarar */
+.apps { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.apps caption { text-align: left; color: var(--ink-2); font-size: 0.82rem; padding-bottom: 0.8rem; max-width: var(--measure); }
+.apps th, .apps td { text-align: left; padding: 0.78rem 0.9rem 0.78rem 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
+.apps thead th { font-family: var(--sans); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); border-bottom-color: var(--ink); }
+.apps tbody th { font-family: var(--sans); font-weight: 600; font-size: 0.95rem; }
+.apps td:last-child, .apps th:last-child { padding-right: 0; }
+.apps .cat { color: var(--ink-2); font-size: 0.85rem; }
+.apps a { font-family: var(--mono); font-size: 0.68rem; white-space: nowrap; }
+@media (max-width: 46rem) {
+  .apps, .apps tbody, .apps tr, .apps td, .apps th { display: block; }
+  /* caption table-caption kalırsa blok tabloda sütun genişliğine sıkışır ve
+     metin kelime kelime kırılır (mobil ekran görüntüsünde yakalandı). */
+  .apps caption { display: block; max-width: none; }
+  .apps thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .apps tr { padding: 0.9rem 0; border-bottom: 1px solid var(--rule); }
+  .apps th, .apps td { border: 0; padding: 0.1rem 0; }
+  .apps .links { display: flex; gap: 1.1rem; padding-top: 0.45rem; }
+}
+
+.contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--gap) clamp(1.5rem, 1rem + 3vw, 4rem); }
+.contact p { margin: 0 0 0.6rem; max-width: 42ch; }
+.mailto { font-family: var(--mono); font-size: 0.8rem; }
+
+footer { border-top: 1px solid var(--rule); padding: 1.6rem 0 2.6rem; }
+.legal { margin: 0; font-family: var(--mono); font-size: 0.64rem; line-height: 1.75; color: var(--ink-2); max-width: 74ch; }
+.legal a { white-space: nowrap; }
+
+/* ---- Tek orkestre edilmiş açılış (dağınık mikro-etkileşim değil) ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise 520ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+  .rise:nth-child(2) { animation-delay: 70ms; }
+  .doc-head { animation: rise 420ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
