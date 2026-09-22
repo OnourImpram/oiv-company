@@ -1,24 +1,38 @@
 # oiv-company
 
-ONOUR IMPRAM VENTURES LTD — company register page (EN + TR).
+ONOUR IMPRAM VENTURES LTD, kurumsal site (EN + TR). Statik, derleme adımı yok:
+`index.html`, `tr/index.html`, `assets/style.css`, `assets/apps/*.png`. Yollar
+görelidir, yani site hem proje sayfası adresinde hem özel alan adında çalışır.
 
-Static, no build step. `index.html` (EN), `tr/index.html` (TR), `assets/style.css`.
-Paths are relative so the site works both at the project-page URL and at the
-custom domain.
+## Tasarım kararı
 
-**Why it exists.** Samsung rejected the Galaxy Store commercial-seller request on
-2026-09-21; two of the four reasons require the seller's corporate email domain
-to match the domain of the company's official website, and the D-U-N-S record to
-name that website. This page is that website: legal name, company number,
-D-U-N-S, registered office, director, contact, and the software the company
-publishes.
+Konsept, ana sitenin (onourimpram.com) iki dünya kimliğinin kardeşidir: gece
+tarafı atölyedir, orada yapılan işler durur; altın bir dikiş geçer; gündüz
+tarafı kayıttır, sicil orada yazılıdır. Metafor değiştirilmedi, şirkete
+uyarlandı.
 
-**Custom domain.** `CNAME.bekliyor` holds the intended host
-(`oiv.onourimpram.com`). Rename it to `CNAME` once the DNS record exists:
-Cloudflare → onourimpram.com → CNAME `oiv` → `onourimpram.github.io`, proxy OFF
-(DNS only, so GitHub can issue the certificate). Until then the site is served at
-the github.io project URL.
+Tipografi ev fontlarıdır: Fraunces (display), IBM Plex Sans (gövde), IBM Plex
+Mono (tanımlayıcılar). İmgelem uydurma değil, kendi ürettiğimiz uygulama
+ikonlarıdır.
 
-Checks run before publishing: no horizontal overflow at 320/360/390/768/1024/1440,
-axe-core WCAG A/AA with zero serious/critical findings on both pages, contrast
-measured rather than assumed.
+## Neden var
+
+Samsung, Galaxy Store kurumsal satıcı başvurusunu 2026-09-21'de reddetti. Dört
+gerekçeden ikisi satıcı e-postasının alan adıyla şirketin resmî sitesinin alan
+adının eşleşmesini istiyor. Bu sayfa o site: tescilli unvan, şirket numarası,
+D-U-N-S, kayıtlı ofis, yönetici, iletişim ve şirketin yayımladığı yazılımlar.
+
+## Özel alan adı
+
+`CNAME.bekliyor` hedef adresi tutar (`oiv.onourimpram.com`). DNS kaydı
+açıldıktan sonra dosya `CNAME` olarak yeniden adlandırılır:
+Cloudflare, onourimpram.com, CNAME `oiv`, hedef `onourimpram.github.io`, proxy
+kapalı (DNS only; sertifikayı GitHub kessin). O ana kadar site proje sayfası
+adresinden yayındadır.
+
+## Yayın öncesi ölçülenler
+
+320, 360, 390, 768, 1024 ve 1440 pikselde yatay taşma yok. axe-core WCAG A/AA
+iki dilde sıfır serious/critical. On metin katmanının kontrastı piksel üzerinden
+ölçüldü, en düşüğü 6.20. Uzun tire taraması temiz
+(`06-Altyapi/scripts/uzun-tire-kapisi.py`).
