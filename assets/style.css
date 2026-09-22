@@ -2,35 +2,35 @@
 
    Konsept: "iki kapının arkasındaki atölye". onourimpram.com'un kimliği iki
    dünyadır (gece araştırma serin, gündüz klinik sıcak) ve aralarından altın bir
-   dikiş geçer. Şirket o iki dünyanın ürettiği şeyleri yayımlayan yerdir; o
-   yüzden bu sayfa aynı DNA'yı taşır ama öznesi yapılmış şeylerdir. Üst yarı
-   gece: atölye, yayımlanan uygulamalar. Altın dikiş. Alt yarı gündüz: sicil,
-   yani kaydın kendisi. Metafor değiştirilmedi, yükseltildi.
+   dikiş geçer. Şirket o iki dünyanın ürettiği şeyleri yayımlayan yerdir; bu
+   sayfa aynı DNA'yı taşır, öznesi yapılan iştir. Üst yarı gece: atölye ve dört
+   iş kolu. Altın dikiş. Alt yarı gündüz: ürünler, açık kaynak, araştırma ve
+   sicil. Metafor değiştirilmedi, şirkete uyarlandı.
+
+   Logo şirketin kendi işaretidir (lacivert, altın, turkuaz). Gece yüzeyinde
+   lacivert fildişine çevrilmiş varyantı, gündüzde aslı kullanılır.
 
    Tipografi ev fontlarıdır: Fraunces (display) + IBM Plex Sans/Mono. Bunlar
-   playbook'un refleks-reddet listesinde görünür, fakat operatörün kilitlediği
-   marka fontu o listeyi ezer; kurumsal yüzün ana siteyle aynı sesle konuşması
-   burada özgünlükten önce gelir. */
+   playbook'un refleks-reddet listesinde görünür; operatörün kilitlediği marka
+   fontu o listeyi ezer. */
 
 :root {
   color-scheme: light;
 
-  /* gece */
   --night: oklch(0.185 0.022 255);
   --night-2: oklch(0.235 0.026 255);
   --night-ink: oklch(0.95 0.008 250);
   --night-ink-2: oklch(0.755 0.014 250);
 
-  /* gündüz */
   --day: oklch(0.975 0.006 85);
   --day-2: oklch(0.945 0.012 85);
   --ink: oklch(0.23 0.022 255);
   --ink-2: oklch(0.455 0.018 255);
   --rule: oklch(0.875 0.012 85);
 
-  /* dikiş */
   --gold: oklch(0.72 0.115 80);
   --gold-deep: oklch(0.54 0.095 70);
+  --teal: oklch(0.55 0.09 200);
 
   --display: "Fraunces", Georgia, "Times New Roman", serif;
   --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
@@ -41,7 +41,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
   margin: 0;
@@ -64,19 +65,10 @@ a { color: inherit; }
 
 .wrap { width: min(74rem, 100% - 2 * var(--bleed)); margin-inline: auto; }
 
-/* ============================ GECE: ATÖLYE ============================ */
-.night {
-  position: relative;
-  background: var(--night);
-  color: var(--night-ink);
-  overflow: hidden;
-  isolation: isolate;
-}
-/* Takımyıldız dokusu: ana sitedeki alan ile aynı aile, burada saf CSS. İki
-   radial-gradient katmanı, biri seyrek biri sık; hareket yok, sessiz derinlik. */
+/* ============================ GECE ============================ */
+.night { position: relative; background: var(--night); color: var(--night-ink); overflow: hidden; isolation: isolate; }
 .night::before {
-  content: "";
-  position: absolute; inset: -20% -10% auto -10%; height: 140%;
+  content: ""; position: absolute; inset: -20% -10% auto -10%; height: 140%; z-index: -1;
   background:
     radial-gradient(1px 1px at 12% 22%, oklch(0.82 0.05 250 / 0.55) 50%, transparent 51%),
     radial-gradient(1px 1px at 28% 64%, oklch(0.82 0.05 250 / 0.4) 50%, transparent 51%),
@@ -87,128 +79,109 @@ a { color: inherit; }
     radial-gradient(1px 1px at 38% 84%, oklch(0.8 0.05 250 / 0.36) 50%, transparent 51%),
     radial-gradient(60rem 40rem at 78% 8%, oklch(0.42 0.05 250 / 0.55), transparent 70%),
     radial-gradient(48rem 34rem at 6% 96%, oklch(0.36 0.045 90 / 0.4), transparent 72%);
-  z-index: -1;
 }
 
 .night-head {
-  display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem;
-  align-items: center; justify-content: space-between;
-  padding: 1.5rem 0 0;
-  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.02em;
-  color: var(--night-ink-2);
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; align-items: center; justify-content: space-between;
+  padding: 1.4rem 0 0; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.02em; color: var(--night-ink-2);
 }
-.mark { display: inline-flex; align-items: center; gap: 0.7rem; text-decoration: none; }
-.mark svg { display: block; }
+.mark { display: inline-flex; align-items: center; gap: 0.85rem; text-decoration: none; }
+.mark img { display: block; height: 2.6rem; width: auto; }
 .mark span { font-family: var(--body); font-size: 0.86rem; letter-spacing: 0.01em; color: var(--night-ink); }
-.langs { display: flex; gap: 0.9rem; }
-.langs a { text-decoration: none; color: var(--night-ink-2); }
-.langs a:hover { color: var(--night-ink); }
+.top-nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; align-items: center; }
+.top-nav a { text-decoration: none; color: var(--night-ink-2); }
+.top-nav a:hover { color: var(--night-ink); }
+.langs { display: flex; gap: 0.9rem; margin-left: 0.6rem; padding-left: 1.2rem; border-left: 1px solid oklch(0.95 0.008 250 / 0.18); }
 .langs [aria-current="page"] { color: var(--night-ink); border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
+@media (max-width: 48rem) { .top-nav .sec { display: none; } .langs { border: 0; padding: 0; margin: 0; } }
 
-/* Hero iki kolon: sol söz, sağ kayıt. İlk sürümde sağ yarı bomboştu; sicilin
-   dört satırı oraya girince hem kompozisyon dengelendi hem de incelemecinin
-   aradığı numaralar ilk ekrana çıktı. */
-.hero { padding: clamp(3.5rem, 2rem + 8vw, 8rem) 0 clamp(2.5rem, 1.5rem + 4vw, 4.5rem); display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(1.6rem, 1rem + 2.5vw, 3.2rem) clamp(2rem, 1rem + 4vw, 5rem); align-items: start; }
-.hero h1 { grid-column: 1 / -1; }
+.hero {
+  padding: clamp(3.2rem, 2rem + 7vw, 7.5rem) 0 clamp(2.2rem, 1.5rem + 3vw, 4rem);
+  display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 1rem + 2.5vw, 3.2rem) clamp(2rem, 1rem + 4vw, 5rem); align-items: start;
+}
+.hero h1 {
+  grid-column: 1 / -1; margin: 0;
+  font-family: var(--display); font-weight: 400;
+  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 120;
+  font-size: clamp(2.5rem, 1.2rem + 6vw, 5.8rem); line-height: 0.98; letter-spacing: -0.03em;
+  text-wrap: balance; max-width: 18ch;
+}
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero .sub { margin: 0; max-width: var(--measure); color: var(--night-ink-2); font-size: clamp(1.02rem, 0.95rem + 0.4vw, 1.2rem); line-height: 1.7; }
+.hero .sub strong { color: var(--night-ink); font-weight: 500; }
 @media (max-width: 58rem) { .hero { grid-template-columns: 1fr; } }
 
 .hero-facts { margin: 0; padding-top: 1.1rem; border-top: 1px solid oklch(0.72 0.115 80 / 0.45); max-width: 26rem; }
 .hero-facts div { display: flex; justify-content: space-between; align-items: baseline; gap: 1.2rem; padding: 0.48rem 0; }
 .hero-facts div + div { border-top: 1px solid oklch(0.95 0.008 250 / 0.08); }
 .hero-facts dt { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
-.hero-facts dd { margin: 0; font-family: var(--mono); font-size: 0.74rem; color: var(--night-ink); font-variant-numeric: tabular-nums; }
-.hero h1 {
-  margin: 0;
-  font-family: var(--display);
-  font-weight: 400;
-  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 120;
-  font-size: clamp(2.6rem, 1.3rem + 6.2vw, 6rem);
-  line-height: 0.98;
-  letter-spacing: -0.03em;
-  text-wrap: balance;
-  max-width: 16ch;
-}
-.hero h1 em { font-style: italic; color: var(--gold); }
-.hero .sub {
-  margin: clamp(1.4rem, 1rem + 1.6vw, 2.2rem) 0 0;
-  max-width: var(--measure);
-  color: var(--night-ink-2);
-  font-size: clamp(1.02rem, 0.95rem + 0.4vw, 1.2rem);
-  line-height: 1.7;
-}
-.hero .sub strong { color: var(--night-ink); font-weight: 500; }
+.hero-facts dd { margin: 0; font-family: var(--mono); font-size: 0.74rem; color: var(--night-ink); font-variant-numeric: tabular-nums; text-align: right; }
 
-/* Yayımlanan işler: ikon şeridi. İmgelem uydurma değil, kendi ürettiğimiz
-   ikonların kendisi. Kart yok, ızgara yok; tek sıra, yatayda akan bir raf. */
-.shelf { padding: 0 0 clamp(3rem, 2rem + 4vw, 5rem); }
-.shelf-label {
-  margin: 0 0 1.4rem; font-family: var(--mono); font-size: 0.68rem;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
-}
-.shelf ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(9.5rem, 100%), 1fr)); gap: clamp(1rem, 0.6rem + 1.4vw, 2rem); }
-.shelf li { display: flex; flex-direction: column; gap: 0.7rem; align-items: flex-start; }
-.shelf img {
-  width: clamp(3.25rem, 2.4rem + 2.6vw, 4.4rem); height: auto;
-  border-radius: 22%;
-  box-shadow: 0 1px 0 oklch(0.72 0.115 80 / 0.22), 0 12px 26px oklch(0.1 0.02 255 / 0.5);
-}
-.shelf b { font-family: var(--body); font-weight: 500; font-size: 0.95rem; color: var(--night-ink); }
-.shelf small { display: block; color: var(--night-ink-2); font-size: 0.8rem; line-height: 1.45; }
+/* Dört iş kolu: kart değil, kolon. Aralarında yalnız ince çizgi, üstte altın. */
+.lines { padding: 0 0 clamp(3rem, 2rem + 4vw, 5.5rem); }
+.lines-head { margin: 0 0 1.4rem; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.lines ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)); gap: 0 clamp(1.4rem, 1rem + 2vw, 3rem); }
+.lines li { padding: 1.1rem 0 0.4rem; border-top: 1px solid oklch(0.95 0.008 250 / 0.14); }
+.lines h3 { margin: 0 0 0.55rem; font-family: var(--display); font-weight: 400; font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 32; font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem); letter-spacing: -0.015em; line-height: 1.15; }
+.lines p { margin: 0; color: var(--night-ink-2); font-size: 0.93rem; line-height: 1.6; max-width: 34ch; }
+.lines p b { color: var(--night-ink); font-weight: 500; }
 
-/* Altın dikiş: iki dünyanın birleştiği yer. Ana sitedeki dikişin kardeşi. */
 .seam { height: 2px; background: linear-gradient(90deg, transparent, var(--gold) 18%, var(--gold) 82%, transparent); }
 
-/* ============================ GÜNDÜZ: SİCİL ============================ */
+/* ============================ GÜNDÜZ ============================ */
 .day { background: var(--day); }
 section { padding: clamp(2.6rem, 1.6rem + 3.4vw, 4.6rem) 0; }
 section + section { border-top: 1px solid var(--rule); }
 h2 {
-  margin: 0 0 clamp(1.4rem, 1rem + 1vw, 2rem);
-  font-family: var(--display); font-weight: 400;
-  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 40;
-  font-size: clamp(1.45rem, 1.2rem + 1.1vw, 2.1rem);
-  letter-spacing: -0.02em;
+  margin: 0 0 clamp(1.3rem, 1rem + 1vw, 2rem);
+  font-family: var(--display); font-weight: 400; font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 40;
+  font-size: clamp(1.45rem, 1.2rem + 1.1vw, 2.1rem); letter-spacing: -0.02em;
 }
+.sec-lede { margin: -0.6rem 0 1.8rem; max-width: var(--measure); color: var(--ink-2); }
 
-.said { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr)); gap: clamp(1.2rem, 0.8rem + 2vw, 3rem); }
-.said p { margin: 0; max-width: 46ch; }
-.said p:first-child { font-size: clamp(1.08rem, 1rem + 0.5vw, 1.3rem); line-height: 1.55; font-family: var(--display); font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 24; }
-
-/* Uygulama listesi: ikon + ad + bir satır + bağlantılar. Tablo başlığı yok,
-   ama incelemecinin aradığı her alan burada ve taranabilir. */
+/* Ürünler: ikon + ad + satır + bağlantılar, tek liste. */
 .apps { list-style: none; margin: 0; padding: 0; }
 .apps li { display: grid; grid-template-columns: auto 1fr auto; gap: 0.6rem clamp(0.9rem, 0.6rem + 1vw, 1.6rem); align-items: center; padding: clamp(0.9rem, 0.7rem + 0.6vw, 1.3rem) 0; border-bottom: 1px solid var(--rule); }
 .apps li:first-child { border-top: 1px solid var(--rule); }
-.apps img { width: 2.9rem; height: auto; border-radius: 22%; box-shadow: 0 1px 2px oklch(0.23 0.022 255 / 0.18); }
+.apps img { width: 3.1rem; height: auto; border-radius: 22%; box-shadow: 0 1px 2px oklch(0.23 0.022 255 / 0.18); }
 .apps b { display: block; font-weight: 600; font-size: 1rem; }
 .apps span { color: var(--ink-2); font-size: 0.9rem; }
-.apps .go { display: flex; gap: 1.1rem; font-family: var(--mono); font-size: 0.7rem; white-space: nowrap; }
-@media (max-width: 40rem) {
-  .apps li { grid-template-columns: auto 1fr; }
-  .apps .go { grid-column: 1 / -1; padding-left: 3.5rem; }
-}
+.go { display: flex; gap: 1.1rem; font-family: var(--mono); font-size: 0.7rem; white-space: nowrap; }
+@media (max-width: 40rem) { .apps li { grid-template-columns: auto 1fr; } .apps .go { grid-column: 1 / -1; padding-left: 3.7rem; } }
 
-/* Sicil: kazınmış künye. Etiketler mono, değerler okunur; altın kılcal çizgi. */
+/* Açık kaynak ve araştırma: iki kolonlu düzyazı blokları. */
+.oss { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr)); gap: clamp(1.2rem, 0.8rem + 2vw, 3rem); }
+.oss li { padding-top: 0.9rem; border-top: 1px solid var(--ink); }
+.oss h3 { margin: 0 0 0.35rem; font-family: var(--display); font-weight: 400; font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 32; font-size: 1.35rem; letter-spacing: -0.015em; }
+.oss .tag { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-deep); }
+.oss p { margin: 0.5rem 0 0.8rem; max-width: 46ch; }
+
+.said { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr)); gap: clamp(1.2rem, 0.8rem + 2vw, 3rem); }
+.said p { margin: 0 0 0.8rem; max-width: 48ch; }
+.said p:last-child { margin-bottom: 0; }
+.said .lead { font-size: clamp(1.08rem, 1rem + 0.5vw, 1.3rem); line-height: 1.55; font-family: var(--display); font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 24; }
+
 .register { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr)); gap: 0 clamp(1.5rem, 1rem + 3vw, 4rem); }
 .register div { display: grid; grid-template-columns: minmax(8.5rem, 32%) 1fr; gap: 0.8rem; padding: 0.72rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
 .register dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); }
 .register dd { margin: 0; font-size: 0.95rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-@media (max-width: 34rem) {
-  .register div { grid-template-columns: 1fr; gap: 0.2rem; }
-}
+@media (max-width: 34rem) { .register div { grid-template-columns: 1fr; gap: 0.2rem; } }
 
 .contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr)); gap: clamp(1.2rem, 0.8rem + 2vw, 3rem); }
 .contact p { margin: 0 0 0.7rem; max-width: 44ch; }
 .contact .big { font-family: var(--display); font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem); font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 32; }
 
-footer { background: var(--day-2); border-top: 1px solid var(--rule); padding: clamp(1.6rem, 1.2rem + 1vw, 2.4rem) 0 clamp(2.4rem, 2rem + 1vw, 3.2rem); }
-.legal { margin: 0; font-family: var(--mono); font-size: 0.66rem; line-height: 1.8; color: var(--ink-2); max-width: 78ch; }
+footer { background: var(--day-2); border-top: 1px solid var(--rule); padding: clamp(1.8rem, 1.2rem + 1.4vw, 2.8rem) 0 clamp(2.4rem, 2rem + 1vw, 3.2rem); }
+.foot-row { display: flex; flex-wrap: wrap; gap: 1.4rem 3rem; align-items: flex-end; justify-content: space-between; }
+.foot-row img { display: block; height: 4.2rem; width: auto; }
+.legal { margin: 0; font-family: var(--mono); font-size: 0.66rem; line-height: 1.8; color: var(--ink-2); max-width: 70ch; }
 
-/* Tek orkestre edilmiş açılış. Gece bloğu yerine oturur, dikiş sonra çizilir. */
 @media (prefers-reduced-motion: no-preference) {
   .rise { animation: rise 620ms cubic-bezier(0.23, 1, 0.32, 1) both; }
   .rise-2 { animation-delay: 90ms; }
   .rise-3 { animation-delay: 180ms; }
+  .rise-4 { animation-delay: 270ms; }
   .seam { animation: draw 900ms cubic-bezier(0.23, 1, 0.32, 1) 260ms both; }
 }
 @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
