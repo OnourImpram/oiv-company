@@ -27,12 +27,10 @@ kümeleri; Türkçe harfler latin-ext'tedir). Lisans: SIL Open Font License 1.1,
 Google Fonts'tan yüklüyordu ve istek URL'si HTTP 400 dönüyordu; o sürüm hiçbir
 zaman ev fontlarıyla görünmedi.
 
-## Neden var
+## Ne için
 
-Samsung, Galaxy Store kurumsal satıcı başvurusunu 2026-09-21'de reddetti. Dört
-gerekçeden ikisi satıcı e-postasının alan adıyla şirketin resmî sitesinin alan
-adının eşleşmesini istiyor. Bu sayfa o site: tescilli unvan, şirket numarası,
-D-U-N-S, kayıtlı ofis, yönetici, iletişim ve şirketin yayımladığı yazılımlar.
+Şirketin resmî sitesi: tescilli unvan, şirket numarası, D-U-N-S, kayıtlı ofis,
+yönetici, iletişim ve şirketin yayımladığı yazılımlar.
 
 ## İçerik kuralı
 
@@ -44,11 +42,30 @@ yeniden ölçülür.
 
 ## Özel alan adı
 
-`CNAME.bekliyor` hedef adresi tutar (`oiv.onourimpram.com`). DNS kaydı
-açıldıktan sonra dosya `CNAME` olarak yeniden adlandırılır:
-Cloudflare, onourimpram.com, CNAME `oiv`, hedef `onourimpram.github.io`, proxy
-kapalı (DNS only; sertifikayı GitHub kessin). O ana kadar site proje sayfası
-adresinden yayındadır.
+`CNAME.bekliyor` hedef adresi tutar (`oiv.onourimpram.com`). Geçiş bu sırayla
+yapılır ve sıra tersine çevrilmez:
+
+1. Alan adı GitHub hesabında doğrulanır (Settings, Pages, Verified domains:
+   `onourimpram.com`). Cloudflare'de istenen `_github-pages-challenge-OnourImpram`
+   TXT kaydı açılır ve kalıcı olarak kalır; doğrulama alan adının doğrudan alt
+   alan adlarını da kapsar.
+   Ölçü: `_github-pages-challenge-OnourImpram.onourimpram.com` TXT sorgusu
+   yanıt verir ve GitHub alan adını "verified" gösterir.
+2. Dosya `CNAME` olarak yeniden adlandırılıp gönderilir. Ölçü: Pages API
+   (`repos/OnourImpram/oiv-company/pages`) `cname` alanında
+   `oiv.onourimpram.com` döner. Alan adı başka bir depoda kullanılıyor
+   uyarısı çıkarsa burada durulur.
+3. Ancak bundan sonra Cloudflare'de CNAME `oiv`, hedef `onourimpram.github.io`,
+   proxy kapalı (DNS only; sertifikayı GitHub kessin) açılır. Ölçü: sertifika
+   kesildikten sonra `https://oiv.onourimpram.com/` ve `/tr/` 200 döner,
+   `og-1200x630.png` ve `oiv-mark-light.png` yüklenir, `https_enforced` açıktır
+   ve `https://oiv.onourimpram.com/.well-known/security.txt` 200 döner.
+
+DNS kaydı alan adı GitHub'da bağlanmadan açılırsa başka bir hesap bu alt alan
+adını kendi Pages sitesine bağlayabilir (GitHub, "Managing a custom domain for
+your GitHub Pages site"). `CNAME` dosyası ileride kaldırılırsa DNS kaydı da
+aynı anda kaldırılır; joker (`*`) kayıt açılmaz. Geçişe kadar site proje
+sayfası adresinden yayındadır.
 
 ## Yayın öncesi ölçülenler (2026-09-22, son düzenlemeden sonra)
 
