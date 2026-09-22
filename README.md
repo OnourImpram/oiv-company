@@ -1,8 +1,10 @@
 # oiv-company
 
-ONOUR IMPRAM VENTURES LTD, kurumsal site (EN + TR). Statik, derleme adımı yok:
-`index.html`, `tr/index.html`, `assets/style.css`, `assets/fonts.css`. Yollar
-görelidir, yani site hem proje sayfası adresinde hem özel alan adında çalışır.
+ONOUR IMPRAM VENTURES LTD, kurumsal site (EN + TR). Statik, derleme adımı yok.
+Yayınlanan ağaç yalnız `docs/` (`docs/index.html`, `docs/tr/index.html`,
+`docs/assets/`); Pages kaynağı `main /docs`, depo kökündeki README ve diğer
+dosyalar yayınlanmaz. Yollar görelidir, yani site hem proje sayfası adresinde
+hem özel alan adında çalışır.
 
 ## Tasarım kararı
 
@@ -51,7 +53,8 @@ yapılır ve sıra tersine çevrilmez:
    alan adlarını da kapsar.
    Ölçü: `_github-pages-challenge-OnourImpram.onourimpram.com` TXT sorgusu
    yanıt verir ve GitHub alan adını "verified" gösterir.
-2. Dosya `CNAME` olarak yeniden adlandırılıp gönderilir. Ölçü: Pages API
+2. Dosya `docs/CNAME` olarak taşınıp gönderilir (Pages kaynağı `/docs`, dosya
+   orada olmalı). Ölçü: Pages API
    (`repos/OnourImpram/oiv-company/pages`) `cname` alanında
    `oiv.onourimpram.com` döner. Alan adı başka bir depoda kullanılıyor
    uyarısı çıkarsa burada durulur.
