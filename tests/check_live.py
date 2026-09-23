@@ -14,7 +14,7 @@ from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1] / 'docs'
-DEFAULT_BASE = 'https://onourimpram.github.io/oiv-company/'
+DEFAULT_BASE = 'https://oiv.onourimpram.com/'
 CORE = ['index.html', 'tr/index.html', 'assets/style.css', 'robots.txt', 'sitemap.xml', '.well-known/security.txt']
 
 
@@ -97,7 +97,7 @@ def main():
             raise ValueError(f'Deployed bytes differ: {relative}')
         print(f'PASS {relative} sha256={digest(actual)}', flush=True)
     # Non-public repository files must not be included in the Pages tree.
-    for relative in ['README.md', 'CNAME.bekliyor', 'tests/test_site.py']:
+    for relative in ['README.md', 'tests/check_live.py', 'tests/test_site.py']:
         try:
             get(base + relative + '?oiv_release=' + release)
         except HTTPError as error:

@@ -13,8 +13,8 @@ const types={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/ja
 try{
  let base=process.env.OIV_BASE_URL;
  if(!base){
-  server=createServer(async(req,res)=>{try{const path=decodeURIComponent(new URL(req.url,'http://local').pathname);if(!path.startsWith('/oiv-company/'))throw Error('Not found');let relative=path.slice(13);if(!relative||relative.endsWith('/'))relative+='index.html';const file=resolve(root,relative);if(!file.startsWith(root+'/'))throw Error('Not found');const bytes=await readFile(file);res.writeHead(200,{'Content-Type':types[extname(file)]||'application/octet-stream'});res.end(bytes);}catch{res.writeHead(404);res.end('Not found');}});
-  await new Promise(r=>server.listen(0,'127.0.0.1',r));base=`http://127.0.0.1:${server.address().port}/oiv-company/`;
+  server=createServer(async(req,res)=>{try{const path=decodeURIComponent(new URL(req.url,'http://local').pathname);if(!path.startsWith('/'))throw Error('Not found');let relative=path.slice(1);if(!relative||relative.endsWith('/'))relative+='index.html';const file=resolve(root,relative);if(!file.startsWith(root+'/'))throw Error('Not found');const bytes=await readFile(file);res.writeHead(200,{'Content-Type':types[extname(file)]||'application/octet-stream'});res.end(bytes);}catch{res.writeHead(404);res.end('Not found');}});
+  await new Promise(r=>server.listen(0,'127.0.0.1',r));base=`http://127.0.0.1:${server.address().port}/`;
  }
  const args=['--headless=new','--no-sandbox','--disable-dev-shm-usage','--remote-debugging-port=0','--use-angle=swiftshader','--enable-unsafe-swiftshader','--user-data-dir='+profile,'about:blank'];
  browser=spawn(process.env.CHROME||'google-chrome',args,{stdio:['ignore','ignore','pipe']});browser.stderr.on('data',d=>logs.push(String(d)));
