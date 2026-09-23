@@ -1,0 +1,10 @@
+const {test}=require('node:test');const a=require('node:assert/strict');const {makeDraft,matchesProduct}=require('../../docs/assets/institutional.js');
+test('Turkish text survives email encoding',()=>{let u=new URL(makeDraft('evaluation','İnsan denetimi ve ölçüm.','tr').url);a.equal(u.pathname,'onour@onourimpram.com');a.equal(u.searchParams.get('subject'),'OIV. Değerlendirme');a.ok(u.searchParams.get('body').includes('İnsan denetimi'));});
+test('unknown topics and locales have fixed fallbacks',()=>a.equal(new URL(makeDraft('bad\r\nBcc:x','note','xx').url).searchParams.get('subject'),'OIV. Project enquiry'));
+test('empty note invents no facts',()=>a.ok(makeDraft('project',' ','en').text.endsWith('I would like to discuss the scope.')));
+test('controls and size bounded',()=>{let r=makeDraft('research','\u0000'+'x'.repeat(900),'en');a.ok(!r.text.includes('\u0000'));a.equal(new URL(r.url).searchParams.get('body').split('\n\n')[1].length,700);});
+test('markup cannot change recipient or query',()=>{let u=new URL(makeDraft('project','<img src=x>?cc=other@example.com','en').url);a.equal(u.searchParams.get('cc'),null);a.equal(u.pathname,'onour@onourimpram.com');});
+test('predicate is available',()=>a.equal(typeof matchesProduct,'function'));
+test('all includes both states',()=>{a.equal(matchesProduct('published','all'),true);a.equal(matchesProduct('submitted','all'),true);});
+test('published and submitted not conflated',()=>{a.equal(matchesProduct('published','submitted'),false);a.equal(matchesProduct('submitted','published'),false);a.equal(matchesProduct('published','published'),true);});
+test('invalid filter defaults safely',()=>{a.equal(matchesProduct('published','unknown'),true);a.equal(matchesProduct('submitted','unknown'),false);});

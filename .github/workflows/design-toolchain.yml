@@ -17,13 +17,54 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 24
-      - name: Install and exercise the eight requested repositories
+      - name: Install original repositories and inspect the institutional candidate
         run: bash tools/design/install.sh
-      - name: Preserve exact command results, tool binaries and real Iris captures
+      - name: Preserve real tool results and Iris captures
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: oiv-tool-installation
           path: tool-evidence/
           retention-days: 3
-          compression-level: 3
+      - name: Preserve the verified generated review sources
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: oiv-review-generated
+          path: review-generated/
+          retention-days: 3
+  store-review-on-isolated-branch:
+    needs: install-and-inspect
+    if: github.ref == 'refs/heads/tools/oiv-design-install-20260923'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: oiv-review-generated
+          path: reviewed
+      - name: Validate the generated-file allowlist and content hashes
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,hashlib,shutil
+          root=pathlib.Path.cwd();src=root/'reviewed';m=json.loads((src/'manifest.json').read_text())
+          allowed={'docs/index.html','docs/tr/index.html','docs/assets/opendesign.css','design-notes/opendesign-component.json','design-notes/OpenDesign-LICENSE.txt'}
+          assert set(m)==allowed
+          for name,sha in m.items():
+              p=src/name
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==sha
+              dest=root/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest)
+          PY
+          git add docs/index.html docs/tr/index.html docs/assets/opendesign.css design-notes/opendesign-component.json design-notes/OpenDesign-LICENSE.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --cached --quiet || git commit -m 'Store verified institutional review sources on isolated branch [skip ci]'
+      - name: Push only to the non-production review branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w 0)
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push origin HEAD:refs/heads/tools/oiv-design-install-20260923
