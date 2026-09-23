@@ -1,0 +1,3 @@
+# Pages serves blob bytes and tests/check_live.py compares them byte for byte,
+# so every checkout (Windows included) keeps LF in text files.
+* text=auto eol=lf

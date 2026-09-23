@@ -6,7 +6,7 @@ from urllib.parse import urlparse, unquote
 ROOT=Path(__file__).resolve().parents[1]/'docs'
 class HTML(HTMLParser):
  def __init__(self,path):
-  super().__init__();self.tags=[];self.path=path;self.feed(path.read_text())
+  super().__init__();self.tags=[];self.path=path;self.feed(path.read_text(encoding='utf-8'))
  def handle_starttag(self,t,a):self.tags.append((t,dict(a)))
  def get(self,t,**kw):return [a for tag,a in self.tags if tag==t and all(a.get(k)==v for k,v in kw.items())]
 class Precision(unittest.TestCase):
@@ -29,7 +29,7 @@ class Precision(unittest.TestCase):
    self.assertEqual(len(p.get('article',**{'data-status':'submitted'})),4)
  def test_sources_and_bounds_preserved(self):
   for p in self.pages:
-   s=p.path.read_text();self.assertIn('17429906',s);self.assertIn('235117532',s)
+   s=p.path.read_text(encoding='utf-8');self.assertIn('17429906',s);self.assertIn('235117532',s)
    for n in ['mneme','mergen']:self.assertIn('https://github.com/OnourImpram/'+n,s)
  def test_local_links_are_valid(self):
   for p in self.pages:
@@ -58,9 +58,9 @@ class Precision(unittest.TestCase):
    for a in p.get('img'):self.assertIn('alt',a);self.assertIn('width',a);self.assertIn('height',a)
  def test_static_sculpture_exists(self):self.assertTrue((ROOT/'assets/art/continuum-static.svg').exists())
  def test_webgl_replaces_cpu_polygon_sorting(self):
-  s=(ROOT/'assets/site.js').read_text();self.assertIn("getContext('webgl'",s);self.assertIn('gl.drawElements',s)
+  s=(ROOT/'assets/site.js').read_text(encoding='utf-8');self.assertIn("getContext('webgl'",s);self.assertIn('gl.drawElements',s)
  def test_motion_observers_and_reduced_motion(self):
-  s=(ROOT/'assets/site.js').read_text()
+  s=(ROOT/'assets/site.js').read_text(encoding='utf-8')
   for q in ['prefers-reduced-motion','visibilitychange','IntersectionObserver','webglcontextlost']:self.assertIn(q,s)
  def test_404_exists(self):self.assertTrue((ROOT/'404.html').exists())
 if __name__=='__main__':unittest.main()

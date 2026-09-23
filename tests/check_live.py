@@ -55,7 +55,7 @@ def resources():
         if not relative.endswith('.css'):
             continue
         css = ROOT / relative
-        for link in re.findall(r'url\([\'\"]?([^\)\'\"]+)', css.read_text()):
+        for link in re.findall(r'url\([\'\"]?([^\)\'\"]+)', css.read_text(encoding='utf-8')):
             if urlparse(link).scheme:
                 continue
             asset = (css.parent / link).resolve()
