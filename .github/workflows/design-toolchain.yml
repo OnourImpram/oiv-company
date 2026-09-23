@@ -1,0 +1,42 @@
+name: OIV design toolchain
+on:
+  push:
+    branches: [tools/oiv-design-install-20260923]
+    paths: ['.github/workflows/design-toolchain.yml', 'tools/design/**', 'docs/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Download each requested repository and record the actual revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .design-tools/repos source-evidence
+          git archive HEAD | gzip > source-evidence/oiv-company-source.tgz
+          printf 'repository\tcommit\tsource_sha256\n' > source-evidence/manifest.tsv
+          for repo in dickwu/apple-design-skill nexu-io/open-design bergside/awesome-design-skills pbakaus/impeccable Leonxlnx/taste-skill img2threejs/img2threejs brijr/iris nextlevelbuilder/ui-ux-pro-max-skill; do
+            name="${repo##*/}"
+            echo "Downloading $repo"
+            git clone --depth 1 "https://github.com/$repo.git" ".design-tools/repos/$name"
+            sha=$(git -C ".design-tools/repos/$name" rev-parse HEAD)
+            git -C ".design-tools/repos/$name" archive HEAD | gzip > "source-evidence/$name-source.tgz"
+            digest=$(sha256sum "source-evidence/$name-source.tgz" | cut -d' ' -f1)
+            printf '%s\t%s\t%s\n' "$repo" "$sha" "$digest" >> source-evidence/manifest.tsv
+            echo "DOWNLOADED $repo $sha"
+          done
+          cat source-evidence/manifest.tsv
+      - name: Preserve downloaded sources and revision manifest
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: oiv-design-sources
+          path: source-evidence/
+          retention-days: 3
+          compression-level: 0
