@@ -1,6 +1,6 @@
 # Onour Impram Ventures
 
-English and Turkish OIV website. Precision refines the existing Continuum direction rather than starting another unrelated theme. GitHub Pages serves only `docs/` from `main` at https://onourimpram.github.io/oiv-company/.
+English and Turkish OIV website. Precision refines the existing Continuum direction rather than starting another unrelated theme. GitHub Pages serves only `docs/` from `main` at https://oiv.onourimpram.com/. The former address https://onourimpram.github.io/oiv-company/ redirects there.
 
 ## What changed
 
@@ -23,7 +23,7 @@ node tests/browser.mjs
 python3 tests/check_live.py
 ```
 
-The browser check requires Node 22 and a Chrome-family browser. Set `CHROME` to the executable path as needed. Without `OIV_BASE_URL` it serves the exact production files through local HTTP at the Pages subpath. With `OIV_BASE_URL` it tests that host. It does not remove or weaken production CSP. No npm dependency is required.
+The browser check requires Node 22 and a Chrome-family browser. Set `CHROME` to the executable path as needed. Without `OIV_BASE_URL` it serves the exact production files through local HTTP at the site root. With `OIV_BASE_URL` it tests that host. It does not remove or weaken production CSP. No npm dependency is required.
 
 GitHub Actions runs content and geometry tests, then the real browser check on refinement branches. On main, it first verifies live bytes against the checkout and then inspects the live site in Chrome. Browser reports and desktop, mobile, full-page and structure-view screenshots are uploaded as the `oiv-browser-evidence` artifact with three-day retention. Workflow permissions remain read-only for repository contents.
 
@@ -31,6 +31,6 @@ The interactive container cannot navigate to HTTP or initialize WebGL. Local lay
 
 ## Publishing and content boundaries
 
-The active production host remains GitHub Pages. `CNAME.bekliyor` and DNS are unchanged. Only `docs/` is published. `DESIGN.md` is the previous Continuum record; the current refinement and its source decisions are documented in `design-notes/SOURCES.md`.
+The company site has its own host since 23 September 2026: `docs/CNAME` holds `oiv.onourimpram.com`, DNS has CNAME `oiv` to `onourimpram.github.io` (DNS only), and `onourimpram.com` is a verified GitHub Pages domain for the account. Keep the TXT record `_github-pages-challenge-OnourImpram.onourimpram.com`: removing it ends that verification. The founder's personal site at onourimpram.com is separate and not part of this repository. Do not publish a wildcard DNS record. A later host change updates every absolute production URL, `docs/404.html`, the tests and the workflow base URL together. Only `docs/` is published. `DESIGN.md` is the previous Continuum record; the current refinement and its source decisions are documented in `design-notes/SOURCES.md`.
 
 Product artwork is conceptual, not a fabricated application screenshot. Store labels remain tied to the 22 September 2026 record and are not a fresh storefront check. Publication contributions do not imply two sole-authored company books. Clinical practice remains separate. Evaluation does not imply certification or demonstrate clinical effects.

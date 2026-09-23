@@ -51,7 +51,7 @@ class Precision(unittest.TestCase):
    for t in ['script','img']:
     for a in p.get(t):self.assertFalse(urlparse(a.get('src','')).scheme)
  def test_metadata(self):
-  for p,s in zip(self.pages,['','tr/']):self.assertEqual(p.get('link',rel='canonical')[0]['href'],'https://onourimpram.github.io/oiv-company/'+s)
+  for p,s in zip(self.pages,['','tr/']):self.assertEqual(p.get('link',rel='canonical')[0]['href'],'https://oiv.onourimpram.com/'+s)
  def test_real_headings_and_images(self):
   for p in self.pages:
    self.assertEqual(len(p.get('h1')),1)

@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://onourimpram.github.io/oiv-company/sitemap.xml
+Sitemap: https://oiv.onourimpram.com/sitemap.xml

@@ -37,7 +37,7 @@ jobs:
       - name: Inspect the live site in real Chrome
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
-          OIV_BASE_URL: https://onourimpram.github.io/oiv-company/
+          OIV_BASE_URL: https://oiv.onourimpram.com/
         run: node tests/browser.mjs
       - name: Preserve browser evidence
         if: always()
