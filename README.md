@@ -1,36 +1,34 @@
-# Onour Impram Ventures
+# OIV institutional review and installed design toolchain
 
-English and Turkish OIV website. Precision refines the existing Continuum direction rather than starting another unrelated theme. GitHub Pages serves only `docs/` from `main` at https://oiv.onourimpram.com/. The former address https://onourimpram.github.io/oiv-company/ redirects there.
+This is a review branch, not the live website. Main and the custom domain are unchanged by this work. The user rejected decorative 3D and asked for a serious institutional design, then explicitly requested that eight design repositories be downloaded, installed and used.
 
-## What changed
+## What is actually installed
 
-A more controlled sculptural hero, larger small text and controls, asymmetric project plates, two visible published-product records, an optional project brief builder and a branded 404. Existing legal identifiers, store-status dates, source links, artwork and publication covers remain intact.
+`tools/design/sources.lock.tsv` pins all eight full repositories. `bash tools/design/install.sh` clones those revisions into `.design-tools/repos`, registers actual skill directories under `.agents/skills`, invokes the original Impeccable installer, installs original Iris, installs and builds the OpenDesign headless CLI and executes source tools.
 
-The hero uses original procedural geometry and native WebGL. Motion starts paused and requires an explicit play action. Surface and Structure are two views of the same geometry. Reduced-motion changes stop animation. Offscreen and hidden tabs do not animate. When WebGL cannot initialize, a single static Canvas rendering is used and motion controls stay hidden. With JavaScript disabled, an SVG illustration remains. Loss of an existing WebGL context falls back to that SVG.
+These are project-local development installations in the Actions runner. They do not install software on the user's computer, do not run paid models and are not browser dependencies. The repeatable installer and pinned revisions are retained in this branch. An Actions runner itself is temporary.
 
-The project brief builder formats a local email draft and copies text when permitted. It has an honest manual-copy fallback. No information is stored persistently or sent by the website. The visitor reviews and sends the email in their own mail app. No form endpoint, tracking, third-party runtime or remote font service was added.
+Apple Design, Awesome Design Skills corporate/refined, Taste redesign/minimalist and UI UX Pro Max are installed as agent skills. UI UX Pro Max's original Python design-system and focused UX searches execute against the OIV brief. img2threejs is installed and its actual image-intake probe inspects the existing company artwork. No 3D reconstruction is added to the page.
 
-## Reference use
+The original Impeccable engine scans both files and a rendered local HTTP page. Detector findings are preserved, not equated to installation failure or blanket accessibility results. Original Iris captures desktop, phone and full-page screenshots with Chrome.
 
-`design-notes/SOURCES.md` records all eight requested repositories, the exact material inspected, the applied principles and what was not executed. These sources informed the implementation. They were not all installed or represented as eight working engines.
+OpenDesign's original headless daemon CLI is built from source and its real lintArtifact implementation checks both page variants. Four original log-list CSS rules are copied into `docs/assets/opendesign.css`, with explicit OIV overrides and upstream license/provenance. This is direct component reuse, not only inspiration. No desktop GUI or paid model generation is claimed.
 
-## Reproducible checks
+## Candidate design
+
+Navy, ivory, matte brass, existing Fraunces/Plex typography, authentic company and project marks. Real text headings and short company copy, source-backed project descriptions, three collaboration rows, six products with truthful historical publication states, real book covers and a local email note builder. There is no WebGL, canvas, animated knot, fabricated dashboard, tracking or message-sending endpoint in the new pages.
+
+The product filters operate by publication status, with native keyboard-accessible buttons and live result counts. All products remain visible without JavaScript. The mobile menu exposes expanded state and restores focus on Escape. Contact drafts use a fixed recipient, bounded input and encoded URL parameters. Clipboard denial has a visible manual fallback.
+
+Both pages are marked noindex while under review. `docs/CNAME` and canonical addresses preserve the existing `oiv.onourimpram.com` host. Do not deploy until visual approval. A future approved release must retire the old Precision-specific test expectations, remove noindex, update the main test workflow, and verify the actual live build before reporting publication.
+
+## Reproduce
 
 ```sh
-python3 -m unittest discover -s tests -v
-node --test tests/core.test.cjs
-node tests/browser.mjs
-python3 tests/check_live.py
+bash tools/design/install.sh
+python3 tools/design/assert-results.py
 ```
 
-The browser check requires Node 22 and a Chrome-family browser. Set `CHROME` to the executable path as needed. Without `OIV_BASE_URL` it serves the exact production files through local HTTP at the site root. With `OIV_BASE_URL` it tests that host. It does not remove or weaken production CSP. No npm dependency is required.
+The toolchain performs source acquisition, original tool execution, candidate generation, Python/Node contracts, genuine Iris captures and Chrome/CDP interaction tests. Evidence records every command and return code. A separate write-permitted job can commit only five allowlisted generated files, verified by SHA256, to this exact review branch. Third-party installation/build steps have read-only repository permissions and no persisted checkout credentials.
 
-GitHub Actions runs content and geometry tests, then the real browser check on refinement branches. On main, it first verifies live bytes against the checkout and then inspects the live site in Chrome. Browser reports and desktop, mobile, full-page and structure-view screenshots are uploaded as the `oiv-browser-evidence` artifact with three-day retention. Workflow permissions remain read-only for repository contents.
-
-The interactive container cannot navigate to HTTP or initialize WebGL. Local layout checks therefore used transient memory-rendered copies with embedded existing assets and omitted CSP. Local captures demonstrate the static Canvas fallback, not WebGL execution. The separate CI browser checks are the authority for actual HTTP, CSP and WebGL behavior. No blanket WCAG, Safari, Firefox or physical-device claim is made.
-
-## Publishing and content boundaries
-
-The company site has its own host since 23 September 2026: `docs/CNAME` holds `oiv.onourimpram.com`, DNS has CNAME `oiv` to `onourimpram.github.io` (DNS only), and `onourimpram.com` is a verified GitHub Pages domain for the account. Keep the TXT record `_github-pages-challenge-OnourImpram.onourimpram.com`: removing it ends that verification. The founder's personal site at onourimpram.com is separate and not part of this repository. Do not publish a wildcard DNS record. A later host change updates every absolute production URL, `docs/404.html`, the tests and the workflow base URL together. Only `docs/` is published. `DESIGN.md` is the previous Continuum record; the current refinement and its source decisions are documented in `design-notes/SOURCES.md`.
-
-Product artwork is conceptual, not a fabricated application screenshot. Store labels remain tied to the 22 September 2026 record and are not a fresh storefront check. Publication contributions do not imply two sole-authored company books. Clinical practice remains separate. Evaluation does not imply certification or demonstrate clinical effects.
+Some Impeccable style warnings are intentional, including institutional uppercase labels and the ivory palette. A warning-free heuristic scan is not the aesthetic acceptance criterion. Browser testing uses Chrome, not a claim of Safari, Firefox, physical-device coverage or WCAG certification.

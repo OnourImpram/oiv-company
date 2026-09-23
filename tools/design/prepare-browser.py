@@ -1,8 +1,8 @@
-"""Reuse the repository's CDP harness with native keyboard events and current contracts."""
+"""Reuse the current CDP harness. Native Enter includes its character payload."""
 from pathlib import Path
 R=Path(__file__).resolve().parents[2]
 s=(R/'tests/browser.mjs').read_text();start=s.index(' for(const lang of');end=s.index(' assert.equal(errors.length',start)
-s=s[:start]+''' for(const lang of ['tr','en'])for(const w of [320,390,768,1024,1440,1920]){
+s=s[:start]+r''' for(const lang of ['tr','en'])for(const w of [320,390,768,1024,1440,1920]){
  await load(lang,w);
  await check(`${lang}/${w}/no-overflow`,'document.documentElement.scrollWidth<=innerWidth');
  await check(`${lang}/${w}/images`,'[...document.images].filter(i=>i.getClientRects().length).every(i=>i.complete&&i.naturalWidth>0)');
@@ -22,7 +22,7 @@ s=s[:start]+''' for(const lang of ['tr','en'])for(const w of [320,390,768,1024,1
   await check(`${lang}/announcement`,'document.querySelector("#product-count").textContent.includes("4")');
   await evaluate('document.querySelector("[data-filter=all]").focus()');
   await check(`${lang}/filter-focus`,'document.activeElement.dataset.filter==="all"');
-  await send('Input.dispatchKeyEvent',{type:'rawKeyDown',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});await delay(50);
+  await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',text:'\r',unmodifiedText:'\r',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13});await delay(50);
   await check(`${lang}/keyboard-six`,'document.querySelectorAll("#product-list article:not([hidden])").length===6');
   await evaluate('document.querySelector("#brief").open=true;document.querySelector("#topic").value="research";document.querySelector("#topic").dispatchEvent(new Event("change"));document.querySelector("#project-note").value="İnsan ve yapay zekâ. &subject=body";document.querySelector("#project-note").dispatchEvent(new Event("input"));');
   await check(`${lang}/email-encoding`,'new URL(document.querySelector("#draft-email").href).searchParams.get("body").includes("&subject=body")');
@@ -36,4 +36,4 @@ await check('no-js-navigation','getComputedStyle(document.querySelector("#primar
 ''' +s[end:]
 s=s.replace("out=resolve('test-evidence')","out=resolve('tool-evidence/browser')").replace('document.body?.dataset.edition==="precision" && document.fonts.status==="loaded" && !!document.querySelector("#sculpture")?.dataset.renderer','document.querySelector("#product-filters")?.hidden===false && document.fonts.status==="loaded"').replace('document.body?.dataset.edition==="precision"','document.querySelector("#product-filters")?.hidden===false')
 (R/'.design-tools/browser-review.mjs').write_text(s)
-print('Prepared current CDP tests with native virtual key codes.')
+print('Prepared CDP tests. Native Enter character payload verified against a minimal browser button.')

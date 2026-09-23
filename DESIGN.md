@@ -1,46 +1,29 @@
-# OIV / Continuum
+# OIV institutional design
 
-## Brief
+## User direction
 
-Replace the rejected corporate catalogue layout, not merely its copy. OIV remains Onour Impram Ventures, a technology and applied research company connecting behavioural science, software and useful products. Evaluation is an offering within that company, not its entire identity. No invented customers, metrics, endorsements or product maturity.
+A dignified, substantial institutional company website. No decorative 3D, no glossy abstract knots, no fake application screens, no arbitrary performance claims. OIV combines behavioural science, software engineering, digital products and applied research. Evaluation is an offering, not a replacement for the wider company.
 
-## Art direction
+## Visual contract
 
-A quiet, contemporary technology studio. Cool light paper, graphite, sage and one vermilion accent. Oversized IBM Plex Sans headlines replace ornamental serif headlines. The original logo stays small in the navigation. Native disclosures keep the main reading journey short while retaining project limits, all six applications and legal details.
+Navy #132432 and #101e2a, ivory #f6f4ef, matte brass #c3ad80, dark brass #80663b, ink #1d2e39. Fraunces for real text headings and IBM Plex Sans for reading. Existing local font assets remain in the repository. Label sizes start at 12px, controls have 44px or larger targets. No autoplay or scroll hijacking. Responsive layout is explicit for desktop, tablet and narrow phones.
 
-The opening sculpture is an original procedural trefoil drawn in Canvas 2D. It is visual art, not a performance or safety demonstration. It is generated locally, has a visible pause control, honours reduced motion and stops outside the viewport. No external media service is called. JavaScript failure leaves a CSS sculpture and fully accessible page content.
+## Structure
 
-Product posters are original HTML and CSS compositions. They explain claim versus record and readable memory files. They are not screenshots of a shipping dashboard. Existing application icons, company logo and publication covers remain unchanged.
+Company statement. Authentic Mergen and mneme project identities. Shared approach and three services. Digital products filtered by release status. Founder and publication contributions. Contact and email draft preparation. Legal company information.
 
-## Tokens
+## Installed source use
 
-Paper #f1f2f0. Ink #202323. Secondary ink #626865. Vermilion #ce452d. Sage #dfe5e0. Dark surface #1c2322. Rules #ced2ce. Body text IBM Plex Sans. Small annotations IBM Plex Mono. Existing locally hosted fonts and licenses are retained.
+Apple Design foundations govern legibility, focus, controls and web-appropriate interaction. Corporate/refined skills from Awesome and redesign/minimalist from Taste inform the restrained visual hierarchy. The actual UI UX Pro Max generator informs search/filter and research presentation choices. Existing OIV brand takes priority over an automatically suggested font swap.
 
-## Page rhythm
+OpenDesign contributes four actual log-list CSS rules and its original artifact linter. The copied rules, exact source revision and license are preserved. Impeccable's original engine inspects source and rendered output, and its long-line warnings informed 72ch caps. Deliberate ivory surfaces and institutional uppercase labels are retained rather than changing the brand to make a heuristic score disappear.
 
-Opening statement and sculpture. Shared approach. Two selected tools. Everyday applications. Three collaboration paths. Research and founder. Contact. Company information.
+Iris is the original screenshot CLI, not a homemade substitute. Its output documents the real HTTP-rendered desktop and mobile page. A separate CDP harness checks interactions. img2threejs is installed and its real asset probe is used, but the user-rejected 3D direction is not restored.
 
-## Sources inspected
+## Content boundaries
 
-OpenDesign README, web-prototype/SKILL.md and design-systems/atelier-zero/DESIGN.md, in nexu-io/open-design. Applied principles are a coherent design contract, asymmetric composition, substantial artwork, scale contrast, restrained accent and varied section rhythm. This is not an unchanged OpenDesign template or a claim that its desktop engine ran.
+Preserve actual company identifiers, source links and original artwork. Store status is explicitly dated to 22 September 2026, not newly verified. Publication contribution is not equated to sole authorship, company ownership or institutional endorsement. No claim that simulated risky model output proves clinical harm. Contact prepares a draft only and stores nothing persistently.
 
-https://github.com/nexu-io/open-design
-https://github.com/nexu-io/open-design/blob/main/design-systems/atelier-zero/DESIGN.md
+## Delivery boundary
 
-OpenArt-AI/cli README. This repository exposes an image and video generation service, not a website component library. No OpenArt account, API key, paid credit or generation service was used. The requested name did not identify a specific alternative repository.
-
-https://github.com/OpenArt-AI/cli
-
-Impeccable README and repository search. Its critique of repeated SaaS styling informed the decision to avoid purple gradients, nested cards and repetitive icon tiles. The full Impeccable engine was not installed or executed.
-
-https://github.com/pbakaus/impeccable
-
-## Interaction and accessibility
-
-Keep real text headings. All substantive content stays in HTML. Native details elements handle disclosures. Mobile menu exposes its expanded state and closes with Escape, restoring focus. Motion is optional. No scroll hijacking, autoplay video, analytics or message-sending form. Contact actions open the visitor's email application.
-
-## Review record
-
-The first narrow-width inspection found an overflowing Turkish contact arrow at 320px and clipped English hero words. Both were corrected at the layout and typography level, not by hiding body overflow. Final screenshots were taken after scrolling the document to load the actual lazy images. Decorative cropping is intentional inside artwork frames.
-
-Local UI verification is documented in README. It is not a WCAG certification, a Safari/Firefox test or a physical device test. The production CSP remains restrictive and the live release check compares deployed files against the commit.
+This branch is for review. Main, the custom domain and live site must remain unchanged until visual approval. Screenshots are evidence of rendering, not proof that the user will like the design.

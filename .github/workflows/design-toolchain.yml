@@ -35,6 +35,25 @@ jobs:
           path: review-generated/
           if-no-files-found: error
           retention-days: 3
+      - name: Preserve the exact preview sources without font binaries
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: oiv-review-source
+          path: |
+            docs/index.html
+            docs/tr/index.html
+            docs/assets/institutional.css
+            docs/assets/institutional.js
+            docs/assets/opendesign.css
+            tools/design/
+            design-notes/opendesign-component.json
+            design-notes/OpenDesign-LICENSE.txt
+            AGENTS.md
+            README.md
+            DESIGN.md
+          if-no-files-found: error
+          retention-days: 3
   store-review-on-isolated-branch:
     needs: install-and-inspect
     if: github.ref == 'refs/heads/tools/oiv-design-install-20260923'
