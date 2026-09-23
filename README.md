@@ -1,55 +1,40 @@
 # Onour Impram Ventures
 
-OIV company website, English and Turkish. Static HTML and CSS, no build step and no client-side JavaScript.
+Bilingual OIV website. The Continuum redesign replaces the prior large emblem and text-heavy corporate layout with a typographic opening, original procedural artwork, visual product presentations and progressive disclosure.
 
-## Brand and page structure
+## Published files
 
-The site presents OIV as a technology and applied research company that brings behavioural science and software engineering together. AI tools, digital products and evaluation work sit within that shared approach. Evaluation is a defined way to work with the company, not a replacement for its wider identity.
+GitHub Pages serves only `docs/` from `main`. Production is https://onourimpram.github.io/oiv-company/ and the Turkish page is `/oiv-company/tr/`. No build step is needed. HTML, CSS, a small first-party JavaScript file and the existing local assets are sufficient.
 
-The page sequence is company focus, shared approach, open source work, digital products, collaboration, research and founder, contact, company information. Existing logos, product artwork, publication covers and locally hosted fonts are retained. Navy, warm paper and gold remain the visual identity.
+`DESIGN.md` records the brief, reference repositories, design choices and content boundaries. OpenDesign and OpenArt were researched, not installed as runtime dependencies. The sculpture is original code, not an OpenArt generation.
 
-English headline: Human insight. Accountable technology.
+## Behaviour
 
-Turkish headline: İnsanı anlayan araştırma. Denetlenebilir teknoloji.
+The Canvas 2D sculpture honours reduced motion and has an explicit pause button. Animation pauses offscreen and when the document is hidden. JavaScript is an enhancement. Without it, content, native disclosures, email links and navigation remain available, alongside a CSS artwork fallback.
 
-## Deployment
-
-Only `docs/` is published. GitHub Pages uses `main /docs`. Repository documentation, tests and workflows are not part of the published directory.
-
-The current production base is `https://onourimpram.github.io/oiv-company/`. Both pages use relative internal paths. Canonical links, language alternates, Open Graph URLs, structured data, sitemap, robots and security.txt point to the active host, rather than an unconnected future domain.
-
-`CNAME.bekliyor` remains a pending custom-domain record. This update does not change DNS or enable the custom domain. Before a future cutover, verify domain ownership with GitHub, associate the verified domain with Pages, then configure the DNS record. Move the pending file to `docs/CNAME` only as part of that controlled cutover. Update every absolute production URL and `tests/check_live.py` together, then verify HTTPS and both languages on the new host. Do not enable a wildcard DNS record. If the Pages domain association is removed, remove the matching DNS record as well.
+The mobile menu supports Escape and expanded state. Project scope, the six-app catalogue, services and company details use native disclosures. Contact links open email drafts. The site does not send messages, collect form data or add analytics.
 
 ## Content boundaries
 
-Legal identifiers, office details, contact address, original source links and application legal links are retained from the existing site. Product descriptions describe scope, not independently certified outcomes. Mergen is described as repository-based review. mneme is described as file-based context and retrieval. No customer counts, investment, performance figures or clinical efficacy claims have been invented.
-
-Application status preserves the repository's 22 September 2026 record, with two public store listings and four submitted applications. The page dates that record and does not present submitted apps as available. Recheck storefront availability before changing these labels.
-
-Publication contributions are not labelled as two sole-authored company books. The founder's expert-group participation is personal, not institutional endorsement. Clinical practice remains separate from OIV.
-
-Contact links open addressed email drafts with different subjects for project, evaluation, research, training and application support. The website does not send messages, collect form submissions or request sensitive information.
+The legal name, company identifiers, registered address, source repositories and application legal links are preserved. The two published and four submitted application statuses are explicitly dated to the prior 22 September 2026 record, not presented as a fresh store verification. Publication contributions do not imply sole authorship or company ownership of the books. Clinical practice remains separate. Product descriptions do not claim certification, clinical efficacy or independent validation.
 
 ## Verification
 
-Run the standard-library checks from the repository root:
+Run from the repository root:
 
 ```sh
 python3 -m unittest discover -s tests -v
-```
-
-After deployment, verify public bytes against the current checkout:
-
-```sh
 python3 tests/check_live.py
 ```
 
-The live verifier waits for the Pages deployment, compares SHA-256 digests for both pages and referenced assets, and checks that repository-only paths return 404. It does not claim that external store listings or third-party websites are continuously available.
+The existing read-only GitHub Actions workflow runs the content contracts, then checks that live page and asset bytes match the checkout. It also checks that repository-only files are absent from the Pages publication.
 
-The GitHub Actions workflow runs the content tests for pull requests and main pushes. Main runs also check the live deployment. It has read-only contents permission, pins checkout to a commit and does not persist credentials.
+Local verification for this revision ran 13 standard-library content tests and 26 Chromium UI scenarios. UI checks cover both languages at 320, 360, 390, 768, 1024, 1440 and 1920px, plus mobile menu and Escape focus, app catalogue, project scope, services, company details, reduced motion, pause/resume and JavaScript-disabled navigation. Final desktop, mobile and full-page screenshots were inspected after lazy images loaded.
 
-During the 23 September 2026 revision, local Chromium rendering covered both languages at 320, 390, 768, 1024, 1440 and 1920 pixels, plus JavaScript-disabled and reduced-motion cases. Layout checks covered overflow, loaded images and fonts, internal navigation, minimum 24-pixel link target heights and the keyboard skip link. These were memory-rendered copies with embedded assets because the local browser could not navigate to a local HTTP server. CSP was removed only in those isolated render copies. The production CSP was retained and checked structurally. This is not a claim of full WCAG conformance or testing on Safari, Firefox or physical devices.
+The local browser was administratively unable to navigate to HTTP, localhost or file URLs. Local UI tests therefore used memory-rendered copies with embedded existing assets. CSP was removed only from those transient copies and the deferred first-party script was executed after the document body. Production files retain CSP. This is not a full accessibility audit or live browser, Safari, Firefox or physical-device validation. The separate live verifier checks deployed byte identity, not visual rendering or third-party availability.
 
-## Fonts and security
+## Hosting and security
 
-Fraunces, IBM Plex Sans and IBM Plex Mono are served from `docs/assets/fonts/`. Existing licenses are retained in that directory. No external font service or analytics is added. The restrictive Content Security Policy remains in both pages, with no executable scripts or form endpoint.
+The existing fonts and their license files are unchanged. No CDN or external font request is introduced. CSP permits only first-party scripts, styles, fonts and images and disallows form submission. Canonical, language, social, sitemap and security metadata continue to use the active GitHub Pages host.
+
+`CNAME.bekliyor` remains pending. This redesign makes no DNS or custom-domain change. A future cutover requires verified domain ownership and coordinated Pages association, DNS, production metadata and live-verifier changes. Do not publish an unverified custom domain or wildcard DNS record.
