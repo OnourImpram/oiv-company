@@ -1,0 +1,69 @@
+/* Real Chromium/CDP checks. Node 22+, Chrome, no npm dependencies. */
+import {spawn} from 'node:child_process';
+import {createServer} from 'node:http';
+import {readFile,writeFile,mkdir,mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {resolve,extname} from 'node:path';
+import assert from 'node:assert/strict';
+const root=resolve('docs'),out=resolve('test-evidence');await mkdir(out,{recursive:true});
+const delay=ms=>new Promise(r=>setTimeout(r,ms));
+const results=[],logs=[];let server,browser,socket;
+const profile=await mkdtemp(resolve(tmpdir(),'oiv-chrome-'));
+const types={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.woff2':'font/woff2'};
+try{
+ let base=process.env.OIV_BASE_URL;
+ if(!base){
+  server=createServer(async(req,res)=>{try{const path=decodeURIComponent(new URL(req.url,'http://local').pathname);if(!path.startsWith('/oiv-company/'))throw Error('Not found');let relative=path.slice(13);if(!relative||relative.endsWith('/'))relative+='index.html';const file=resolve(root,relative);if(!file.startsWith(root+'/'))throw Error('Not found');const bytes=await readFile(file);res.writeHead(200,{'Content-Type':types[extname(file)]||'application/octet-stream'});res.end(bytes);}catch{res.writeHead(404);res.end('Not found');}});
+  await new Promise(r=>server.listen(0,'127.0.0.1',r));base=`http://127.0.0.1:${server.address().port}/oiv-company/`;
+ }
+ const args=['--headless=new','--no-sandbox','--disable-dev-shm-usage','--remote-debugging-port=0','--use-angle=swiftshader','--enable-unsafe-swiftshader','--user-data-dir='+profile,'about:blank'];
+ browser=spawn(process.env.CHROME||'google-chrome',args,{stdio:['ignore','ignore','pipe']});browser.stderr.on('data',d=>logs.push(String(d)));
+ let port;for(let i=0;i<100;i++){try{port=(await readFile(profile+'/DevToolsActivePort','utf8')).split('\n')[0];break;}catch{await delay(100);}}assert.ok(port,'Chrome debug endpoint started');
+ const target=await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`,{method:'PUT'})).json();
+ socket=new WebSocket(target.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j;});
+ let seq=0;const pending=new Map(),errors=[];
+ socket.onmessage=e=>{const message=JSON.parse(e.data);if(message.id){const request=pending.get(message.id);if(request){pending.delete(message.id);message.error?request.reject(Error(JSON.stringify(message.error))):request.resolve(message.result);}}else if(message.method==='Runtime.exceptionThrown')errors.push(message.params.exceptionDetails);};
+ const send=(method,params={})=>new Promise((resolve,reject)=>{const id=++seq;pending.set(id,{resolve,reject});socket.send(JSON.stringify({id,method,params}));setTimeout(()=>{if(pending.has(id)){pending.delete(id);reject(Error('CDP timeout '+method));}},15000).unref();});
+ const evaluate=async code=>{const r=await send('Runtime.evaluate',{expression:code,awaitPromise:true,returnByValue:true});if(r.exceptionDetails)throw Error(JSON.stringify(r.exceptionDetails));return r.result.value;};
+ const check=async(name,code)=>{const value=await evaluate(code);assert.ok(value,name);results.push({name,passed:true});console.log('PASS',name);};
+ await send('Page.enable');await send('Runtime.enable');
+ async function load(lang,width,height=900){
+  await send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<600});
+  await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+  await send('Page.navigate',{url:base+(lang==='tr'?'tr/':'')});
+  for(let i=0;i<150;i++){try{if(await evaluate('document.body?.dataset.edition==="precision" && document.fonts.status==="loaded" && !!document.querySelector("#sculpture")?.dataset.renderer'))break;}catch{}await delay(100);}
+  await check(`${lang}/${width}/loaded`,'document.body?.dataset.edition==="precision"');
+  await evaluate('(async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=650){scrollTo(0,y);await new Promise(r=>setTimeout(r,25));}await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));scrollTo(0,0);await new Promise(r=>setTimeout(r,120));})()');
+ }
+ async function screenshot(name,full=false){const m=await send('Page.getLayoutMetrics');const clip=full?{x:0,y:0,width:m.cssContentSize.width,height:m.cssContentSize.height,scale:1}:undefined;const r=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:full,...(clip?{clip}:{})});await writeFile(out+'/'+name+'.png',Buffer.from(r.data,'base64'));}
+ for(const lang of ['tr','en'])for(const w of [320,390,768,1024,1440,1920]){
+  await load(lang,w);
+  await check(`${lang}/${w}/no-overflow`,'document.documentElement.scrollWidth<=innerWidth');
+  await check(`${lang}/${w}/images`,'[...document.images].every(i=>i.complete&&i.naturalWidth>0)');
+  await check(`${lang}/${w}/real-fonts`, `document.fonts.check('16px "IBM Plex Sans"')`);
+  await check(`${lang}/${w}/heading`,'document.querySelectorAll("h1").length===1');
+  if(w===1440){await check(`${lang}/webgl`,'document.querySelector("#sculpture").dataset.renderer==="webgl"');await screenshot('Desktop_'+lang.toUpperCase());await screenshot('Full_'+lang.toUpperCase(),true);}
+  if(w===390){
+   await screenshot('Mobile_'+lang.toUpperCase());
+   await evaluate('document.querySelector("#menu-toggle").click()');await check(`${lang}/mobile-menu`,'document.querySelector("#menu-toggle").getAttribute("aria-expanded")==="true"');
+   await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape'});await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Escape',code:'Escape'});
+   await check(`${lang}/escape-focus`,'document.activeElement.id==="menu-toggle"&&document.querySelector("#menu-toggle").getAttribute("aria-expanded")==="false"');
+   await evaluate('document.querySelector(".catalogue>summary").click()');await check(`${lang}/catalogue`,'document.querySelector(".catalogue").open');
+   await evaluate('document.querySelector("#brief-builder").open=true;document.querySelector("#brief-topic").value="research";document.querySelector("#brief-topic").dispatchEvent(new Event("change"));document.querySelector("#brief-description").value="İnsan ve yapay zekâ. &subject=kept-in-body";document.querySelector("#brief-description").dispatchEvent(new Event("input"));');
+   await check(`${lang}/encoded-email`,'new URL(document.querySelector("#email-brief").href).searchParams.get("body").includes("&subject=kept-in-body")');
+   await check(`${lang}/visible-label`,'document.querySelector("label[for=brief-description]").textContent.length>0');
+  }
+ }
+ await load('tr',1440);
+ await check('paused-by-default','document.querySelector("#motion-toggle").getAttribute("aria-pressed")==="true"');
+ await evaluate('document.querySelector("[data-view=wire]").click()');await check('structure-view','document.querySelector("[data-view=wire]").getAttribute("aria-pressed")==="true"');await screenshot('Structure_TR');
+ await evaluate('document.querySelector("[data-view=solid]").click();document.querySelector("#motion-toggle").click()');
+ await check('explicit-play','document.querySelector("#motion-toggle").getAttribute("aria-pressed")==="false"');await delay(500);await evaluate('document.querySelector("#motion-toggle").click()');
+ await check('explicit-pause','document.querySelector("#motion-toggle").getAttribute("aria-pressed")==="true"');
+ await evaluate('document.querySelector("#register").open=true');await check('company-details','document.querySelector("#register").textContent.includes("17429906")');
+ await evaluate('document.querySelector("#continuum").getContext("webgl").getExtension("WEBGL_lose_context").loseContext()');await delay(150);await check('context-loss-fallback','document.querySelector("#sculpture").dataset.renderer==="fallback"&&document.querySelector("#motion-toggle").hidden');
+ assert.equal(errors.length,0,'No runtime exceptions');results.push({name:'no-runtime-exceptions',passed:true});
+ await writeFile(out+'/browser-report.json',JSON.stringify({base,mode:process.env.OIV_BASE_URL?'live':'production files on local HTTP',browser:await send('Browser.getVersion'),checks:results},null,2));
+ console.log('BROWSER VERIFIED',results.length,'checks');
+}catch(error){await writeFile(out+'/failure.json',JSON.stringify({error:String(error),checks:results,chromeLog:logs.join('').slice(-8000)},null,2));console.error(error);process.exitCode=1;}
+finally{socket?.close();browser?.kill('SIGTERM');server?.close();await delay(200);await rm(profile,{recursive:true,force:true}).catch(()=>{});}

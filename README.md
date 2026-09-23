@@ -1,40 +1,36 @@
 # Onour Impram Ventures
 
-Bilingual OIV website. The Continuum redesign replaces the prior large emblem and text-heavy corporate layout with a typographic opening, original procedural artwork, visual product presentations and progressive disclosure.
+English and Turkish OIV website. Precision refines the existing Continuum direction rather than starting another unrelated theme. GitHub Pages serves only `docs/` from `main` at https://onourimpram.github.io/oiv-company/.
 
-## Published files
+## What changed
 
-GitHub Pages serves only `docs/` from `main`. Production is https://onourimpram.github.io/oiv-company/ and the Turkish page is `/oiv-company/tr/`. No build step is needed. HTML, CSS, a small first-party JavaScript file and the existing local assets are sufficient.
+A more controlled sculptural hero, larger small text and controls, asymmetric project plates, two visible published-product records, an optional project brief builder and a branded 404. Existing legal identifiers, store-status dates, source links, artwork and publication covers remain intact.
 
-`DESIGN.md` records the brief, reference repositories, design choices and content boundaries. OpenDesign and OpenArt were researched, not installed as runtime dependencies. The sculpture is original code, not an OpenArt generation.
+The hero uses original procedural geometry and native WebGL. Motion starts paused and requires an explicit play action. Surface and Structure are two views of the same geometry. Reduced-motion changes stop animation. Offscreen and hidden tabs do not animate. When WebGL cannot initialize, a single static Canvas rendering is used and motion controls stay hidden. With JavaScript disabled, an SVG illustration remains. Loss of an existing WebGL context falls back to that SVG.
 
-## Behaviour
+The project brief builder formats a local email draft and copies text when permitted. It has an honest manual-copy fallback. No information is stored persistently or sent by the website. The visitor reviews and sends the email in their own mail app. No form endpoint, tracking, third-party runtime or remote font service was added.
 
-The Canvas 2D sculpture honours reduced motion and has an explicit pause button. Animation pauses offscreen and when the document is hidden. JavaScript is an enhancement. Without it, content, native disclosures, email links and navigation remain available, alongside a CSS artwork fallback.
+## Reference use
 
-The mobile menu supports Escape and expanded state. Project scope, the six-app catalogue, services and company details use native disclosures. Contact links open email drafts. The site does not send messages, collect form data or add analytics.
+`design-notes/SOURCES.md` records all eight requested repositories, the exact material inspected, the applied principles and what was not executed. These sources informed the implementation. They were not all installed or represented as eight working engines.
 
-## Content boundaries
-
-The legal name, company identifiers, registered address, source repositories and application legal links are preserved. The two published and four submitted application statuses are explicitly dated to the prior 22 September 2026 record, not presented as a fresh store verification. Publication contributions do not imply sole authorship or company ownership of the books. Clinical practice remains separate. Product descriptions do not claim certification, clinical efficacy or independent validation.
-
-## Verification
-
-Run from the repository root:
+## Reproducible checks
 
 ```sh
 python3 -m unittest discover -s tests -v
+node --test tests/core.test.cjs
+node tests/browser.mjs
 python3 tests/check_live.py
 ```
 
-The existing read-only GitHub Actions workflow runs the content contracts, then checks that live page and asset bytes match the checkout. It also checks that repository-only files are absent from the Pages publication.
+The browser check requires Node 22 and a Chrome-family browser. Set `CHROME` to the executable path as needed. Without `OIV_BASE_URL` it serves the exact production files through local HTTP at the Pages subpath. With `OIV_BASE_URL` it tests that host. It does not remove or weaken production CSP. No npm dependency is required.
 
-Local verification for this revision ran 13 standard-library content tests and 26 Chromium UI scenarios. UI checks cover both languages at 320, 360, 390, 768, 1024, 1440 and 1920px, plus mobile menu and Escape focus, app catalogue, project scope, services, company details, reduced motion, pause/resume and JavaScript-disabled navigation. Final desktop, mobile and full-page screenshots were inspected after lazy images loaded.
+GitHub Actions runs content and geometry tests, then the real browser check on refinement branches. On main, it first verifies live bytes against the checkout and then inspects the live site in Chrome. Browser reports and desktop, mobile, full-page and structure-view screenshots are uploaded as the `oiv-browser-evidence` artifact with three-day retention. Workflow permissions remain read-only for repository contents.
 
-The local browser was administratively unable to navigate to HTTP, localhost or file URLs. Local UI tests therefore used memory-rendered copies with embedded existing assets. CSP was removed only from those transient copies and the deferred first-party script was executed after the document body. Production files retain CSP. This is not a full accessibility audit or live browser, Safari, Firefox or physical-device validation. The separate live verifier checks deployed byte identity, not visual rendering or third-party availability.
+The interactive container cannot navigate to HTTP or initialize WebGL. Local layout checks therefore used transient memory-rendered copies with embedded existing assets and omitted CSP. Local captures demonstrate the static Canvas fallback, not WebGL execution. The separate CI browser checks are the authority for actual HTTP, CSP and WebGL behavior. No blanket WCAG, Safari, Firefox or physical-device claim is made.
 
-## Hosting and security
+## Publishing and content boundaries
 
-The existing fonts and their license files are unchanged. No CDN or external font request is introduced. CSP permits only first-party scripts, styles, fonts and images and disallows form submission. Canonical, language, social, sitemap and security metadata continue to use the active GitHub Pages host.
+The active production host remains GitHub Pages. `CNAME.bekliyor` and DNS are unchanged. Only `docs/` is published. `DESIGN.md` is the previous Continuum record; the current refinement and its source decisions are documented in `design-notes/SOURCES.md`.
 
-`CNAME.bekliyor` remains pending. This redesign makes no DNS or custom-domain change. A future cutover requires verified domain ownership and coordinated Pages association, DNS, production metadata and live-verifier changes. Do not publish an unverified custom domain or wildcard DNS record.
+Product artwork is conceptual, not a fabricated application screenshot. Store labels remain tied to the 22 September 2026 record and are not a fresh storefront check. Publication contributions do not imply two sole-authored company books. Clinical practice remains separate. Evaluation does not imply certification or demonstrate clinical effects.

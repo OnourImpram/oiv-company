@@ -1,7 +1,7 @@
 name: OIV site checks
 on:
   push:
-    branches: [main]
+    branches: [main, 'refine/**']
     paths: ['docs/**', 'tests/**', '.github/workflows/site-checks.yml']
   pull_request:
     branches: [main]
@@ -20,8 +20,30 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
-      - name: Validate both languages and deployment metadata
-        run: python3 -m unittest discover -s tests -v
+      - name: Use Node 22 for dependency-free browser checks
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Validate content and geometry
+        run: |
+          python3 -m unittest discover -s tests -v
+          node --test tests/core.test.cjs
       - name: Verify the published pages and assets
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: python3 tests/check_live.py
+      - name: Inspect production files in real Chrome before publication
+        if: github.ref != 'refs/heads/main' || github.event_name == 'pull_request'
+        run: node tests/browser.mjs
+      - name: Inspect the live site in real Chrome
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          OIV_BASE_URL: https://onourimpram.github.io/oiv-company/
+        run: node tests/browser.mjs
+      - name: Preserve browser evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: oiv-browser-evidence
+          path: test-evidence/
+          if-no-files-found: warn
+          retention-days: 3

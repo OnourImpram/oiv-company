@@ -1,0 +1,10 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');
+const {makeGeometry,buildBrief}=require('../docs/assets/site.js');
+test('mesh is finite and uses a valid 16 bit index buffer',()=>{const {vertices:v,indices:i}=makeGeometry();assert.equal(v.length,321*41*8);assert.equal(i.length,320*40*6);assert.ok(v.every(Number.isFinite));assert.ok(Math.max(...i)<v.length/8);});
+test('normals have unit length',()=>{const {vertices:v}=makeGeometry(24,8);for(let j=0;j<v.length;j+=8)assert.ok(Math.abs(Math.hypot(v[j+3],v[j+4],v[j+5])-1)<.0001);});
+test('curve closes without a position gap',()=>{const {vertices:v}=makeGeometry(24,8);for(let j=0;j<9;j++)for(let k=0;k<3;k++)assert.ok(Math.abs(v[j*8+k]-v[(24*9+j)*8+k])<.0001);});
+test('unsafe mesh sizes rejected',()=>{for(const args of [[1,8],[24,1],[9999,9999],[24.5,9]])assert.throws(()=>makeGeometry(...args),RangeError);});
+test('Turkish copy retained and URL safely encoded',()=>{const b=buildBrief('tr','research','İnsan ve yapay zekâ. &subject=bad');const u=new URL(b.href);assert.equal(u.protocol,'mailto:');assert.equal(u.pathname,'onour@onourimpram.com');assert.equal(u.searchParams.get('subject'),'OIV. Araştırma işbirliği');assert.ok(u.searchParams.get('body').includes('İnsan ve yapay zekâ. &subject=bad'));});
+test('invalid topic has a fixed fallback, not arbitrary subject content',()=>{assert.equal(new URL(buildBrief('en','\nbcc=evil','test').href).searchParams.get('subject'),'OIV. AI evaluation');});
+test('empty description makes an honest enquiry',()=>{const b=buildBrief('en','product','');assert.ok(b.text.includes('discuss the scope'));assert.ok(!b.text.includes('sent'));});
+test('input limit and control sanitation enforced',()=>{const b=buildBrief('en','training','\0'+'x'.repeat(1400));assert.ok(!b.text.includes('\0'));assert.equal(b.text.split('\n\n').at(-1).length,1200);});
