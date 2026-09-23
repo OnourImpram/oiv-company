@@ -1,0 +1,13 @@
+{
+  "upstream": "nexu-io/open-design",
+  "revision": "055621c906ad78914d2cd72cdef859e7bd040de5",
+  "source": "design-templates/web-prototype/assets/template.html",
+  "sha256": "2927248194e18bb57ad0d30ad822b1c8e6e3162d27543c0e6934ed3403b55031",
+  "extracted_rules": [
+    ".log-row { display: grid; grid-template-columns: 120px 1fr 100px; gap: var(--gap-lg); padding: 22px 0; border-top: 1px solid var(--border); align-items: baseline; }",
+    ".log-row .meta { color: var(--muted); }",
+    ".log-row h3 { font-size: 19px; }",
+    ".log-row .pull { text-align: right; }"
+  ],
+  "output": "docs/assets/opendesign.css"
+}

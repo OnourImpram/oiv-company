@@ -1,0 +1,7 @@
+/* OpenDesign web-prototype. Apache-2.0. Original rules followed by OIV overrides. */
+:root{--gap-lg:32px;--border:var(--line)}
+.log-row { display: grid; grid-template-columns: 120px 1fr 100px; gap: var(--gap-lg); padding: 22px 0; border-top: 1px solid var(--border); align-items: baseline; }
+.log-row .meta { color: var(--muted); }
+.log-row h3 { font-size: 19px; }
+.log-row .pull { text-align: right; }
+.service-list .log-row{grid-template-columns:76px minmax(0,1fr) 56px;padding-block:30px}.service-list .log-row h3{font:400 clamp(25px,2.2vw,32px)/1.25 var(--serif);margin-bottom:10px}.service-list .log-row p{color:var(--muted);max-width:65ch;font-size:16px}.service-list .log-row:last-child{border-bottom:1px solid var(--line)}.service-list .log-row .meta{font:500 12px/1.5 var(--sans);color:var(--brass-dark)}.service-list .service-action{position:relative;min-width:48px;min-height:48px;display:grid;place-content:center;border:1px solid var(--line);color:var(--ink)}.service-list .service-action:hover{background:var(--navy);color:var(--on-dark)}.project-copy,.project-scope,.note,.research-copy,.research-note{max-width:72ch}@media(max-width:700px){.service-list .log-row{grid-template-columns:25px minmax(0,1fr) 44px;gap:12px;padding-block:24px}.service-list .log-row h3{font-size:25px}.service-list .log-row p{font-size:15px}.service-list .service-action{min-width:44px;min-height:44px}}
