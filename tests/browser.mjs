@@ -31,9 +31,10 @@ try{
   await send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<600});
   await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
   await send('Page.navigate',{url:base+(lang==='tr'?'tr/':'')});
+  await send('Page.bringToFront');
   for(let i=0;i<150;i++){try{if(await evaluate('document.body?.dataset.edition==="precision" && document.fonts.status==="loaded" && !!document.querySelector("#sculpture")?.dataset.renderer'))break;}catch{}await delay(100);}
   await check(`${lang}/${width}/loaded`,'document.body?.dataset.edition==="precision"');
-  await evaluate('(async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=650){scrollTo(0,y);await new Promise(r=>setTimeout(r,25));}await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));scrollTo(0,0);await new Promise(r=>setTimeout(r,120));})()');
+  await evaluate('(async()=>{const images=[...document.images];images.forEach(i=>i.loading="eager");for(let y=0,h=document.documentElement.scrollHeight;y<h;y+=650){scrollTo(0,y);await new Promise(r=>setTimeout(r,25));}await Promise.race([Promise.all(images.map(i=>i.decode().catch(()=>{}))),new Promise((_,reject)=>setTimeout(()=>reject(new Error("Image decode timeout: "+images.filter(i=>!i.complete).map(i=>i.src).join(","))),6000))]);scrollTo(0,0);await new Promise(r=>setTimeout(r,120));})()');
  }
  async function screenshot(name,full=false){const m=await send('Page.getLayoutMetrics');const clip=full?{x:0,y:0,width:m.cssContentSize.width,height:m.cssContentSize.height,scale:1}:undefined;const r=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:full,...(clip?{clip}:{})});await writeFile(out+'/'+name+'.png',Buffer.from(r.data,'base64'));}
  for(const lang of ['tr','en'])for(const w of [320,390,768,1024,1440,1920]){
