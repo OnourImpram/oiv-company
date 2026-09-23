@@ -17,8 +17,10 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 24
-      - name: Install original repositories and inspect the institutional candidate
-        run: bash tools/design/install.sh
+      - name: Install original tools and inspect the institutional candidate
+        run: |
+          bash tools/design/install.sh
+          python3 tools/design/assert-results.py
       - name: Preserve real tool results and Iris captures
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -26,11 +28,12 @@ jobs:
           name: oiv-tool-installation
           path: tool-evidence/
           retention-days: 3
-      - name: Preserve the verified generated review sources
+      - name: Preserve verified generated review sources
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: oiv-review-generated
           path: review-generated/
+          if-no-files-found: error
           retention-days: 3
   store-review-on-isolated-branch:
     needs: install-and-inspect
