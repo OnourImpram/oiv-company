@@ -61,6 +61,16 @@ class Release(unittest.TestCase):
    text=p.path.read_text(encoding='utf-8');self.assertIn('17429906',text);self.assertIn('ONOUR IMPRAM VENTURES LTD',text)
    for a in p.select('a'):
     if a.get('href','').startswith('mailto:'):self.assertTrue(a['href'].startswith('mailto:onour@onourimpram.com'))
+ def test_motion_layers_decorative_and_heading_text_kept(self):
+  # The values cycle and the process flow add only aria-hidden layers; the heading still reads as written.
+  for path,lang in [(ROOT/'index.html','en'),(ROOT/'tr/index.html','tr')]:
+   text=path.read_text(encoding='utf-8')
+   title=json.loads((ROOT.parent/'src/content.json').read_text(encoding='utf-8'))[lang]['aboutTitle']
+   m=re.search(r'<span class="cycle" data-loop>(.*?)<span class="cycle-track" aria-hidden="true"><span class="cycle-light"></span></span></span>',text)
+   self.assertTrue(m,str(path))
+   self.assertEqual(re.sub(r'<[^>]+>','',m.group(1)),title.replace('<br>',' '))
+   self.assertIn('<ol class="process-list" data-loop>',text)
+   self.assertEqual(text.count('<i aria-hidden="true"><b></b></i>'),5)
  def test_sitemap_is_complete(self):
   self.assertEqual((ROOT/'sitemap.xml').read_text(encoding='utf-8').count('<url>'),38)
  def test_search_is_offline(self):

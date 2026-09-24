@@ -102,6 +102,16 @@ try{
  await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:nb.x,y:nb.y});await delay(200);
  await check('orbit/hover-holds','(async()=>{const e=document.querySelector(".node-ai"),a=e.getBoundingClientRect();await new Promise(r=>setTimeout(r,600));const b=e.getBoundingClientRect();return Math.abs(a.left-b.left)<0.5&&Math.abs(a.top-b.top)<0.5;})()');
  await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:5,y:880});
+ // Values cycle and process flow: run while in view, their words never move, pause offscreen.
+ const loopAnims='(s=>document.getAnimations().filter(a=>a.effect.target.closest(s)&&a.effect.getTiming().iterations===Infinity))';
+ for(const [name,sel,min] of [['process','.process-list',9],['values','.cycle',5]]){
+  await evaluate(`document.querySelector(${JSON.stringify(sel)}).scrollIntoView({block:"center",behavior:"instant"})`);await delay(400);
+  await check(`loop/${name}/runs-in-view`,`${loopAnims}(${JSON.stringify(sel)}).filter(a=>a.playState==="running").length>=${min}`);
+  await check(`loop/${name}/text-still`,`(async()=>{const t=[...document.querySelectorAll(${JSON.stringify(sel+' .cycle-w, '+sel+' h3, '+sel+' p, '+sel+' .step-line span')})],p=()=>t.map(e=>{const r=e.getBoundingClientRect();return r.left+','+r.top+','+r.width;}).join('|'),a=p();await new Promise(r=>setTimeout(r,1500));return t.length>0&&p()===a&&t.every(e=>e.getAnimations().length===0);})()`);
+ }
+ await check('loop/paused-when-tab-hidden',`(async()=>{Object.defineProperty(document,"hidden",{configurable:true,get:()=>true});document.dispatchEvent(new Event("visibilitychange"));await new Promise(r=>setTimeout(r,100));const ok=${loopAnims}(".cycle").length>=5&&${loopAnims}(".cycle").every(a=>a.playState==="paused");delete document.hidden;document.dispatchEvent(new Event("visibilitychange"));await new Promise(r=>setTimeout(r,100));return ok&&${loopAnims}(".cycle").every(a=>a.playState==="running");})()`);
+ await evaluate('scrollTo({top:0,behavior:"instant"})');await delay(400);
+ await check('loop/paused-offscreen',`${loopAnims}("[data-loop]").length>=14&&${loopAnims}("[data-loop]").every(a=>a.playState==="paused")`);
  await evaluate('scrollTo(0,document.documentElement.scrollHeight)');await delay(400);
  await check('motion/paused-offscreen','document.getAnimations().filter(a=>a.effect.target.closest(".compass")&&a.effect.getTiming().iterations===Infinity).every(a=>a.playState==="paused")');
  assert.equal(errors.length,0,'No runtime exceptions: '+JSON.stringify(errors).slice(0,500));results.push({name:'no-runtime-exceptions',passed:true});
