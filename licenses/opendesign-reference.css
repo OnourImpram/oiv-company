@@ -1,0 +1,8 @@
+/* OpenDesign web-prototype. Apache-2.0. Original rules followed by OIV overrides. */
+:root{--gap-lg:32px;--border:var(--line)}
+.log-row { display: grid; grid-template-columns: 120px 1fr 100px; gap: var(--gap-lg); padding: 22px 0; border-top: 1px solid var(--border); align-items: baseline; }
+.log-row .meta { color: var(--muted); }
+.log-row h3 { font-size: 19px; }
+.log-row .pull { text-align: right; }
+
+/* Editorial-specific layout overrides are in editorial.css. */

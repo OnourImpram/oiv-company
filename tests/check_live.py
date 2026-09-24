@@ -15,7 +15,7 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1] / 'docs'
 DEFAULT_BASE = 'https://oiv.onourimpram.com/'
-CORE = ['index.html', 'tr/index.html', 'assets/oiv.css', 'robots.txt', 'sitemap.xml', '.well-known/security.txt']
+CORE = ['index.html', 'tr/index.html', 'assets/css/site.css', 'robots.txt', 'sitemap.xml', '.well-known/security.txt']
 
 
 def get(url):

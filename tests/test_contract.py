@@ -12,6 +12,9 @@ IDENTITY = ["ONOUR IMPRAM VENTURES LTD", "17429906", "235117532", "71-75 Shelton
             "WC2H 9JQ", "onour@onourimpram.com"]
 ON_PLAY = {"com.hezarfen.catpulse", "com.hezarfen.dogpulse"}
 NOT_ON_PLAY = ["GraceRhythm", "ADHDFlow", "Clocktopus", "Kinlore"]
+# Created in Play Console 2026-09-24, not published: listed, never linked to a store.
+IN_DEVELOPMENT = ["ManagerGym", "Pathways Lab", "RecallDock", "PlateKind", "Tiny Broadcast",
+                  "One Plan Today", "Backlog Bloom"]
 
 
 class Page(HTMLParser):
@@ -69,12 +72,15 @@ class Contract(unittest.TestCase):
                 self.assertIn("height", img)
 
     def test_store_claims_match_measurement(self):
-        for lang, p in self.pages.items():
-            play_ids = {re.search(r"id=([a-z0-9._]+)", a["href"]).group(1)
-                        for a in p.all("a") if "play.google.com/store/apps/details" in a.get("href", "")}
-            self.assertEqual(play_ids, ON_PLAY, lang)
-            for app in NOT_ON_PLAY:
-                self.assertIn(app, p.body_text, f"{lang}: {app} listed")
+        # Site-wide: a design may list products on the home page or on a work page.
+        site = [Page(f) for f in ROOT.rglob("*.html")]
+        play_ids = {re.search(r"id=([a-z0-9._]+)", a["href"]).group(1)
+                    for p in site for a in p.all("a") if "play.google.com/store/apps/details" in a.get("href", "")}
+        self.assertEqual(play_ids, ON_PLAY)
+        for lang in ("en", "tr"):
+            text = " ".join(p.body_text for p in site if p.all("html")[0].get("lang") == lang)
+            for app in NOT_ON_PLAY + IN_DEVELOPMENT:
+                self.assertIn(app, text, f"{lang}: {app} listed")
 
     def test_no_server_submission_no_third_party_code(self):
         for lang, p in self.pages.items():
@@ -117,9 +123,14 @@ class Contract(unittest.TestCase):
         self.assertIn("Klinik", self.pages["tr"].body_text)
 
     def test_404_and_fonts_present(self):
+        # Design-independent: every font a stylesheet declares is self-hosted and present.
         self.assertTrue((ROOT / "404.html").exists())
-        for f in ("fraunces-300-700-latin-ext.woff2", "plex-sans-400-600-latin-ext.woff2", "OFL.txt"):
-            self.assertTrue((ROOT / "assets" / "fonts" / f).exists(), f)
+        self.assertEqual((ROOT / "CNAME").read_text(encoding="utf-8").strip(), "oiv.onourimpram.com")
+        for css in ROOT.rglob("*.css"):
+            for url in re.findall(r"@font-face[^}]*?url\(([^)]+)\)", css.read_text(encoding="utf-8")):
+                url = url.strip("'\"")
+                self.assertFalse(urlparse(url).netloc, f"remote font {url}")
+                self.assertTrue((css.parent / url).resolve().exists(), url)
 
 
 if __name__ == "__main__":

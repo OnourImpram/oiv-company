@@ -1,6 +1,6 @@
 /* Real Chromium/CDP checks, design-independent. Node 22+, Chrome, no npm dependencies.
-   Contract for any design: no horizontal overflow, images decoded, the brand faces (Fraunces,
-   IBM Plex Sans) actually loaded, one h1, identity facts visible without interaction, content
+   Contract for any design: no horizontal overflow, images decoded, no declared web font failed
+   to load (the 2026-09-24 design uses system faces), one h1, identity facts visible without interaction, content
    visible under reduced motion, a visible focus ring, the mobile menu (#menu-toggle) opens and
    closes with Escape returning focus, no runtime exceptions. */
 import {spawn} from 'node:child_process';
@@ -47,8 +47,7 @@ try{
   await load(lang,w);
   await check(`${lang}/${w}/no-overflow`,'document.documentElement.scrollWidth<=innerWidth');
   await check(`${lang}/${w}/images`,'[...document.images].every(i=>i.complete&&i.naturalWidth>0)');
-  await check(`${lang}/${w}/fraunces-loaded`,loadedFace('Fraunces'));
-  await check(`${lang}/${w}/plex-sans-loaded`,loadedFace('IBM Plex Sans'));
+  await check(`${lang}/${w}/declared-fonts-loaded`,'[...document.fonts].every(x=>x.status!=="error")');
   await check(`${lang}/${w}/one-h1`,'document.querySelectorAll("h1").length===1');
   if(w===1440){
    await check(`${lang}/identity-visible`,`${JSON.stringify(IDENTITY)}.every(s=>document.body.innerText.includes(s))`);
