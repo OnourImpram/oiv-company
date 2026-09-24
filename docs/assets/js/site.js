@@ -241,3 +241,18 @@
   small.addEventListener?.('change', () => { reset(); run(); });
   measure(); reset(); run();
 })();
+
+/* motion-cycle-2026-09-24: the process flow and the values cycle run only while at least a
+   third of them is on screen and the tab is visible. Reduced motion never adds .motion. */
+(() => {
+  'use strict';
+  if (!document.documentElement.classList.contains('motion')) return;
+  const loops = [...document.querySelectorAll('[data-loop]')], shown = new Set();
+  const sync = () => loops.forEach(el => el.classList.toggle('is-paused', document.hidden || !shown.has(el)));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => e.intersectionRatio >= 0.33 ? shown.add(e.target) : shown.delete(e.target)); sync();
+  }, {threshold: [0, 0.33]});
+  loops.forEach(el => io.observe(el));
+  document.addEventListener('visibilitychange', sync);
+  sync();
+})();

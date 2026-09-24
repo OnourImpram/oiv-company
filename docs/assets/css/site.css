@@ -518,3 +518,52 @@ h1,h2,h3,h4 {color:var(--ink)}
 .ethos-values li:last-child {border-bottom:1px solid var(--line-dark)}
 @media(max-width:1000px){.ethos{grid-template-columns:1fr;gap:40px}.ethos-values{max-width:560px}}
 @media(max-width:700px){.ethos h2{font-size:32px}.ethos-copy>p{font-size:14px;margin-top:22px}.ethos-values li{font-size:21px;padding:11px 0}}
+
+/* motion-cycle-2026-09-24 */
+/* Two slow loops in the site's one motion idiom (a single gold light, hairlines that draw).
+   Words never move; only aria-hidden layers do. Transform/opacity only. JS adds .is-paused
+   offscreen and in hidden tabs; reduced motion and no-JS keep the static state below. */
+/* Values: the 2x2 title is a cycle read clockwise from the lower left, People first. */
+.ethos h2 .cycle {position:relative;display:inline-grid;grid-template-columns:auto auto;gap:.08em .4em;padding:.3em .5em .38em;margin-left:-.5em}
+.cycle-w {position:relative;justify-self:start}
+/* The track opens this heading, so the lead hairline steps aside (one frame, not two). */
+.ethos h2:has(.cycle)::before {display:none}
+.cycle-w::after {content:"";position:absolute;left:0;right:0;bottom:.04em;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left center}
+.cycle-w:nth-child(3)::after {transform:none}
+.cycle-track {position:absolute;inset:-12px;overflow:hidden;pointer-events:none}
+.cycle-track::before {content:"";position:absolute;inset:12px;border:1px solid color-mix(in srgb,var(--gold) 34%,transparent)}
+.cycle-light {position:absolute;inset:12px;transform:translate(0,100%)}
+.cycle-light::before {content:"";position:absolute;left:-3.5px;top:-3.5px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+@keyframes cycle-light {0%,10% {transform:translate(0,100%)} 25%,35% {transform:translate(0,0)} 50%,60% {transform:translate(100%,0)} 75%,85% {transform:translate(100%,100%)} 100% {transform:translate(0,100%)}}
+@keyframes cycle-mark {0% {transform:scaleX(0)} 4%,11% {transform:scaleX(1)} 17%,100% {transform:scaleX(0)}}
+.motion .cycle-light {animation:cycle-light 12s cubic-bezier(.65,0,.35,1) infinite}
+.motion .cycle-w::after {animation:cycle-mark 12s var(--ease-out) infinite backwards}
+.motion .cycle-w:nth-child(1)::after {animation-delay:3s}
+.motion .cycle-w:nth-child(2)::after {animation-delay:6s}
+.motion .cycle-w:nth-child(4)::after {animation-delay:9s}
+@media(max-width:700px){.ethos h2 .cycle{font-size:min(32px,7.6vw);margin-left:-.35em;padding-inline:.35em}}
+/* Process: a gold hairline draws 01 to 05, each ring answers as it arrives, then a rest. */
+.step-line span {position:relative}
+.step-line span::after {content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--gold);opacity:0}
+/* The connector's dimness moves from element opacity into its colour, so the light can be full gold. */
+.step-line i {opacity:1;background:color-mix(in srgb,var(--gold-strong) 60%,transparent)}
+.step-line i::after {border-color:color-mix(in srgb,var(--gold-strong) 60%,transparent)}
+.step-line i b {position:absolute;inset:-1px 0;overflow:hidden}
+.step-line i b::before {content:"";position:absolute;inset:1px 0;background:var(--gold);transform:scaleX(0);transform-origin:left center}
+@keyframes step-ring {0% {opacity:0;transform:scale(.86)} 4%,10% {opacity:1;transform:none} 20%,100% {opacity:0;transform:none}}
+@keyframes step-flow {0% {transform:scaleX(0);opacity:1} 13% {transform:scaleX(1);opacity:1} 19%,100% {transform:scaleX(1);opacity:0}}
+@keyframes step-flow-y {0% {transform:scaleY(0);opacity:1} 13% {transform:scaleY(1);opacity:1} 19%,100% {transform:scaleY(1);opacity:0}}
+.motion .step-line span::after {animation:step-ring 11s var(--ease-out) infinite backwards}
+.motion .step-line i b::before {animation:step-flow 11s cubic-bezier(.65,0,.35,1) .35s infinite backwards}
+.motion .process-list li:nth-child(2) span::after {animation-delay:1.8s}.motion .process-list li:nth-child(2) b::before {animation-delay:2.15s}
+.motion .process-list li:nth-child(3) span::after {animation-delay:3.6s}.motion .process-list li:nth-child(3) b::before {animation-delay:3.95s}
+.motion .process-list li:nth-child(4) span::after {animation-delay:5.4s}.motion .process-list li:nth-child(4) b::before {animation-delay:5.75s}
+.motion .process-list li:nth-child(5) span::after {animation-delay:7.2s}
+@media(max-width:700px){.step-line i b{inset:0 -1px}.step-line i b::before{inset:0 1px;transform:scaleY(0);transform-origin:center top}.motion .step-line i b::before{animation-name:step-flow-y}}
+.motion [data-loop].is-paused .cycle-light,.motion [data-loop].is-paused .cycle-w::after,.motion [data-loop].is-paused .step-line span::after,.motion [data-loop].is-paused .step-line i b::before {animation-play-state:paused}
+/* Services are parallel offers, not a sequence: no autonomous loop. The icon alone steps
+   forward when the reader points at or focuses its card. */
+.solution-card .icon {transition:transform .22s var(--ease-out);transform-origin:50% 100%}
+.solution-card:focus-within .icon {transform:translateY(-3px) scale(1.06)}
+@media(hover:hover) and (pointer:fine){.solution-card:hover .icon{transform:translateY(-3px) scale(1.06)}}
+@media(forced-colors:active){.cycle-track,.step-line i b{display:none}}

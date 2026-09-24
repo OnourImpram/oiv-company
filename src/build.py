@@ -77,7 +77,18 @@ def solution_cards(lang):
  return '<div class="solution-grid">'+''.join(f'<article class="solution-card">{icon(s["icon"])}<h3><a href="{link(lang,s["id"])}">{s["title"]}</a></h3><p>{s["intro"]}</p>{textlink(d["detail"],link(lang,s["id"]))}</article>' for s in d['services'])+'</div>'
 def process(lang):
  d=DATA[lang]
- return '<ol class="process-list">'+''.join(f'<li><div class="step-line"><span>{i+1:02}</span><i aria-hidden="true"></i></div><h3>{s[0]}</h3><p>{s[1]}</p></li>' for i,s in enumerate(d['steps']))+'</ol>'
+ # <b> clips the light that travels each connector (decorative; the connector itself is aria-hidden).
+ return '<ol class="process-list" data-loop>'+''.join(f'<li><div class="step-line"><span>{i+1:02}</span><i aria-hidden="true"><b></b></i></div><h3>{s[0]}</h3><p>{s[1]}</p></li>' for i,s in enumerate(d['steps']))+'</ol>'
+
+def cycle_title(title):
+ # "A. B.<br>C. D." is set as a 2x2 grid. Read clockwise from the lower left it is the cycle
+ # C -> A -> B -> D -> C (People -> Psychology -> Technology -> Real needs -> People). The words
+ # keep their DOM order, so the heading reads exactly as written; the track and its light are
+ # aria-hidden decoration. Any other shape falls back to the plain title.
+ rows=[r.strip().rstrip('.').split('. ') for r in title.split('<br>')]
+ if len(rows)!=2 or any(len(r)!=2 for r in rows):return title
+ words=' '.join(f'<span class="cycle-w">{w}.</span>' for r in rows for w in r)
+ return f'<span class="cycle" data-loop>{words}<span class="cycle-track" aria-hidden="true"><span class="cycle-light"></span></span></span>'
 
 def ethos_values(values):
  # The four values share their first word ("More" / "Daha"): set it once as a gold lead-in and
@@ -97,7 +108,7 @@ def home(lang):
 <section class="section solutions" id="solutions" data-od-id="solutions"><div class="container"><div class="section-heading"><div><h2>{d['solutionsTitle']}</h2></div><p>{d['solutionsText']}</p>{textlink(d['allSolutions'],link(lang,'solutions'))}</div>{solution_cards(lang)}</div></section>
 <section class="purpose dark section" id="purpose" data-od-id="purpose"><div class="container purpose-grid"><h2>{d['purposeTitle']}</h2>{purpose}</div></section>
 <section class="section process" id="approach" data-od-id="process"><div class="container"><div class="section-heading"><div><h2>{d['processTitle']}</h2></div><p>{d['processText']}</p>{textlink(d['processLink'],link(lang,'about','#method'))}</div>{process(lang)}</div></section>
-<section class="section philosophy dark" data-od-id="philosophy"><div class="container ethos"><div class="ethos-copy"><h2>{d['aboutTitle']}</h2><p>{d['aboutText']}</p></div>{ethos_values(d['aboutValues'])}</div></section>{cta(lang)}'''
+<section class="section philosophy dark" data-od-id="philosophy"><div class="container ethos"><div class="ethos-copy"><h2>{cycle_title(d['aboutTitle'])}</h2><p>{d['aboutText']}</p></div>{ethos_values(d['aboutValues'])}</div></section>{cta(lang)}'''
  build(lang,'home',body,d['homeTitle'])
 
 def intro(lang,label,title,lead):
