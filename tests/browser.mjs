@@ -21,9 +21,9 @@ try{
   server=createServer(async(req,res)=>{try{const path=decodeURIComponent(new URL(req.url,'http://local').pathname);if(!path.startsWith('/'))throw Error('Not found');let relative=path.slice(1);if(!relative||relative.endsWith('/'))relative+='index.html';const file=resolve(root,relative);if(!file.startsWith(root+sep))throw Error('Not found');const bytes=await readFile(file);res.writeHead(200,{'Content-Type':types[extname(file)]||'application/octet-stream'});res.end(bytes);}catch{res.writeHead(404);res.end('Not found');}});
   await new Promise(r=>server.listen(0,'127.0.0.1',r));base=`http://127.0.0.1:${server.address().port}/`;
  }
- const args=['--headless=new','--no-sandbox','--disable-dev-shm-usage','--remote-debugging-port=0','--user-data-dir='+profile,'about:blank'];
+ const args=['--headless=new','--no-sandbox','--disable-dev-shm-usage','--remote-debugging-port=0','--use-angle=swiftshader','--enable-unsafe-swiftshader','--user-data-dir='+profile,'about:blank'];
  browser=spawn(process.env.CHROME||'google-chrome',args,{stdio:['ignore','ignore','pipe']});browser.stderr.on('data',d=>logs.push(String(d)));
- let port;for(let i=0;i<100;i++){try{port=(await readFile(profile+'/DevToolsActivePort','utf8')).split('\n')[0];break;}catch{await delay(100);}}assert.ok(port,'Chrome debug endpoint started');
+ let port;for(let i=0;i<300;i++){try{port=(await readFile(profile+'/DevToolsActivePort','utf8')).split('\n')[0];break;}catch{await delay(100);}}assert.ok(port,'Chrome debug endpoint started');
  const target=await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`,{method:'PUT'})).json();
  socket=new WebSocket(target.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j;});
  let seq=0;const pending=new Map(),errors=[];
