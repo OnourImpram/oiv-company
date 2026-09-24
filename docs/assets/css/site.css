@@ -498,7 +498,8 @@ h1,h2,h3,h4 {color:var(--ink)}
 /* The side list crowds the orbit on narrower screens; its words live on in the philosophy section. */
 @media(max-width:1250px){.compass-aside{display:none}}
 /* At tablet width the quote was clipped by the hero edge and sat on the research node. */
-@media(max-width:1000px){.compass-quote{display:none}}
+/* 1001-1180px: the quote sits in the orbit's lower-right path and the tall 'Training and workshops' node cannot clear it, so it goes with the aside */
+@media(max-width:1180px){.compass-quote{display:none}}
 
 /* purpose: why OIV exists; replaces the project showcase on the home page */
 .purpose {padding-block:64px}
