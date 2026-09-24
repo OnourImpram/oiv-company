@@ -79,6 +79,15 @@ def process(lang):
  d=DATA[lang]
  return '<ol class="process-list">'+''.join(f'<li><div class="step-line"><span>{i+1:02}</span><i aria-hidden="true"></i></div><h3>{s[0]}</h3><p>{s[1]}</p></li>' for i,s in enumerate(d['steps']))+'</ol>'
 
+def ethos_values(values):
+ # The four values share their first word ("More" / "Daha"): set it once as a gold lead-in and
+ # keep each full phrase for screen readers.
+ lead = values[0].split(' ', 1)[0]
+ if not all(v.split(' ', 1)[0] == lead for v in values):
+  return '<ul class="ethos-values">' + ''.join('<li>' + v + '</li>' for v in values) + '</ul>'
+ items = ''.join(f'<li><span class="sr-only">{lead} </span>{v.split(" ", 1)[1]}</li>' for v in values)
+ return f'<div class="ethos-values"><p class="ethos-lead" aria-hidden="true">{lead}</p><ul>{items}</ul></div>'
+
 def home(lang):
  d=DATA[lang]
  nodes=''.join(f'<a class="compass-node node-{s["id"]}" href="{link(lang,s["id"])}" aria-label="{s["title"]}">{icon(s["icon"])}<span>{s["short"]}</span></a>' for s in d['services'])
@@ -88,7 +97,7 @@ def home(lang):
 <section class="section solutions" id="solutions" data-od-id="solutions"><div class="container"><div class="section-heading"><div><h2>{d['solutionsTitle']}</h2></div><p>{d['solutionsText']}</p>{textlink(d['allSolutions'],link(lang,'solutions'))}</div>{solution_cards(lang)}</div></section>
 <section class="purpose dark section" id="purpose" data-od-id="purpose"><div class="container purpose-grid"><h2>{d['purposeTitle']}</h2>{purpose}</div></section>
 <section class="section process" id="approach" data-od-id="process"><div class="container"><div class="section-heading"><div><h2>{d['processTitle']}</h2></div><p>{d['processText']}</p>{textlink(d['processLink'],link(lang,'about','#method'))}</div>{process(lang)}</div></section>
-<section class="section philosophy dark" data-od-id="philosophy"><div class="container philosophy-grid"><div><h2>{d['aboutTitle']}</h2></div><p>{d['aboutText']}</p><div class="philosophy-values">{''.join('<span>'+v+'</span>' for v in d['aboutValues'])}</div></div></section>{cta(lang)}'''
+<section class="section philosophy dark" data-od-id="philosophy"><div class="container ethos"><div class="ethos-copy"><h2>{d['aboutTitle']}</h2><p>{d['aboutText']}</p></div>{ethos_values(d['aboutValues'])}</div></section>{cta(lang)}'''
  build(lang,'home',body,d['homeTitle'])
 
 def intro(lang,label,title,lead):
