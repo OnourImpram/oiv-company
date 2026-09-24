@@ -1,0 +1,136 @@
+{
+ "effective": {"en": "24 September 2026", "tr": "24 Eylül 2026"},
+ "links": {
+  "revenuecat": "https://www.revenuecat.com/privacy",
+  "google": "https://policies.google.com/privacy",
+  "googleplay": "https://support.google.com/googleplay/answer/2479637"
+ },
+ "apps": [
+  {
+   "slug": "managergym",
+   "name": "ManagerGym",
+   "package": "com.hezarfen.managergym",
+   "en": {
+    "summary": "ManagerGym is a private rehearsal app for difficult workplace conversations. You can use it without an account. Your practice data stays on your device. We do not sell data and the app contains no advertising.",
+    "device": ["Your profile name, role and practice goals", "Scenario transcripts, local coach feedback, scores and voice rehearsal self checks (audio is never recorded)", "Custom scenarios, lesson progress, language, theme and reminder settings"],
+    "processors": ["RevenueCat processes an anonymous app user identifier, purchase state and purchase events so that ManagerGym Pro can be bought and restored through Google Play. Transcripts and practice content are never sent to RevenueCat.", "Google Play processes the purchase itself under your Google account."],
+    "never": ["Practice transcripts are not sent to any AI service in the production app.", "Product analytics is off by default. No analytics service is connected in the current version.", "We do not ask for your employer, colleagues' names, health information or confidential company files.", "No advertising SDK, no data sale, no audio recording."],
+    "permissions": ["Notifications, only if you turn on practice reminders. Reminders are scheduled on your device."],
+    "controls": "You can export your local data as a file and delete it from Settings. Deleting removes your profile, sessions, custom scenarios, settings and reminders from the device. Uninstalling the app also removes its local data. Purchase records stay with Google Play and RevenueCat; to ask about those records, email us."
+   },
+   "tr": {
+    "summary": "ManagerGym, zor iş yeri konuşmalarını prova etmek için gizlilik odaklı bir uygulamadır. Hesap açmadan kullanabilirsiniz. Pratik verileriniz cihazınızda kalır. Veri satmayız, uygulamada reklam yoktur.",
+    "device": ["Profil adınız, rolünüz ve pratik hedefleriniz", "Senaryo dökümleri, yerel koç geri bildirimi, puanlar ve sesli prova öz değerlendirmeleri (ses asla kaydedilmez)", "Özel senaryolar, ders ilerlemesi, dil, tema ve hatırlatıcı ayarları"],
+    "processors": ["RevenueCat, ManagerGym Pro'nun Google Play üzerinden satın alınabilmesi ve geri yüklenebilmesi için anonim bir uygulama kullanıcı kimliğini, satın alma durumunu ve satın alma olaylarını işler. Dökümler ve pratik içeriği RevenueCat'e hiçbir zaman gönderilmez.", "Satın alma işleminin kendisini Google Play, Google hesabınız kapsamında işler."],
+    "never": ["Üretim sürümünde pratik dökümleri hiçbir yapay zekâ hizmetine gönderilmez.", "Ürün analitiği varsayılan olarak kapalıdır. Mevcut sürümde bağlı bir analitik hizmeti yoktur.", "İşvereninizi, iş arkadaşlarınızın adlarını, sağlık bilgisini veya gizli şirket belgelerini istemeyiz.", "Reklam SDK'sı yok, veri satışı yok, ses kaydı yok."],
+    "permissions": ["Bildirimler, yalnızca pratik hatırlatıcılarını açarsanız. Hatırlatıcılar cihazınızda planlanır."],
+    "controls": "Yerel verilerinizi Ayarlar'dan dosya olarak dışa aktarabilir ve silebilirsiniz. Silme işlemi profilinizi, oturumlarınızı, özel senaryolarınızı, ayarlarınızı ve hatırlatıcılarınızı cihazdan kaldırır. Uygulamayı kaldırmak da yerel verilerini siler. Satın alma kayıtları Google Play ve RevenueCat'te kalır; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin."
+   }
+  },
+  {
+   "slug": "recalldock",
+   "name": "RecallDock",
+   "package": "com.hezarfen.recalldock",
+   "en": {
+    "summary": "RecallDock is a local first vault for text, links, images, documents and files. You can use it without an account. Your vault stays on your device. We do not sell data and the app contains no advertising.",
+    "device": ["Items you save: text, links, images, documents and files, with their tags and titles", "Text recognised in your images, produced on the device", "Smart Stack matches and reuse insights computed on the device", "Exports you create, kept only for a short cleanup window unless you save them elsewhere"],
+    "processors": ["RevenueCat processes an anonymous app user identifier, purchase state and purchase events so that RecallDock Pro can be bought and restored through Google Play. Vault content is never sent to RevenueCat.", "Google Play processes the purchase itself under your Google account."],
+    "never": ["Saved content, recognised text, tags, file names and search queries are excluded from analytics. The app has no remote analytics.", "Image content is not sent to an application server for text recognition.", "The clipboard is read only when you choose to save from it.", "Android cloud backup and device transfer are turned off for the vault.", "No advertising SDK and no data sale."],
+    "permissions": ["Biometric or device credential, only to unlock sensitive details you have hidden.", "Files and content you pick or share into the app through Android's own pickers and share sheet. RecallDock does not ask for broad storage access."],
+    "controls": "You can delete single items or wipe the whole vault in the app. Passphrase protected exports use AES-256-GCM encryption. Uninstalling the app also removes its local data. Purchase records stay with Google Play and RevenueCat; to ask about those records, email us."
+   },
+   "tr": {
+    "summary": "RecallDock metin, bağlantı, görsel, belge ve dosyalar için yerel öncelikli bir kasadır. Hesap açmadan kullanabilirsiniz. Kasanız cihazınızda kalır. Veri satmayız, uygulamada reklam yoktur.",
+    "device": ["Kaydettiğiniz öğeler: metinler, bağlantılar, görseller, belgeler ve dosyalar, etiketleri ve başlıklarıyla", "Görsellerinizdeki metin, cihaz üzerinde tanınır", "Cihaz üzerinde hesaplanan Smart Stack eşleşmeleri ve yeniden kullanım içgörüleri", "Oluşturduğunuz dışa aktarımlar; başka bir yere kaydetmediğiniz sürece yalnızca kısa bir temizlik süresince tutulur"],
+    "processors": ["RevenueCat, RecallDock Pro'nun Google Play üzerinden satın alınabilmesi ve geri yüklenebilmesi için anonim bir uygulama kullanıcı kimliğini, satın alma durumunu ve satın alma olaylarını işler. Kasa içeriği RevenueCat'e hiçbir zaman gönderilmez.", "Satın alma işleminin kendisini Google Play, Google hesabınız kapsamında işler."],
+    "never": ["Kaydedilen içerik, tanınan metin, etiketler, dosya adları ve arama sorguları analitiğe dahil edilmez. Uygulamada uzak analitik yoktur.", "Metin tanıma için görsel içeriği bir uygulama sunucusuna gönderilmez.", "Pano yalnızca ondan kaydetmeyi siz seçtiğinizde okunur.", "Kasa için Android bulut yedeklemesi ve cihaz aktarımı kapalıdır.", "Reklam SDK'sı yok, veri satışı yok."],
+    "permissions": ["Biyometrik doğrulama veya cihaz kilidi, yalnızca gizlediğiniz hassas ayrıntıları açmak için.", "Android'in kendi seçicileri ve paylaşım menüsüyle uygulamaya seçtiğiniz ya da paylaştığınız dosya ve içerikler. RecallDock geniş depolama erişimi istemez."],
+    "controls": "Uygulamada tek tek öğeleri silebilir veya tüm kasayı temizleyebilirsiniz. Parola korumalı dışa aktarımlar AES-256-GCM ile şifrelenir. Uygulamayı kaldırmak da yerel verilerini siler. Satın alma kayıtları Google Play ve RevenueCat'te kalır; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin."
+   }
+  },
+  {
+   "slug": "tinybroadcast",
+   "name": "Tiny Broadcast",
+   "package": "com.hezarfen.tinybroadcast",
+   "en": {
+    "summary": "Tiny Broadcast is a short session strategy game about running a small town radio station. You can play without an account. Your season is stored on your device. We do not sell data.",
+    "device": ["Your current season, completed days and results", "Onboarding state and interface preferences", "Local records of in game sponsor choices"],
+    "processors": ["RevenueCat processes an anonymous app user identifier, purchase state and purchase events when an in app purchase is offered, bought or restored through Google Play.", "Google Mobile Ads SDK and Google's User Messaging Platform are included in the app. The current version does not request or show advertisements. As part of normal Android app startup, Google's SDK may process device and app information, such as the advertising identifier, under Google's privacy policy. If advertising is enabled in a future version, it will be limited to non personalised ads after a consent step where required, and this policy will be updated first.", "Google Play processes purchases under your Google account."],
+    "never": ["Program choices are game state. They are not used to infer sensitive traits or to build an advertising profile.", "The game does not ask for contacts, location, microphone, camera, notifications or broad storage access.", "In game analytics accepts only a bounded sponsor outcome value and is not sent to a remote analytics service in the current version.", "No data sale."],
+    "permissions": ["Advertising identifier access (AD_ID), declared by Google's Mobile Ads SDK. You can reset or delete your advertising identifier in Android settings."],
+    "controls": "You can export and erase local game data in the app. Uninstalling the app also removes its local data. Purchase records stay with Google Play and RevenueCat; to ask about those records, email us."
+   },
+   "tr": {
+    "summary": "Tiny Broadcast, küçük bir kasaba radyosunu yönettiğiniz kısa oturumlu bir strateji oyunudur. Hesap açmadan oynayabilirsiniz. Sezonunuz cihazınızda saklanır. Veri satmayız.",
+    "device": ["Mevcut sezonunuz, tamamlanan günler ve sonuçlar", "Tanıtım adımlarının durumu ve arayüz tercihleri", "Oyun içi sponsor seçimlerinin yerel kayıtları"],
+    "processors": ["RevenueCat, bir uygulama içi satın alma sunulduğunda, Google Play üzerinden yapıldığında veya geri yüklendiğinde anonim bir uygulama kullanıcı kimliğini, satın alma durumunu ve satın alma olaylarını işler.", "Uygulamada Google Mobile Ads SDK ve Google'ın User Messaging Platform bileşeni bulunur. Mevcut sürüm reklam istemez ve göstermez. Olağan Android uygulama başlangıcının parçası olarak Google'ın SDK'sı, reklam kimliği gibi cihaz ve uygulama bilgilerini Google'ın gizlilik politikası kapsamında işleyebilir. Gelecekteki bir sürümde reklam açılırsa, gereken yerlerde onay adımından sonra yalnızca kişiselleştirilmemiş reklamlar kullanılır ve bu politika önce güncellenir.", "Satın alma işlemlerini Google Play, Google hesabınız kapsamında işler."],
+    "never": ["Program seçimleri oyun durumudur. Hassas özellik çıkarımı ya da reklam profili oluşturmak için kullanılmaz.", "Oyun rehber, konum, mikrofon, kamera, bildirim veya geniş depolama erişimi istemez.", "Oyun içi analitik yalnızca sınırlı bir sponsor sonucu değeri kabul eder ve mevcut sürümde uzak bir analitik hizmetine gönderilmez.", "Veri satışı yok."],
+    "permissions": ["Google'ın Mobile Ads SDK'sının bildirdiği reklam kimliği erişimi (AD_ID). Reklam kimliğinizi Android ayarlarından sıfırlayabilir veya silebilirsiniz."],
+    "controls": "Yerel oyun verilerini uygulamada dışa aktarabilir ve silebilirsiniz. Uygulamayı kaldırmak da yerel verilerini siler. Satın alma kayıtları Google Play ve RevenueCat'te kalır; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin."
+   }
+  },
+  {
+   "slug": "pathwayslab",
+   "name": "Pathways Lab",
+   "package": "com.hezarfen.pathwayslab",
+   "en": {
+    "summary": "Pathways Lab helps students test a possible career through a seven day experiment. You can use it without an account and the core experiment works offline. Your workspace stays on your device. The app contains no analytics and no advertising.",
+    "device": ["Experiment progress, time and connection preferences", "Curiosity notes, private check-in responses and conversation preparation", "Saved opportunities and evidence you record", "A temporary export file while you share it, removed during later cleanup or a full reset"],
+    "processors": ["RevenueCat is contacted only when you choose to check supporter options, buy the optional Supporter Pack or restore a purchase. It may then process an anonymous app user identifier, app and device metadata, product requests, purchase events and entitlement status. Career notes, check-ins, saved opportunities and evidence are never sent to RevenueCat.", "Google Play processes the purchase itself under your Google account.", "When you open an official opportunity page, the address is handed to your browser and that site's own privacy practices apply."],
+    "never": ["No location, contacts, microphone, camera, notifications, health data or sensitive demographic information.", "No analytics, no advertising and no data sale."],
+    "permissions": ["No special device permissions. Internet access is used only for optional supporter purchases and pages you choose to open."],
+    "controls": "You can export your workspace and request a full local reset from Settings. The reset removes your workspace data and the temporary export from the device. It does not remove RevenueCat's own records or Google Play purchase records; to ask about those records, email us. Uninstalling the app also removes its local data."
+   },
+   "tr": {
+    "summary": "Pathways Lab, öğrencilerin olası bir kariyeri yedi günlük bir deneyle sınamasına yardımcı olur. Hesap açmadan kullanabilirsiniz, temel deney çevrimdışı çalışır. Çalışma alanınız cihazınızda kalır. Uygulamada analitik ve reklam yoktur.",
+    "device": ["Deney ilerlemesi, zaman ve bağlantı tercihleri", "Merak notları, özel ara değerlendirme yanıtları ve görüşme hazırlığı", "Kaydettiğiniz fırsatlar ve kanıtlar", "Paylaşım sırasında geçici bir dışa aktarım dosyası; sonraki temizlikte veya tam sıfırlamada kaldırılır"],
+    "processors": ["RevenueCat'e yalnızca destekçi seçeneklerine bakmayı, isteğe bağlı Destekçi Paketi'ni satın almayı veya bir satın almayı geri yüklemeyi seçtiğinizde bağlanılır. Bu durumda anonim bir uygulama kullanıcı kimliği, uygulama ve cihaz üst verileri, ürün istekleri, satın alma olayları ve hak durumu işlenebilir. Kariyer notları, değerlendirmeler, kayıtlı fırsatlar ve kanıtlar RevenueCat'e hiçbir zaman gönderilmez.", "Satın alma işleminin kendisini Google Play, Google hesabınız kapsamında işler.", "Resmî bir fırsat sayfasını açtığınızda adres tarayıcınıza aktarılır ve o sitenin kendi gizlilik uygulamaları geçerli olur."],
+    "never": ["Konum, rehber, mikrofon, kamera, bildirim, sağlık verisi veya hassas demografik bilgi yok.", "Analitik yok, reklam yok, veri satışı yok."],
+    "permissions": ["Özel bir cihaz izni yok. İnternet erişimi yalnızca isteğe bağlı destekçi satın alımları ve açmayı seçtiğiniz sayfalar için kullanılır."],
+    "controls": "Çalışma alanınızı dışa aktarabilir ve Ayarlar'dan tam yerel sıfırlama isteyebilirsiniz. Sıfırlama, çalışma alanı verilerinizi ve geçici dışa aktarımı cihazdan kaldırır. RevenueCat'in kendi kayıtlarını veya Google Play satın alma kayıtlarını silmez; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin. Uygulamayı kaldırmak da yerel verilerini siler."
+   }
+  },
+  {
+   "slug": "platekind",
+   "name": "PlateKind",
+   "package": "com.hezarfen.platekind",
+   "en": {
+    "summary": "PlateKind suggests up to two simple additions to a meal you already have. You can use it without an account. Your meal notes stay on your device. We do not sell data and the app contains no advertising.",
+    "device": ["Meal names, ingredients you select and the setting you choose", "Your answers to the ingredient, allergy and dietary checks, used on the device to decide whether ideas can be shown", "Saved ideas, favorites and personal notes", "A free use counter"],
+    "processors": ["RevenueCat processes an anonymous app user identifier, purchase state and purchase events when an in app purchase is offered, bought or restored through Google Play. Meal content and check answers are never sent to RevenueCat.", "Google Play processes the purchase itself under your Google account."],
+    "never": ["PlateKind does not collect health records, diagnoses or allergy names. You do not need to name an allergy or diagnosis to use the checks.", "No food photos, camera or photo library access.", "No analytics, no advertising and no data sale."],
+    "permissions": ["No special device permissions. Internet access is used only for purchases."],
+    "controls": "You can export your saved meals as a file and delete your local data in the app. Uninstalling the app also removes its local data. Purchase records stay with Google Play and RevenueCat; to ask about those records, email us. PlateKind ideas are general and optional. They are not medical or dietary advice and do not assess allergy safety."
+   },
+   "tr": {
+    "summary": "PlateKind, zaten yediğiniz öğüne en fazla iki basit ekleme önerir. Hesap açmadan kullanabilirsiniz. Öğün notlarınız cihazınızda kalır. Veri satmayız, uygulamada reklam yoktur.",
+    "device": ["Öğün adları, seçtiğiniz malzemeler ve seçtiğiniz ortam", "Malzeme, alerji ve beslenme kontrollerine verdiğiniz yanıtlar; fikir gösterilip gösterilemeyeceğine cihaz üzerinde karar vermek için kullanılır", "Kaydedilen fikirler, favoriler ve kişisel notlar", "Ücretsiz kullanım sayacı"],
+    "processors": ["RevenueCat, bir uygulama içi satın alma sunulduğunda, Google Play üzerinden yapıldığında veya geri yüklendiğinde anonim bir uygulama kullanıcı kimliğini, satın alma durumunu ve satın alma olaylarını işler. Öğün içeriği ve kontrol yanıtları RevenueCat'e hiçbir zaman gönderilmez.", "Satın alma işleminin kendisini Google Play, Google hesabınız kapsamında işler."],
+    "never": ["PlateKind sağlık kaydı, tanı veya alerji adı toplamaz. Kontrolleri kullanmak için bir alerjinin ya da tanının adını vermeniz gerekmez.", "Yemek fotoğrafı, kamera veya galeri erişimi yok.", "Analitik yok, reklam yok, veri satışı yok."],
+    "permissions": ["Özel bir cihaz izni yok. İnternet erişimi yalnızca satın almalar için kullanılır."],
+    "controls": "Kaydettiğiniz öğünleri dosya olarak dışa aktarabilir ve yerel verilerinizi uygulamada silebilirsiniz. Uygulamayı kaldırmak da yerel verilerini siler. Satın alma kayıtları Google Play ve RevenueCat'te kalır; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin. PlateKind fikirleri genel ve isteğe bağlıdır. Tıbbi veya diyet tavsiyesi değildir ve alerji güvenliğini değerlendirmez."
+   }
+  },
+  {
+   "slug": "backlogbloom",
+   "name": "Backlog Bloom",
+   "package": "com.hezarfen.backlogbloom",
+   "en": {
+    "summary": "Backlog Bloom is a calm library for the games you want to play. You can use it without an account. Your library stays on your device. We do not sell data and the app contains no advertising.",
+    "device": ["Games you save: titles, saved web links, status and optional details such as session length and platform", "Your notes, ratings and completion dates", "Your garden and monthly memories, built from games you complete"],
+    "processors": ["The current version does not offer purchases. The app includes the RevenueCat SDK for future optional purchases; if it is used, RevenueCat processes an anonymous app user identifier and purchase information only, never your library.", "Links you open are handed to your browser and that site's own privacy practices apply."],
+    "never": ["No account, no cloud sync in the current version, no analytics, no advertising and no data sale.", "No camera, microphone or broad storage access."],
+    "permissions": ["No special device permissions."],
+    "controls": "You can remove individual games from their details screen. Uninstalling the app removes all of its local data. For any question about your data, email us."
+   },
+   "tr": {
+    "summary": "Backlog Bloom, oynamak istediğiniz oyunlar için sakin bir kitaplıktır. Hesap açmadan kullanabilirsiniz. Kitaplığınız cihazınızda kalır. Veri satmayız, uygulamada reklam yoktur.",
+    "device": ["Kaydettiğiniz oyunlar: başlıklar, kayıtlı web bağlantıları, durum ve oturum süresi, platform gibi isteğe bağlı ayrıntılar", "Notlarınız, puanlarınız ve bitirme tarihleriniz", "Bitirdiğiniz oyunlardan oluşan bahçeniz ve aylık anılarınız"],
+    "processors": ["Mevcut sürüm satın alma sunmaz. Uygulama, ileride isteğe bağlı satın almalar için RevenueCat SDK'sını içerir; kullanılırsa RevenueCat yalnızca anonim bir uygulama kullanıcı kimliğini ve satın alma bilgisini işler, kitaplığınızı asla işlemez.", "Açtığınız bağlantılar tarayıcınıza aktarılır ve o sitenin kendi gizlilik uygulamaları geçerli olur."],
+    "never": ["Hesap yok, mevcut sürümde bulut eşitleme yok, analitik yok, reklam yok, veri satışı yok.", "Kamera, mikrofon veya geniş depolama erişimi yok."],
+    "permissions": ["Özel bir cihaz izni yok."],
+    "controls": "Tek tek oyunları ayrıntı ekranlarından kaldırabilirsiniz. Uygulamayı kaldırmak tüm yerel verilerini siler. Verilerinizle ilgili her soru için bize e-posta gönderin."
+   }
+  }
+ ]
+}

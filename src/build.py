@@ -12,6 +12,11 @@ ROUTES={
 }
 for lang in ('tr','en'):
  for s in DATA[lang]['services']:ROUTES[lang][s['id']]=('tr/cozumler/' if lang=='tr' else 'solutions/')+s['slug']+'.html'
+# App privacy policies: public URLs for Google Play listings (https://oiv.onourimpram.com/legal/<slug>/).
+APP_PRIVACY=json.loads((ROOT/'src/app-privacy.json').read_text(encoding='utf-8'))
+for a in APP_PRIVACY['apps']:
+ ROUTES['en']['app-'+a['slug']]='legal/'+a['slug']+'/index.html';ROUTES['tr']['app-'+a['slug']]='tr/yasal/'+a['slug']+'/index.html'
+def page_url(path):return SITE['url']+'/'+re.sub(r'(^|/)index\.html$',r'\1',path)
 esc=lambda s:html.escape(str(s),quote=True)
 plain=lambda s:re.sub('<[^>]+>',' ',s)
 ARROW='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg>'
@@ -30,7 +35,7 @@ def icon(name,cls='icon'):
 def build(lang,key,body,title,summary=None):
  d=DATA[lang];path=ROUTES[lang][key];depth=len(Path(path).parts)-1;root='../'*depth;other='en' if lang=='tr' else 'tr'
  link=lambda k:root+ROUTES[lang][k]
- canonical=SITE['url']+('/' if key=='home' and lang=='en' else '/tr/' if key=='home' else '/'+path)
+ canonical=page_url(path)
  navkeys=[('home','#solutions'),('work',''),('home','#approach'),('about',''),('resources',''),('contact','')]
  nav=''.join(f'<a href="{link(k)+a}"'+(' aria-current="page"' if key==k and k!='home' else '')+f'>{label}</a>' for (k,a),label in zip(navkeys,d['nav']))
  schema={'@context':'https://schema.org','@type':'Organization','name':SITE['legalName'],'alternateName':SITE['name'],'url':SITE['url'],'email':SITE['email'],'logo':SITE['url']+'/assets/img/oiv-logo.png','identifier':SITE['companyNumber'],'founder':{'@type':'Person','name':'Onour Impram'},'sameAs':['https://find-and-update.company-information.service.gov.uk/company/'+SITE['companyNumber']]}
@@ -44,7 +49,7 @@ def build(lang,key,body,title,summary=None):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>{esc(title)}</title><meta name="description" content="{esc(summary or d['description'])}"><meta name="theme-color" content="#102431"><meta name="color-scheme" content="dark">
-<link rel="canonical" href="{canonical}"><link rel="alternate" hreflang="en" href="{SITE['url']+'/'+ROUTES['en'][key] if key!='home' else SITE['url']+'/'}"><link rel="alternate" hreflang="tr" href="{SITE['url']+'/'+ROUTES['tr'][key] if key!='home' else SITE['url']+'/tr/'}">
+<link rel="canonical" href="{canonical}"><link rel="alternate" hreflang="en" href="{page_url(ROUTES['en'][key])}"><link rel="alternate" hreflang="tr" href="{page_url(ROUTES['tr'][key])}">
 <meta property="og:type" content="website"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(summary or d['description'])}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{SITE['url']}/assets/img/social-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{root}assets/img/favicon.png"><link rel="stylesheet" href="{root}assets/css/site.css"><script defer src="{root}assets/js/core.js"></script><script defer src="{root}assets/js/search-data.js"></script><script defer src="{root}assets/js/site.js"></script>
 <script type="application/ld+json">{json.dumps(schema,ensure_ascii=False)}</script>
@@ -150,13 +155,37 @@ def policies(lang):
   (('Geri bildirim' if tr else 'Feedback'),('Bir erişim sorunu yaşarsanız sayfa adresi, kullandığınız tarayıcı ve sorunun kısa açıklamasıyla onour@onourimpram.com adresine yazabilirsiniz. Bu metin bağımsız erişilebilirlik sertifikası veya tüm cihazlarda uygunluk garantisi değildir.' if tr else 'Report an accessibility issue to onour@onourimpram.com with the page, your browser and a short description. This statement is not independent accessibility certification or a guarantee for every device.'))]
  for key,sections in [('privacy',privacy),('accessibility',accessibility)]:
   body=intro(lang,d[key],d[key],('Web sitesinin nasıl çalıştığına dair açık bilgiler.' if tr else 'Clear information about how this website works.'))
-  body+='<section class="section" data-od-id="policy"><div class="container prose">'+''.join('<h2>'+h+'</h2><p>'+v+'</p>' for h,v in sections)+f'<p class="updated">{SITE["year"]} · {SITE["legalName"]}</p></div></section>'
+  apps=''
+  if key=='privacy':apps='<h2>'+('Uygulama gizlilik politikaları' if tr else 'App privacy policies')+'</h2><ul>'+''.join(f'<li><a href="{link(lang,"app-"+a["slug"])}">{esc(a["name"])}</a></li>' for a in APP_PRIVACY['apps'])+'</ul>'
+  body+='<section class="section" data-od-id="policy"><div class="container prose">'+''.join('<h2>'+h+'</h2><p>'+v+'</p>' for h,v in sections)+apps+f'<p class="updated">{SITE["year"]} · {SITE["legalName"]}</p></div></section>'
   build(lang,key,body,d[key]+' | OIV')
+
+def app_policies(lang):
+ d=DATA[lang];tr=lang=='tr';L=APP_PRIVACY['links'];eff=APP_PRIVACY['effective'][lang]
+ ul=lambda items:'<ul>'+''.join('<li>'+esc(i)+'</li>' for i in items)+'</ul>'
+ for a in APP_PRIVACY['apps']:
+  c=a[lang];name=esc(a['name'])
+  title=(f'{name} gizlilik politikası' if tr else f'{name} privacy policy')
+  lead=(f'Yürürlük tarihi: {eff}. Google Play paket kimliği: {a["package"]}.' if tr else f'Effective {eff}. Google Play package: {a["package"]}.')
+  body=intro(lang,d['privacy'],title,lead)
+  who=(f'{name} uygulamasını, Birleşik Krallık’ta 17429906 şirket numarasıyla kayıtlı {SITE["legalName"]} yayımlar ve bu politikadaki kişisel verilerin sorumlusudur. İletişim: <a href="mailto:{SITE["email"]}">{SITE["email"]}</a>.' if tr else f'{name} is published by {SITE["legalName"]}, a company registered in the United Kingdom under company number 17429906, which is responsible for the personal data described here. Contact: <a href="mailto:{SITE["email"]}">{SITE["email"]}</a>.')
+  sec=[(('Kısaca' if tr else 'In short'),'<p>'+esc(c['summary'])+'</p>'),
+   (('Kimiz' if tr else 'Who we are'),'<p>'+who+'</p>'),
+   (('Cihazınızda kalan veriler' if tr else 'Data that stays on your device'),'<p>'+('Aşağıdaki bilgiler yalnızca cihazınızdaki uygulama depolamasında tutulur ve bize gönderilmez:' if tr else 'The following is stored only in the app’s storage on your device and is not sent to us:')+'</p>'+ul(c['device'])),
+   (('Hizmet sağlayıcılar' if tr else 'Service providers'),ul(c['processors'])+'<p>'+(f'RevenueCat gizlilik politikası: <a href="{L["revenuecat"]}">{L["revenuecat"]}</a>. Google gizlilik politikası: <a href="{L["google"]}">{L["google"]}</a>.' if tr else f'RevenueCat privacy policy: <a href="{L["revenuecat"]}">{L["revenuecat"]}</a>. Google privacy policy: <a href="{L["google"]}">{L["google"]}</a>.')+'</p>'),
+   (('Yapmadıklarımız' if tr else 'What we do not do'),ul(c['never'])),
+   (('İzinler' if tr else 'Permissions'),ul(c['permissions'])),
+   (('Seçimleriniz ve silme' if tr else 'Your choices and deletion'),'<p>'+esc(c['controls'])+'</p>'),
+   (('Haklarınız' if tr else 'Your rights'),'<p>'+('Bulunduğunuz yerdeki veri koruma kurallarına göre kişisel verilerinize erişme, düzeltme, silme ve itiraz etme haklarınız olabilir. Taleplerinizi e-postayla iletin; yanıt vermek için gerekenden fazla bilgi istemeyiz. Birleşik Krallık’ta Information Commissioner’s Office’e şikâyette bulunma hakkınız da vardır.' if tr else 'Depending on where you live, you may have rights to access, correct, delete or object to the processing of your personal data. Send requests by email; we will not ask for more information than we need to respond. In the United Kingdom you can also complain to the Information Commissioner’s Office.')+'</p>'),
+   (('Çocuklar' if tr else 'Children'),'<p>'+(f'{name} 13 yaşın altındaki çocuklara yönelik değildir ve onlardan bilerek kişisel veri toplamaz.' if tr else f'{name} is not directed to children under 13 and does not knowingly collect personal data from them.')+'</p>'),
+   (('Değişiklikler' if tr else 'Changes'),'<p>'+('Bu politikayı uygulamanın veri uygulamaları değiştiğinde, değişiklik yayımlanmadan önce güncelleriz. Yürürlük tarihi sayfanın başında yer alır.' if tr else 'We update this policy before any change to the app’s data practices is released. The effective date is shown at the top of this page.')+'</p>')]
+  body+='<section class="section" data-od-id="policy"><div class="container prose">'+''.join('<h2>'+h+'</h2>'+v for h,v in sec)+f'<p class="updated">{eff} · {SITE["legalName"]}</p></div></section>'
+  build(lang,'app-'+a['slug'],body,title+' | OIV',c['summary'])
 
 
 def main():
  for lang in ('en','tr'):
-  home(lang);work(lang);about(lang);resources(lang);contact(lang);policies(lang)
+  home(lang);work(lang);about(lang);resources(lang);contact(lang);policies(lang);app_policies(lang)
   d=DATA[lang]
   build(lang,'solutions',intro(lang,d['nav'][0],d['solutionsTitle'],d['solutionsText'])+'<section class="section" data-od-id="all-solutions"><div class="container"><h2 class="sr-only">'+d['solutionsLabel']+'</h2>'+solution_cards(lang)+'</div></section>'+cta(lang),d['nav'][0]+' | OIV')
   for s in DATA[lang]['services']:service(lang,s)
@@ -175,7 +204,7 @@ def main():
   lines+=['onour@onourimpram.com',SITE['url'],d['contactPage']['helper']]
   (OUT/f'downloads/oiv-discussion-{lang}.txt').write_text('\n'.join(lines),encoding='utf-8')
  paths=[v for m in ROUTES.values() for v in m.values()]
- sitemap='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('<url><loc>'+SITE['url']+('/' if p=='index.html' else '/tr/' if p=='tr/index.html' else '/'+p)+'</loc></url>\n' for p in paths)+'</urlset>\n'
+ sitemap='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('<url><loc>'+page_url(p)+'</loc></url>\n' for p in paths)+'</urlset>\n'
  (OUT/'sitemap.xml').write_text(sitemap,encoding='utf-8')
  (OUT/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+SITE['url']+'/sitemap.xml\n',encoding='utf-8')
  (OUT/'.nojekyll').touch()

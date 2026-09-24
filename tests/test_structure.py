@@ -11,7 +11,7 @@ class HTML(HTMLParser):
  def select(self,tag,**attrs):return [a for t,a in self.tags if t==tag and all(a.get(k)==v for k,v in attrs.items())]
 class Release(unittest.TestCase):
  def setUp(self):self.pages=[HTML(p) for p in ROOT.rglob('*.html')]
- def test_all_pages_present(self):self.assertEqual(len(self.pages),27)
+ def test_all_pages_present(self):self.assertEqual(len(self.pages),39)
  def test_one_heading_each(self):
   for p in self.pages:self.assertEqual(len(p.select('h1')),1,str(p.path))
  def test_ids_are_unique(self):
@@ -62,7 +62,7 @@ class Release(unittest.TestCase):
    for a in p.select('a'):
     if a.get('href','').startswith('mailto:'):self.assertTrue(a['href'].startswith('mailto:onour@onourimpram.com'))
  def test_sitemap_is_complete(self):
-  self.assertEqual((ROOT/'sitemap.xml').read_text(encoding='utf-8').count('<url>'),26)
+  self.assertEqual((ROOT/'sitemap.xml').read_text(encoding='utf-8').count('<url>'),38)
  def test_search_is_offline(self):
   text=(ROOT/'assets/js/site.js').read_text(encoding='utf-8');self.assertNotIn('fetch(',text);self.assertNotIn('localStorage',text);self.assertNotIn('sessionStorage',text)
 if __name__=='__main__':unittest.main(verbosity=2)
