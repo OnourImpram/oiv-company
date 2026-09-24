@@ -51,6 +51,7 @@ try{
   await check(`${lang}/${w}/one-h1`,'document.querySelectorAll("h1").length===1');
   if(w===1440){
    await check(`${lang}/identity-visible`,`${JSON.stringify(IDENTITY)}.every(s=>document.body.innerText.includes(s))`);
+   await check(`${lang}/reduced-motion-no-animation`,'document.getAnimations().length===0&&!document.documentElement.classList.contains("motion")');
    await check(`${lang}/reduced-motion-content-visible`,'[...document.querySelectorAll("main h1, main h2, main h3, main p")].every(e=>{const s=getComputedStyle(e);return s.opacity!=="0"&&s.visibility!=="hidden";})');
    await evaluate('document.activeElement?.blur();scrollTo(0,0)');await key('Tab');
    await check(`${lang}/focus-ring-visible`,'(()=>{const a=document.activeElement,s=getComputedStyle(a);return a!==document.body&&((s.outlineStyle!=="none"&&parseFloat(s.outlineWidth)>=2)||s.boxShadow!=="none");})()');
@@ -65,6 +66,20 @@ try{
    await check(`${lang}/mobile-menu-escape`,`document.activeElement.id==="menu-toggle"&&!${isOpen}`);
   }
  }
+ // Motion allowed: only transform/opacity animate, frames stay light, the hero pauses offscreen.
+ await send('Emulation.setDeviceMetricsOverride',{width:1440,height:900,deviceScaleFactor:1,mobile:false});
+ await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'}]});
+ await send('Page.navigate',{url:base});
+ for(let i=0;i<100;i++){try{if(await evaluate('document.readyState==="complete"&&document.documentElement.classList.contains("motion")'))break;}catch{}await delay(100);}
+ await delay(1500);
+ await check('motion/hero-animations-running','document.getAnimations().filter(a=>a.playState==="running"&&a.effect.target.closest(".compass")).length>=9');
+ await check('motion/transform-opacity-only','document.getAnimations().every(a=>a instanceof CSSTransition?["transform","opacity"].includes(a.transitionProperty):a.effect.getKeyframes().every(k=>Object.keys(k).every(p=>["offset","easing","composite","computedOffset","transform","opacity"].includes(p))))');
+ const frames=await evaluate('(async()=>{const t=[];let last=performance.now();await new Promise(r=>{const f=n=>{t.push(n-last);last=n;t.length<150?requestAnimationFrame(f):r();};requestAnimationFrame(f);});t.shift();t.sort((a,b)=>a-b);return {n:t.length,median:t[t.length>>1],p95:t[Math.floor(t.length*.95)]};})()');
+ results.push({name:'motion/frame-timing',passed:true,frames});console.log('FRAMES',JSON.stringify(frames));
+ await check('motion/frame-p95-under-50ms',String(frames.p95<50));
+ await screenshot('Motion_A');await delay(4000);await screenshot('Motion_B');
+ await evaluate('scrollTo(0,document.documentElement.scrollHeight)');await delay(400);
+ await check('motion/paused-offscreen','document.getAnimations().filter(a=>a.effect.target.closest(".compass")&&a.effect.getTiming().iterations===Infinity).every(a=>a.playState==="paused")');
  assert.equal(errors.length,0,'No runtime exceptions: '+JSON.stringify(errors).slice(0,500));results.push({name:'no-runtime-exceptions',passed:true});
  await writeFile(out+'/browser-report.json',JSON.stringify({base,mode:process.env.OIV_BASE_URL?'live':'production files on local HTTP',browser:await send('Browser.getVersion'),checks:results},null,2));
  console.log('BROWSER VERIFIED',results.length,'checks');

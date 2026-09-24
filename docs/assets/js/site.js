@@ -141,3 +141,30 @@
     // Never submit via fetch, store form data or report that an email was sent.
   }
 })();
+
+/* motion-2026-09-24: orchestrated hero, paused offscreen and in hidden tabs; static under reduced motion. */
+(() => {
+  'use strict';
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('motion');
+  const compass = document.querySelector('.compass');
+  let visible = true;
+  const sync = () => compass && compass.classList.toggle('is-paused', !visible || document.hidden);
+  if (compass) {
+    new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); }).observe(compass);
+    document.addEventListener('visibilitychange', sync);
+  }
+  const rules = [...document.querySelectorAll('main h1, main h2')].filter(h => getComputedStyle(h, '::before').content !== 'none');
+  const seen = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in-view'); seen.unobserve(e.target); }
+  }), {rootMargin: '0px 0px -10% 0px'});
+  rules.forEach(h => { h.classList.add('rule'); seen.observe(h); });
+  const land = document.querySelector('.hero-landscape'), hero = document.querySelector('.hero');
+  if (land && hero) {
+    let inView = true, queued = false;
+    new IntersectionObserver(entries => { inView = entries[0].isIntersecting; }).observe(hero);
+    const paint = () => { queued = false; const y = Math.min(scrollY, hero.offsetHeight); land.style.transform = `translate3d(0, ${(y * 0.14).toFixed(1)}px, 0) scale(1.06)`; };
+    addEventListener('scroll', () => { if (inView && !queued) { queued = true; requestAnimationFrame(paint); } }, {passive: true});
+    paint();
+  }
+})();
