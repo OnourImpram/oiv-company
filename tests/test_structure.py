@@ -71,6 +71,9 @@ class Release(unittest.TestCase):
    self.assertEqual(re.sub(r'<[^>]+>','',m.group(1)),title.replace('<br>',' '))
    self.assertIn('<ol class="process-list" data-loop>',text)
    self.assertEqual(text.count('<i aria-hidden="true"><b></b></i>'),5)
+   # The cycle's meaning reaches screen readers as one sentence inside the values band.
+   cycle=json.loads((ROOT.parent/'src/content.json').read_text(encoding='utf-8'))[lang]['aboutCycle']
+   self.assertIn('</h2><p class="sr-only">'+cycle+'</p>',text)
  def test_sitemap_is_complete(self):
   self.assertEqual((ROOT/'sitemap.xml').read_text(encoding='utf-8').count('<url>'),38)
  def test_search_is_offline(self):

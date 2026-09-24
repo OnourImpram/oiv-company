@@ -112,6 +112,18 @@ try{
  await check('loop/paused-when-tab-hidden',`(async()=>{Object.defineProperty(document,"hidden",{configurable:true,get:()=>true});document.dispatchEvent(new Event("visibilitychange"));await new Promise(r=>setTimeout(r,100));const ok=${loopAnims}(".cycle").length>=5&&${loopAnims}(".cycle").every(a=>a.playState==="paused");delete document.hidden;document.dispatchEvent(new Event("visibilitychange"));await new Promise(r=>setTimeout(r,100));return ok&&${loopAnims}(".cycle").every(a=>a.playState==="running");})()`);
  await evaluate('scrollTo({top:0,behavior:"instant"})');await delay(400);
  await check('loop/paused-offscreen',`${loopAnims}("[data-loop]").length>=14&&${loopAnims}("[data-loop]").every(a=>a.playState==="paused")`);
+ // WCAG 2.2.2: each loop stops after three laps and settles into its end state. Time is sped up
+ // (playbackRate 24) so three laps take under 2 s; laps only count while the loop is in view.
+ const identity=v=>`(v=>v==="none"||v==="matrix(1, 0, 0, 1, 0, 0)")(${v})`;
+ for(const [name,sel,end] of [
+  ['values','.cycle',`(()=>{const c=document.querySelector(".cycle"),m=new DOMMatrix(getComputedStyle(c.querySelector(".cycle-light")).transform),w=[...c.querySelectorAll(".cycle-w")];return Math.abs(m.m41)<0.5&&Math.abs(m.m42-c.querySelector(".cycle-light").offsetHeight)<0.5&&${identity('getComputedStyle(w[2],"::after").transform')}&&[0,1,3].every(i=>getComputedStyle(w[i],"::after").transform!=="none");})()`],
+  ['process','.process-list',`(()=>{const l=document.querySelector(".process-list");return [...l.querySelectorAll(".step-line span")].every(s=>getComputedStyle(s,"::after").opacity==="1")&&[...l.querySelectorAll(".step-line i b")].slice(0,4).every(b=>{const s=getComputedStyle(b,"::before");return s.opacity==="1"&&${identity('s.transform')};});})()`]]){
+  await evaluate(`document.querySelector(${JSON.stringify(sel)}).scrollIntoView({block:"center",behavior:"instant"})`);await delay(300);
+  await evaluate(`document.getAnimations().filter(a=>a.effect.target.closest(${JSON.stringify(sel)})).forEach(a=>a.playbackRate=24)`);
+  await delay(3500);
+  await check(`loop/${name}/stops-after-3-laps`,`document.querySelector(${JSON.stringify(sel)}).classList.contains("is-done")&&document.getAnimations().filter(a=>a.effect.target.closest(${JSON.stringify(sel)})&&a.playState==="running").length===0`);
+  await check(`loop/${name}/end-state`,end);
+ }
  await evaluate('scrollTo(0,document.documentElement.scrollHeight)');await delay(400);
  await check('motion/paused-offscreen','document.getAnimations().filter(a=>a.effect.target.closest(".compass")&&a.effect.getTiming().iterations===Infinity).every(a=>a.playState==="paused")');
  assert.equal(errors.length,0,'No runtime exceptions: '+JSON.stringify(errors).slice(0,500));results.push({name:'no-runtime-exceptions',passed:true});
