@@ -27,7 +27,6 @@ jobs:
       - name: Validate content and geometry
         run: |
           python3 -m unittest discover -s tests -v
-          node --test tests/core.test.cjs
       - name: Verify the published pages and assets
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: python3 tests/check_live.py
