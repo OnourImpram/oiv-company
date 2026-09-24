@@ -168,3 +168,76 @@
     paint();
   }
 })();
+
+/* orbit-nodes-2026-09-24: nodes travel the orbit and take turns transferring to the middle ring.
+   One rAF loop, transform/opacity only. Held on hover/focus so a node can be clicked; paused
+   offscreen and in hidden tabs; off at 1000px and below where the orbit gets crowded (rings still turn); static under reduced motion. */
+(() => {
+  'use strict';
+  const compass = document.querySelector('.compass');
+  if (!compass || !document.documentElement.classList.contains('motion')) return;
+  const nodes = [...compass.querySelectorAll('.compass-node')];
+  const pulse = () => compass.querySelector('.ring-pulse')?.getAnimations().find(a => a.animationName === 'orbit-cw');
+  const small = matchMedia('(max-width: 1000px)');
+  const OUTER = 160, INNER = 116, TURN = 90000, SLOT = 6000, CYCLE = SLOT * nodes.length, MOVE = 2000, HOLD = 1500;
+  const ease = x => x < 0 ? 0 : x > 1 ? 1 : x * x * (3 - 2 * x);
+  let t = 0, last = 0, raf = 0, held = false, geo = null;
+  const measure = () => {
+    const w = compass.clientWidth, h = compass.clientHeight, s = Math.min(w / 500, h / 440);
+    geo = {cx: w / 2, cy: h / 2, s, home: nodes.map(n => {
+      const cs = getComputedStyle(n), x = parseFloat(cs.left), y = parseFloat(cs.top);
+      return {x, y, a: Math.atan2(y - h / 2, x - w / 2), hw: n.offsetWidth / 2 + 4, hh: n.offsetHeight / 2 + 4};
+    }), keep: [...compass.querySelectorAll('.compass-aside, .compass-quote, .compass-center')].filter(e => e.offsetParent).map(e => {
+      const c = compass.getBoundingClientRect(), r = e.getBoundingClientRect();
+      return {l: r.left - c.left, t: r.top - c.top, r: r.right - c.left, b: r.bottom - c.top};
+    })};
+  };
+  const place = () => {
+    const {cx, cy, s, home} = geo, spin = (t / TURN) * Math.PI * 2;
+    const p = pulse(), T = 24000;
+    const pa = p ? (8 + 360 * ((p.currentTime || 0) % T) / T) * Math.PI / 180 : null;
+    nodes.forEach((n, i) => {
+      const k = (t - i * SLOT) % CYCLE, u = k < 0 ? 0 : k;
+      const inward = ease(u / MOVE) - ease((u - MOVE - HOLD) / MOVE);
+      const r = (OUTER - (OUTER - INNER) * inward) * s * Math.min(1, 0.4 + t / 2500) + Math.hypot(home[i].x - cx, home[i].y - cy) * Math.max(0, 0.6 - t / 2500);
+      const a = home[i].a + spin, {hw, hh} = home[i];
+      const clear = rr => { const px = cx + rr * Math.cos(a), py = cy + rr * Math.sin(a);
+        return !geo.keep.some(k => px - hw < k.r && k.l < px + hw && py - hh < k.b && k.t < py + hh); };
+      let rr = r;
+      if (!clear(rr)) { let lo = rr; for (let d = 4; d < rr; d += 4) { if (clear(rr - d)) { lo = rr - d; break; } } rr = lo; }
+      const x = cx + rr * Math.cos(a) - home[i].x, y = cy + rr * Math.sin(a) - home[i].y;
+      n.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%)`;
+      const icon = n.querySelector('.icon');
+      if (icon && pa !== null) {
+        let d = Math.abs(((a - pa) % (Math.PI * 2) + Math.PI * 3) % (Math.PI * 2) - Math.PI);
+        icon.style.opacity = (0.72 + 0.28 * Math.max(0, 1 - d / 0.35)).toFixed(2);
+      }
+    });
+  };
+  const frame = now => {
+    raf = 0;
+    if (last) t += Math.min(now - last, 100);
+    last = now;
+    place();
+    run();
+  };
+  let visible = true;
+  const run = () => {
+    const go = visible && !document.hidden && !held && !small.matches;
+    if (go && !raf) raf = requestAnimationFrame(frame);
+    if (!go) { if (raf) cancelAnimationFrame(raf); raf = 0; last = 0; }
+  };
+  const reset = () => { if (small.matches) nodes.forEach(n => { n.style.transform = ''; const i = n.querySelector('.icon'); if (i) i.style.opacity = ''; }); };
+  const hold = on => { held = on; compass.classList.toggle('is-held', on); run(); };
+  nodes.forEach(n => {
+    n.addEventListener('pointerenter', () => hold(true));
+    n.addEventListener('pointerleave', () => hold(compass.contains(document.activeElement) && document.activeElement.matches('.compass-node')));
+    n.addEventListener('focus', () => hold(true));
+    n.addEventListener('blur', () => hold(false));
+  });
+  new IntersectionObserver(e => { visible = e[0].isIntersecting; run(); }).observe(compass);
+  document.addEventListener('visibilitychange', run);
+  addEventListener('resize', () => { measure(); reset(); run(); }, {passive: true});
+  small.addEventListener?.('change', () => { reset(); run(); });
+  measure(); reset(); run();
+})();

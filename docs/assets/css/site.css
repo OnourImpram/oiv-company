@@ -433,7 +433,6 @@ main:focus {outline:none}
 @keyframes orbit-ccw {to {transform:rotate(-360deg)}}
 @keyframes ring-in {from {opacity:0}}
 @keyframes node-in {from {opacity:0}}
-@keyframes node-light {0% {opacity:1;transform:scale(1.14)} 16% {opacity:.72;transform:scale(1)} 96% {opacity:.72;transform:scale(1)} 100% {opacity:1;transform:scale(1.14)}}
 .motion .ring {will-change:transform}
 .motion .ring-outer {animation:ring-in .9s var(--ease-out) both,orbit-cw 160s linear infinite}
 .motion .ring-mid {animation:ring-in .9s var(--ease-out) .12s both,orbit-ccw 220s linear infinite}
@@ -443,15 +442,60 @@ main:focus {outline:none}
 .motion .node-ai {animation-delay:.35s}.motion .node-training {animation-delay:.45s}.motion .node-research {animation-delay:.55s}
 .motion .node-evaluation {animation-delay:.65s}.motion .node-workflows {animation-delay:.75s}
 /* The light reaches each node where it sits on the ring (clockwise from 3 o'clock). */
-.motion .compass-node .icon {opacity:.72;animation:node-light var(--orbit) linear infinite}
-.motion .node-research .icon {animation-delay:calc(var(--orbit) * -0.872)}
-.motion .node-evaluation .icon {animation-delay:calc(var(--orbit) * -0.658)}
-.motion .node-workflows .icon {animation-delay:calc(var(--orbit) * -0.514)}
-.motion .node-ai .icon {animation-delay:calc(var(--orbit) * -0.272)}
-.motion .node-training .icon {animation-delay:calc(var(--orbit) * -0.036)}
 .compass-node:hover .icon,.compass-node:focus-visible .icon {opacity:1}
 .compass.is-paused .ring,.compass.is-paused .icon {animation-play-state:paused}
 /* Hairlines draw once when their heading enters; content itself never waits. */
 .motion .rule::before {transform:scaleX(0);transform-origin:left center;transition:transform .9s var(--ease-out)}
 .motion .rule.in-view::before {transform:none}
 .motion .hero-landscape {will-change:transform}
+
+/* orbit-nodes-2026-09-24 */
+/* Nodes travel the orbit (JS sets transform on the upright node box; nothing inside it rotates
+   except the icon's own gentle sway). The light's arrival is computed per frame from the
+   pulse animation's clock, so it still meets each node wherever the node is. */
+@keyframes icon-sway {from {transform:rotate(-9deg)} to {transform:rotate(9deg)}}
+.motion .compass-node {will-change:transform}
+.motion .compass-node .icon {opacity:.72;animation:icon-sway 6.5s ease-in-out infinite alternate}
+.motion .node-training .icon {animation-delay:-1.3s}.motion .node-research .icon {animation-delay:-2.6s}
+.motion .node-evaluation .icon {animation-delay:-3.9s}.motion .node-workflows .icon {animation-delay:-5.2s}
+.motion .compass.is-held .compass-node .icon,.motion .compass.is-paused .compass-node .icon {animation-play-state:paused}
+
+/* night-2026-09-24 */
+/* One night from top to bottom: a fixed backdrop (the mountain photo at its native aspect,
+   extended upward by a gradient of the same palette, never stretched), a navy veil whose
+   density changes by section, gold hairlines between sections. Paper survives as ink. */
+:root {
+  --paper:#15303f; --ink:#eef2f1; --muted:#bccad0; --line:#34505f;
+  --gold-ink:#d3b780; --focus:#d3b780; --error:#f2a99f; --success:#a3d8bf;
+  --veil:color-mix(in srgb,var(--navy) 84%,transparent);
+  --veil-deep:color-mix(in srgb,var(--navy) 72%,transparent);
+  --glass:color-mix(in srgb,#1e3c4d 62%,transparent);
+}
+html {background:var(--navy-deep)}
+body {background:transparent;color:var(--ink)}
+body::before {content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:url('../img/mountains.webp') center bottom/100% auto no-repeat,
+             linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 55%,#1a3342 100%)}
+main>section,.site-footer {background:var(--veil)}
+main>section.dark {background:var(--veil-deep)}
+main>section.hero {background:transparent}
+main>section+section,.site-footer {border-top:1px solid color-mix(in srgb,var(--gold) 26%,transparent)}
+.site-header {background:color-mix(in srgb,var(--navy) 92%,transparent)}
+.app-card,.search-dialog,.founder-panel,.scope-note,.project-emblem {background:var(--glass)}
+.search-dialog {background:var(--paper)}
+p,.footnote,.section-heading>p {color:var(--muted)}
+h1,h2,h3,h4 {color:var(--ink)}
+.dark p {color:var(--light-text)}
+.button-outline {color:var(--ink);border-color:color-mix(in srgb,var(--ink) 55%,transparent)}
+.button-outline:hover,.button-ink,.filter-bar button[aria-pressed="true"] {background:var(--ink);color:var(--navy);border-color:var(--ink)}
+.button-ink:hover {background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.filter-bar button {color:var(--ink)}
+.field input,.field select,.field textarea,#brief-text,#search-input {background:var(--navy-deep);color:var(--ink);border-color:var(--line)}
+::placeholder {color:#9fb0b8;opacity:1}
+.skip-link {background:var(--ink);color:var(--navy)}
+@media print {body::before{display:none}html,main>section,.site-footer{background:white!important}}
+@media(forced-colors:active){body::before{display:none}}
+/* The side list crowds the orbit on narrower screens; its words live on in the philosophy section. */
+@media(max-width:1250px){.compass-aside{display:none}}
+/* At tablet width the quote was clipped by the hero edge and sat on the research node. */
+@media(max-width:1000px){.compass-quote{display:none}}

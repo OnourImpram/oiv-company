@@ -43,7 +43,7 @@ def build(lang,key,body,title,summary=None):
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
-<title>{esc(title)}</title><meta name="description" content="{esc(summary or d['description'])}"><meta name="theme-color" content="#102431"><meta name="color-scheme" content="light">
+<title>{esc(title)}</title><meta name="description" content="{esc(summary or d['description'])}"><meta name="theme-color" content="#102431"><meta name="color-scheme" content="dark">
 <link rel="canonical" href="{canonical}"><link rel="alternate" hreflang="en" href="{SITE['url']+'/'+ROUTES['en'][key] if key!='home' else SITE['url']+'/'}"><link rel="alternate" hreflang="tr" href="{SITE['url']+'/'+ROUTES['tr'][key] if key!='home' else SITE['url']+'/tr/'}">
 <meta property="og:type" content="website"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(summary or d['description'])}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{SITE['url']}/assets/img/social-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{root}assets/img/favicon.png"><link rel="stylesheet" href="{root}assets/css/site.css"><script defer src="{root}assets/js/core.js"></script><script defer src="{root}assets/js/search-data.js"></script><script defer src="{root}assets/js/site.js"></script>

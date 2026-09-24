@@ -78,6 +78,21 @@ try{
  results.push({name:'motion/frame-timing',passed:true,frames});console.log('FRAMES',JSON.stringify(frames));
  await check('motion/frame-p95-under-50ms',String(frames.p95<50));
  await screenshot('Motion_A');await delay(4000);await screenshot('Motion_B');
+ // Orbiting nodes: over sampled frames they move, never overlap each other, the mark or the
+ // side notes, and stay upright; hovering one holds the orbit so it can be clicked.
+ const orbitProbe=`(async()=>{const q=s=>[...document.querySelectorAll(s)].filter(e=>e.offsetParent);const box=(e,i=0)=>{const r=e.getBoundingClientRect();return{l:r.left+i,t:r.top+i,r:r.right-i,b:r.bottom-i};};const hit=(a,b)=>a.l<b.r&&b.l<a.r&&a.t<b.b&&b.t<a.b;const upright=e=>{const m=new DOMMatrix(getComputedStyle(e).transform);return Math.abs(m.b)<1e-3&&Math.abs(m.c)<1e-3;};const nodes=q('.compass-node'),first=nodes.map(n=>box(n));let moved=0,overlap=[],tilted=0;for(let k=0;k<24;k++){await new Promise(r=>setTimeout(r,250));const bx=nodes.map(n=>box(n,6));const others=[...q('.compass-center img'),...q('.compass-aside'),...q('.compass-quote')].map(e=>box(e));for(let i=0;i<bx.length;i++){for(let j=i+1;j<bx.length;j++)if(hit(bx[i],bx[j]))overlap.push(k+':'+i+'x'+j);others.forEach((o,j)=>{if(hit(bx[i],o))overlap.push(k+':'+i+'xo'+j);});if(!upright(nodes[i])||[...nodes[i].querySelectorAll('span')].some(s=>!upright(s)))tilted++;}}nodes.forEach((n,i)=>{const b=box(n);if(Math.hypot(b.l-first[i].l,b.t-first[i].t)>5)moved++;});return{n:nodes.length,moved,overlap:overlap.slice(0,5),tilted};})()`;
+ for(const w of [1440,1024,768]){
+  await send('Emulation.setDeviceMetricsOverride',{width:w,height:900,deviceScaleFactor:1,mobile:false});await evaluate('scrollTo(0,0);dispatchEvent(new Event("resize"))');await delay(300);
+  const o=await evaluate(orbitProbe);results.push({name:`orbit/${w}/probe`,passed:true,o});console.log('ORBIT',w,JSON.stringify(o));
+  await check(`orbit/${w}/nodes-${w>1000?"move":"fixed"}`,String(o.n===5&&o.moved===(w>1000?5:0)));
+  await check(`orbit/${w}/no-overlap`,String(o.overlap.length===0));
+  await check(`orbit/${w}/upright`,String(o.tilted===0));
+ }
+ await send('Emulation.setDeviceMetricsOverride',{width:1440,height:900,deviceScaleFactor:1,mobile:false});await evaluate('dispatchEvent(new Event("resize"))');await delay(300);
+ const nb=await evaluate('(()=>{const r=document.querySelector(".node-ai").getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2};})()');
+ await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:nb.x,y:nb.y});await delay(200);
+ await check('orbit/hover-holds','(async()=>{const e=document.querySelector(".node-ai"),a=e.getBoundingClientRect();await new Promise(r=>setTimeout(r,600));const b=e.getBoundingClientRect();return Math.abs(a.left-b.left)<0.5&&Math.abs(a.top-b.top)<0.5;})()');
+ await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:5,y:880});
  await evaluate('scrollTo(0,document.documentElement.scrollHeight)');await delay(400);
  await check('motion/paused-offscreen','document.getAnimations().filter(a=>a.effect.target.closest(".compass")&&a.effect.getTiming().iterations===Infinity).every(a=>a.playState==="paused")');
  assert.equal(errors.length,0,'No runtime exceptions: '+JSON.stringify(errors).slice(0,500));results.push({name:'no-runtime-exceptions',passed:true});
