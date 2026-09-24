@@ -77,8 +77,10 @@ class Contract(unittest.TestCase):
         play_ids = {re.search(r"id=([a-z0-9._]+)", a["href"]).group(1)
                     for p in site for a in p.all("a") if "play.google.com/store/apps/details" in a.get("href", "")}
         self.assertEqual(play_ids, ON_PLAY)
+        # Privacy and legal pages name every app; a listing must come from the home or work page.
+        listing = [Page(ROOT / f) for f in ("index.html", "work.html", "tr/index.html", "tr/calismalar.html")]
         for lang in ("en", "tr"):
-            text = " ".join(p.body_text for p in site if p.all("html")[0].get("lang") == lang)
+            text = " ".join(p.body_text for p in listing if p.all("html")[0].get("lang") == lang)
             for app in NOT_ON_PLAY + IN_DEVELOPMENT:
                 self.assertIn(app, text, f"{lang}: {app} listed")
 
