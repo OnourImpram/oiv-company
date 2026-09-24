@@ -566,4 +566,14 @@ h1,h2,h3,h4 {color:var(--ink)}
 .solution-card .icon {transition:transform .22s var(--ease-out);transform-origin:50% 100%}
 .solution-card:focus-within .icon {transform:translateY(-3px) scale(1.06)}
 @media(hover:hover) and (pointer:fine){.solution-card:hover .icon{transform:translateY(-3px) scale(1.06)}}
-@media(forced-colors:active){.cycle-track,.step-line i b{display:none}}
+@media(forced-colors:active){.cycle-track,.step-line i b{display:none}}/* motion-a11y-2026-09-24: WCAG 2.2.2. Each loop stops after three full laps (counted by JS on
+   running time only) and settles into its end state; the hero orbit is unchanged. */
+.motion [data-loop].is-done .cycle-light,.motion [data-loop].is-done .cycle-w::after,
+.motion [data-loop].is-done .step-line span::after,.motion [data-loop].is-done .step-line i b::before {animation:none}
+.motion .process-list.is-done .step-line span::after {opacity:1;transform:none;transition:opacity .5s var(--ease-out)}
+.motion .process-list.is-done .step-line i b::before {opacity:1;transform:none;transition:transform .6s var(--ease-out)}
+.motion .process-list.is-done li:nth-child(2) span::after,.motion .process-list.is-done li:nth-child(1) b::before {transition-delay:.15s}
+.motion .process-list.is-done li:nth-child(3) span::after,.motion .process-list.is-done li:nth-child(2) b::before {transition-delay:.3s}
+.motion .process-list.is-done li:nth-child(4) span::after,.motion .process-list.is-done li:nth-child(3) b::before {transition-delay:.45s}
+.motion .process-list.is-done li:nth-child(5) span::after,.motion .process-list.is-done li:nth-child(4) b::before {transition-delay:.6s}
+.motion .cycle.is-done .cycle-w:nth-child(3)::after {transition:transform .5s var(--ease-out)}

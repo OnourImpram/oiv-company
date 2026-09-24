@@ -256,3 +256,19 @@
   document.addEventListener('visibilitychange', sync);
   sync();
 })();
+/* motion-a11y-2026-09-24: WCAG 2.2.2. A loop counts laps of its reference animation (paused
+   time does not count) and after three it settles into its static end state via .is-done. */
+(() => {
+  'use strict';
+  if (!document.documentElement.classList.contains('motion')) return;
+  const LAPS = 3;
+  document.querySelectorAll('[data-loop]').forEach(el => {
+    const ref = el.classList.contains('cycle') ? 'cycle-light' : 'step-ring';
+    const first = el.querySelector('.cycle-light, .step-line span');
+    let laps = 0;
+    el.addEventListener('animationiteration', e => {
+      if (e.animationName !== ref || e.target !== first) return;
+      if (++laps >= LAPS) el.classList.add('is-done');
+    });
+  });
+})();

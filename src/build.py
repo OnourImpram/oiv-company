@@ -108,7 +108,7 @@ def home(lang):
 <section class="section solutions" id="solutions" data-od-id="solutions"><div class="container"><div class="section-heading"><div><h2>{d['solutionsTitle']}</h2></div><p>{d['solutionsText']}</p>{textlink(d['allSolutions'],link(lang,'solutions'))}</div>{solution_cards(lang)}</div></section>
 <section class="purpose dark section" id="purpose" data-od-id="purpose"><div class="container purpose-grid"><h2>{d['purposeTitle']}</h2>{purpose}</div></section>
 <section class="section process" id="approach" data-od-id="process"><div class="container"><div class="section-heading"><div><h2>{d['processTitle']}</h2></div><p>{d['processText']}</p>{textlink(d['processLink'],link(lang,'about','#method'))}</div>{process(lang)}</div></section>
-<section class="section philosophy dark" data-od-id="philosophy"><div class="container ethos"><div class="ethos-copy"><h2>{cycle_title(d['aboutTitle'])}</h2><p>{d['aboutText']}</p></div>{ethos_values(d['aboutValues'])}</div></section>{cta(lang)}'''
+<section class="section philosophy dark" data-od-id="philosophy"><div class="container ethos"><div class="ethos-copy"><h2>{cycle_title(d['aboutTitle'])}</h2><p class="sr-only">{d['aboutCycle']}</p><p>{d['aboutText']}</p></div>{ethos_values(d['aboutValues'])}</div></section>{cta(lang)}'''
  build(lang,'home',body,d['homeTitle'])
 
 def intro(lang,label,title,lead):
