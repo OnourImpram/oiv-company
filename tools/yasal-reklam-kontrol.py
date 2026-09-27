@@ -38,6 +38,7 @@ def targets():
         t.append((a, "tr", f"{OIV}/tr/yasal/{a}/"))
     for a in WAVE:
         t.append((a, "en", f"{OIV}/legal/{a}/"))
+        t.append((a, "tr", f"{OIV}/tr/yasal/{a}/"))
     for lang in KINLORE_LANGS:
         t.append(("kinlore", lang, f"https://onourimpram.com/legal/kinlore/{lang}"))
     return t

@@ -11,7 +11,8 @@ class HTML(HTMLParser):
  def select(self,tag,**attrs):return [a for t,a in self.tags if t==tag and all(a.get(k)==v for k,v in attrs.items())]
 class Release(unittest.TestCase):
  def setUp(self):self.pages=[HTML(p) for p in ROOT.rglob('*.html')]
- def test_all_pages_present(self):self.assertEqual(len(self.pages),39)
+ # 39 built pages + 11 EN and 11 TR app policies from tools/yasal-sayfa-uret.py.
+ def test_all_pages_present(self):self.assertEqual(len(self.pages),61)
  def test_one_heading_each(self):
   for p in self.pages:self.assertEqual(len(p.select('h1')),1,str(p.path))
  def test_ids_are_unique(self):

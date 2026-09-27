@@ -2,7 +2,8 @@
 """Generate privacy policy + terms pages for the 10 Clocktopus Shipaton apps (2026-09-27).
 
 Template: docs/legal/managergym/index.html (header, footer and head are reused; <main> is rewritten).
-Output:  docs/legal/<id>/index.html  (privacy at top, terms at #terms).
+Output:  docs/legal/<id>/index.html and docs/tr/yasal/<id>/index.html (privacy at top, terms at #terms).
+         The Turkish template is docs/tr/yasal/managergym/index.html.
 Run:     python tools/yasal-sayfa-uret.py            (writes all 10)
          python tools/yasal-sayfa-uret.py --check    (rc=1 if any page is missing or stale)
 """
@@ -13,6 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "docs" / "legal" / "managergym" / "index.html"
+TEMPLATE_TR = ROOT / "docs" / "tr" / "yasal" / "managergym" / "index.html"
 DATE = "27 September 2026"
 
 APPS = [
@@ -93,9 +95,83 @@ def page(tpl, pid, name, what, kind="selfhelp"):
     t = re.sub(r'(<meta (?:name="description"|property="og:description") content=")[^"]*"', lambda m: m.group(1) + html.escape(summary) + '"', t)
     t = re.sub(r'(<meta property="og:title" content=")[^"]*"', lambda m: m.group(1) + html.escape(title) + '"', t)
     t = t.replace("/legal/managergym/", f"/legal/{pid}/").replace('data-page="app-managergym"', f'data-page="app-{pid}"')
-    t = re.sub(r'<link rel="alternate" hreflang="tr"[^>]*>', "", t)
-    t = re.sub(r'<a href="../../tr/yasal/managergym/index.html"[^>]*>TR</a>', "", t)
-    t = t.replace("../../legal/managergym/index.html", f"../../legal/{pid}/index.html")
+    t = t.replace("/tr/yasal/managergym/", f"/tr/yasal/{pid}/")
+    assert "managergym" not in t.lower(), pid
+    return t
+
+
+# Turkish pages (2026-09-27): same facts as the English page, written as Turkish, not translated line by line.
+TR_WHAT = {
+    "tidemind": "bugüne neyin sığacağını seçmenize yardım eden sakin bir gün planlayıcısıdır",
+    "glowfox": "sakin bir gece rutini kurmanız için akşamları size eşlik eden bir uygulamadır",
+    "bloombyte": "bildirimleri ve dijital dikkatinizi yönetmeyi denediğiniz bir alıştırma alanıdır",
+    "orbitpal": "işlere küçük ve istediğiniz an durdurabileceğiniz adımlarla başlamanızı kolaylaştıran bir odak arkadaşıdır",
+    "mossloop": "yoğun günlerde mola ve destek için yer açmanıza yardım eden bir uygulamadır",
+    "pulsepatch": "duygularınızı adlandırıp bir baş etme adımı seçtiğiniz bir alıştırma alanıdır",
+    "nestnote": "gündelik konuşmaları ve kişisel sınırlarınızı prova ettiğiniz bir alandır",
+    "pebblepath": "ceza olmadan yeniden başlamanıza izin veren küçük alışkanlıklar uygulamasıdır",
+    "sproutsprint": "gün içinde herkesin yapabileceği hareket molaları öneren bir uygulamadır",
+    "echoharbor": "iş sınırları, açık talepler ve dinlenme konusunda size eşlik eden bir uygulamadır",
+    "jarwise": "aylık paranızı görsel kavanozlara bölen, çevrimdışı çalışan bir zarf bütçesi uygulamasıdır",
+}
+TR_DATE = "27 Eylül 2026"
+
+
+def tr_ads_block(name, kind="selfhelp"):
+    keep = "Bütçe kayıtlarınız" if kind == "finance" else "Girdileriniz ve ilerlemeniz"
+    paras = [
+        f"{name} uygulamasının ücretsiz sürümü Google AdMob reklamları gösterir. {name} Premium bütün reklamları "
+        "kaldırır: Premium etkinken uygulama hiçbir reklam istemez ve göstermez.",
+        "Google Mobile Ads SDK, reklamları göstermek, ölçmek ve sınırlamak ve sahteciliği önlemek için şu verileri "
+        "toplar ve Google ile paylaşır: cihazınızın reklam kimliği; Google&#x27;ın yaklaşık konum çıkardığı IP "
+        "adresiniz; cihaz modeli, işletim sistemi, dil ve uygulama sürümü gibi cihaz ve uygulama bilgileri; çökme ve "
+        "performans kayıtları gibi tanılama verileri; size hangi reklamların gösterildiği ve onlara dokunup "
+        "dokunmadığınız. Google bu verileri reklamcılık, analiz ve sahtecilik önleme amacıyla kendi gizlilik "
+        "politikası kapsamında kullanır.",
+        "Avrupa Ekonomik Alanı, Birleşik Krallık veya İsviçre&#x27;deyseniz uygulama önce Google&#x27;ın onay formunu "
+        "(User Messaging Platform) gösterir ve reklamı yalnızca Google&#x27;ın onay durumu izin verdiğinde ister. "
+        "Kişiselleştirilmiş reklamları kabul etmezseniz Google yine kişiselleştirilmemiş reklam gösterebilir; bu "
+        "reklamlar aynı teknik verileri gösterim, sıklık sınırı, raporlama ve sahtecilik önleme için kullanır ama "
+        "geçmiş etkinliğinize dayanmaz. Bu bölgelerin dışında reklamlar kişiselleştirilebilir.",
+        f"{keep} AdMob&#x27;a ya da herhangi bir reklamverene hiçbir zaman gönderilmez.",
+    ]
+    return "<h2>Reklamlar</h2>" + "".join(f"<p>{p}</p>" for p in paras)
+
+
+def tr_main_block(pid, name, kind="selfhelp"):
+    e = html.escape
+    fin = kind == "finance"
+    summary = (f"{name}, {TR_WHAT[pid]}. Hesap açmadan kullanabilirsiniz. "
+               + ("Bütçeniz cihazınızda kalır." if fin else "İlerlemeniz cihazınızda kalır.")
+               + f" Ücretsiz sürümde reklam gösterilir; {name} Premium reklamları kaldırır ve "
+               + ("ek özellikleri" if fin else "ek içerikleri") + " açar. Veri satmayız.")
+    stored = ("Gelirleriniz, kavanozlarınız, harcamalarınız, notlarınız, ay geçmişiniz, tekrarlayan kayıtlarınız, para "
+              "birimi, dil, tema ve hatırlatıcı ayarlarınız yalnızca cihazınızdaki uygulama depolamasında tutulur ve bize "
+              "gönderilmez. Dışa aktardığınız JSON ve CSV yedekleri şifrelenmez; kiminle paylaşacağınıza siz karar "
+              "verirsiniz." if fin else
+              "Ders ilerlemeniz, uygulamada oluşturduğunuz girdiler, dil, tema ve hatırlatıcı ayarlarınız yalnızca "
+              "cihazınızdaki uygulama depolamasında tutulur ve bize gönderilmez.")
+    never = ("<li>Bankalara bağlanmayız; banka giriş bilgilerinizi, kart ya da hesap numaralarınızı asla istemeyiz.</li>"
+             if fin else "<li>Sağlık kaydı, tanı ya da rehber bilgisi istemeyiz.</li>")
+    first_term = (f"{e(name)} kişisel bir bütçe aracıdır. Finansal, yatırım, vergi, kredi ya da hukuki danışmanlık vermez, "
+                  "banka hesaplarına bağlanmaz ve para transferi yapmaz. Paranızla ilgili kararlar size aittir." if fin else
+                  f"{e(name)} genel öz yardım bilgisi ve alıştırma araçları sunar. Tıbbi, psikolojik ya da başka bir "
+                  "profesyonel tavsiye, tanı veya tedavi yerine geçmez. Kriz içindeyseniz bulunduğunuz ülkenin acil "
+                  "yardım numarasını ya da bir kriz hattını arayın.")
+    return summary, f"""<main id="main" tabindex="-1"><section class="inner-hero dark section" data-od-id="intro"><div class="container"><div class="breadcrumb"><a href="../../../tr/index.html">Ana sayfa</a><span aria-hidden="true">/</span><span>Gizlilik ve koşullar</span></div><h1>{e(name)} gizlilik politikası ve kullanım koşulları</h1><p class="inner-lead">Yürürlük tarihi: {TR_DATE}. Google Play paket kimliği: com.hezarfen.{pid}.</p></div></section><section class="section" data-od-id="policy"><div class="container prose"><h2>Kısaca</h2><p>{e(summary)}</p><h2>Kimiz</h2><p>{e(name)} uygulamasını, Birleşik Krallık&#x27;ta 17429906 şirket numarasıyla kayıtlı ONOUR IMPRAM VENTURES LTD yayımlar ve burada anlatılan kişisel verilerin sorumlusudur. İletişim: <a href="mailto:onour@onourimpram.com">onour@onourimpram.com</a>.</p><h2>Cihazınızda kalan veriler</h2><p>{stored}</p><h2>Hizmet sağlayıcılar</h2><ul><li><strong>Google AdMob</strong> ücretsiz sürümde reklam gösterir. AdMob, reklamları sunmak, ölçmek ve yalnızca onayınız varsa kişiselleştirmek için cihazınızın reklam kimliğini, IP adresinizi, cihaz ve uygulama bilgilerini ve reklam etkileşim verilerini toplayabilir. Yasanın gerektirdiği yerlerde onay, Google&#x27;ın onay formuyla (User Messaging Platform) istenir ve bu tercihi Ayarlar&#x27;dan değiştirebilirsiniz.</li><li><strong>RevenueCat</strong>, {e(name)} Premium&#x27;un Google Play üzerinden satın alınabilmesi ve geri yüklenebilmesi için anonim bir uygulama kullanıcı kimliğini, satın alma durumunu ve satın alma olaylarını işler. Girdileriniz ve ilerlemeniz RevenueCat&#x27;e hiçbir zaman gönderilmez.</li><li><strong>Google Play</strong> satın alma işleminin kendisini Google hesabınız kapsamında işler.</li></ul><p>Google gizlilik politikası: <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>. Google&#x27;ın iş ortağı uygulamalardan gelen verileri nasıl kullandığı: <a href="https://policies.google.com/technologies/partner-sites">https://policies.google.com/technologies/partner-sites</a>. RevenueCat gizlilik politikası: <a href="https://www.revenuecat.com/privacy">https://www.revenuecat.com/privacy</a>.</p><h2>Yapmadıklarımız</h2><ul><li>Hesap yok, bulut eşitleme yok, kendimize ait bir analitik hizmeti yok.</li>{never}<li>Kişisel veri satmayız.</li></ul><h2>İzinler</h2><ul><li>Bildirimler, yalnızca hatırlatıcıları açarsanız. Hatırlatıcılar cihazınızda planlanır.</li><li>İnternet ve reklam kimliği; yukarıda anlatılan reklam ve satın alma hizmetleri tarafından kullanılır.</li></ul><h2>Seçimleriniz ve silme</h2><p>Verilerinizi Ayarlar&#x27;dan sıfırlayabilirsiniz. Uygulamayı kaldırmak yerel verilerini de siler. Reklam kimliğinizi cihaz ayarlarından sıfırlayabilir veya silebilirsiniz. Satın alma kayıtları Google Play ve RevenueCat&#x27;te kalır; bu kayıtlarla ilgili sorularınız için bize e-posta gönderin.</p><h2>Haklarınız</h2><p>Bulunduğunuz yerin veri koruma kurallarına göre kişisel verilerinize erişme, düzeltme, silme ve işlenmesine itiraz etme haklarınız olabilir. Taleplerinizi e-postayla iletin. Birleşik Krallık&#x27;ta Information Commissioner&#x27;s Office&#x27;e şikâyette de bulunabilirsiniz.</p><h2>Çocuklar</h2><p>{e(name)} yetişkinler için tasarlanmıştır ve 13 yaşın altındaki çocuklara yönelik değildir.</p><h2 id="terms">Kullanım koşulları</h2><ul><li>{first_term}</li><li>{e(name)} Premium, Google Play üzerinden faturalandırılan ve kendiliğinden yenilenen bir aboneliktir. Fiyat ve dönem satın almadan önce gösterilir. Aboneliği Google Play&#x27;den istediğiniz zaman iptal edebilirsiniz; erişiminiz ödenmiş dönemin sonuna kadar sürer. İadeler Google Play&#x27;in iade politikasına tabidir.</li><li>Uygulama ve içeriği olduğu gibi sunulur. Yasanın izin verdiği ölçüde ONOUR IMPRAM VENTURES LTD, kullanımdan doğan dolaylı zararlardan sorumlu değildir. Bu koşulların hiçbiri tüketici mevzuatından doğan haklarınızı sınırlamaz.</li><li>Bu koşullar İngiltere ve Galler hukukuna tabidir.</li></ul><h2>Değişiklikler</h2><p>Uygulamanın veri uygulamalarındaki bir değişiklik yayımlanmadan önce bu sayfayı güncelleriz. Yürürlük tarihi sayfanın başında yer alır.</p><p class="updated">{TR_DATE} · ONOUR IMPRAM VENTURES LTD</p></div></section></main>"""
+
+
+def tr_page(tpl, pid, name, kind="selfhelp"):
+    summary, main = tr_main_block(pid, name, kind)
+    assert main.count("<h2>Yapmadıklarımız</h2>") == 1, pid
+    main = main.replace("<h2>Yapmadıklarımız</h2>", tr_ads_block(name, kind) + "<h2>Yapmadıklarımız</h2>")
+    t = re.sub(r"<main id=\"main\".*?</main>", lambda _: main, tpl, flags=re.S)
+    title = f"{name} gizlilik politikası ve kullanım koşulları | OIV"
+    t = re.sub(r"<title>.*?</title>", f"<title>{html.escape(title)}</title>", t)
+    t = re.sub(r'(<meta (?:name="description"|property="og:description") content=")[^"]*"', lambda m: m.group(1) + html.escape(summary) + '"', t)
+    t = re.sub(r'(<meta property="og:title" content=")[^"]*"', lambda m: m.group(1) + html.escape(title) + '"', t)
+    t = t.replace("/legal/managergym/", f"/legal/{pid}/").replace("/tr/yasal/managergym/", f"/tr/yasal/{pid}/")
+    t = t.replace('data-page="app-managergym"', f'data-page="app-{pid}"')
     assert "managergym" not in t.lower(), pid
     return t
 
@@ -106,17 +182,19 @@ def main(argv):
         print("unknown flag:", bad[0])
         return 2
     tpl = TEMPLATE.read_text(encoding="utf-8")
+    tpl_tr = TEMPLATE_TR.read_text(encoding="utf-8")
     stale = []
     for pid, name, what, kind in [(*a, "selfhelp") for a in APPS] + [(*a, "finance") for a in FINANCE_APPS]:
-        out = ROOT / "docs" / "legal" / pid / "index.html"
-        want = page(tpl, pid, name, what, kind)
-        if "--check" in argv:
-            if not out.exists() or out.read_text(encoding="utf-8") != want:
-                stale.append(pid)
-            continue
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(want, encoding="utf-8")
-        print("wrote", out.relative_to(ROOT))
+        for out, want in [(ROOT / "docs" / "legal" / pid / "index.html", page(tpl, pid, name, what, kind)),
+                          (ROOT / "docs" / "tr" / "yasal" / pid / "index.html", tr_page(tpl_tr, pid, name, kind))]:
+            if "--check" in argv:
+                if not out.exists() or out.read_text(encoding="utf-8") != want:
+                    stale.append(str(out.relative_to(ROOT)))
+                continue
+            out.parent.mkdir(parents=True, exist_ok=True)
+            # newline="\n": the repository stores LF (.gitattributes eol=lf); Windows text mode would write CRLF.
+            out.write_text(want, encoding="utf-8", newline="\n")
+            print("wrote", out.relative_to(ROOT))
     if "--check" in argv:
         print("STALE/MISSING:", stale or "none")
         return 1 if stale else 0
