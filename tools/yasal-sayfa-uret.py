@@ -27,17 +27,42 @@ APPS = [
     ("sproutsprint", "SproutSprint", "a companion for accessible movement breaks during the day"),
     ("echoharbor", "EchoHarbor", "a companion for work boundaries, clear requests and rest"),
 ]
+# Money apps get their own wording for stored data, what we never ask for, and the first term (2026-09-27, JarWise).
+FINANCE_APPS = [
+    ("jarwise", "JarWise", "an offline envelope-budgeting app that splits your monthly money into visual jars"),
+]
+FINANCE = {
+    "progress": "Your budget stays on your device.",
+    "extra": "extra features",
+    "stored": ("Your income, jars, expenses, notes, month history, recurring entries, currency, language, theme and "
+               "reminder settings are stored only in the app&#x27;s storage on your device and are not sent to us. "
+               "JSON and CSV backups you export are not encrypted; you choose where to share them."),
+    "never": "<li>We do not connect to banks and never ask for bank logins, card numbers or account numbers.</li>",
+    "first_term": ("{n} is a personal budgeting tool. It does not provide financial, investment, tax, credit or legal "
+                   "advice, it does not connect to bank accounts and it does not move money. Decisions about your "
+                   "money remain yours."),
+}
 
 
-def main_block(pid, name, what):
+def main_block(pid, name, what, kind="selfhelp"):
     e = html.escape
-    summary = (f"{name} is {what}. You can use it without an account. Your progress stays on your device. "
-               f"The free version shows ads; {name} Premium removes ads and unlocks extra content. We do not sell data.")
-    return summary, f"""<main id="main" tabindex="-1"><section class="inner-hero dark section" data-od-id="intro"><div class="container"><div class="breadcrumb"><a href="../../index.html">Home</a><span aria-hidden="true">/</span><span>Privacy and terms</span></div><h1>{e(name)} privacy policy and terms</h1><p class="inner-lead">Effective {DATE}. Google Play package: com.hezarfen.{pid}.</p></div></section><section class="section" data-od-id="policy"><div class="container prose"><h2>In short</h2><p>{e(summary)}</p><h2>Who we are</h2><p>{e(name)} is published by ONOUR IMPRAM VENTURES LTD, a company registered in the United Kingdom under company number 17429906, which is responsible for the personal data described here. Contact: <a href="mailto:onour@onourimpram.com">onour@onourimpram.com</a>.</p><h2>Data that stays on your device</h2><p>Your lesson progress, the entries you create in the app, your language, theme and reminder settings are stored only in the app&#x27;s storage on your device and are not sent to us.</p><h2>Service providers</h2><ul><li><strong>Google AdMob</strong> shows ads in the free version. AdMob may collect your device&#x27;s advertising ID, IP address, device and app information, and ad interaction data to serve, measure and, only with your consent, personalise ads. Consent is requested through Google&#x27;s consent form (User Messaging Platform) where the law requires it, and you can change it in Settings.</li><li><strong>RevenueCat</strong> processes an anonymous app user identifier, purchase state and purchase events so that {e(name)} Premium can be bought and restored through Google Play. Your entries and progress are never sent to RevenueCat.</li><li><strong>Google Play</strong> processes the purchase itself under your Google account.</li></ul><p>Google privacy policy: <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>. How Google uses data from partner apps: <a href="https://policies.google.com/technologies/partner-sites">https://policies.google.com/technologies/partner-sites</a>. RevenueCat privacy policy: <a href="https://www.revenuecat.com/privacy">https://www.revenuecat.com/privacy</a>.</p><h2>What we do not do</h2><ul><li>No account, no cloud sync and no analytics service of our own.</li><li>We do not ask for health records, diagnoses or contact lists.</li><li>We do not sell personal data.</li></ul><h2>Permissions</h2><ul><li>Notifications, only if you turn on reminders. Reminders are scheduled on your device.</li><li>Internet and advertising ID, used by the ad and purchase services described above.</li></ul><h2>Your choices and deletion</h2><p>You can reset your data from Settings. Uninstalling the app removes its local data. You can reset or delete your advertising ID in your device settings. Purchase records stay with Google Play and RevenueCat; to ask about those records, email us.</p><h2>Your rights</h2><p>Depending on where you live, you may have rights to access, correct, delete or object to the processing of your personal data. Send requests by email. In the United Kingdom you can also complain to the Information Commissioner&#x27;s Office.</p><h2>Children</h2><p>{e(name)} is intended for adults and is not directed to children under 13.</p><h2 id="terms">Terms of use</h2><ul><li>{e(name)} offers general self-help education and practice tools. It is not medical, psychological or other professional advice, diagnosis or treatment. If you are in crisis, contact your local emergency number or a crisis line in your country.</li><li>{e(name)} Premium is an auto-renewing subscription billed through Google Play. The price and period are shown before you buy. You can cancel at any time in Google Play; access continues until the end of the paid period. Refunds follow Google Play&#x27;s refund policy.</li><li>The app and its content are provided as is. To the extent permitted by law, ONOUR IMPRAM VENTURES LTD is not liable for indirect or consequential loss arising from its use. Nothing in these terms limits rights you have under consumer law.</li><li>These terms are governed by the laws of England and Wales.</li></ul><h2>Changes</h2><p>We update this page before any change to the app&#x27;s data practices is released. The effective date is shown at the top of this page.</p><p class="updated">{DATE} · ONOUR IMPRAM VENTURES LTD</p></div></section></main>"""
+    fin = kind == "finance"
+    summary = (f"{name} is {what}. You can use it without an account. "
+               + (FINANCE["progress"] if fin else "Your progress stays on your device.")
+               + f" The free version shows ads; {name} Premium removes ads and unlocks "
+               + (FINANCE["extra"] if fin else "extra content") + ". We do not sell data.")
+    stored = FINANCE["stored"] if fin else ("Your lesson progress, the entries you create in the app, your language, theme and reminder "
+                                            "settings are stored only in the app&#x27;s storage on your device and are not sent to us.")
+    never = FINANCE["never"] if fin else "<li>We do not ask for health records, diagnoses or contact lists.</li>"
+    first_term = (e(FINANCE["first_term"].format(n=name)) if fin else
+                  f"{e(name)} offers general self-help education and practice tools. It is not medical, psychological or other "
+                  "professional advice, diagnosis or treatment. If you are in crisis, contact your local emergency number or a "
+                  "crisis line in your country.")
+    return summary, f"""<main id="main" tabindex="-1"><section class="inner-hero dark section" data-od-id="intro"><div class="container"><div class="breadcrumb"><a href="../../index.html">Home</a><span aria-hidden="true">/</span><span>Privacy and terms</span></div><h1>{e(name)} privacy policy and terms</h1><p class="inner-lead">Effective {DATE}. Google Play package: com.hezarfen.{pid}.</p></div></section><section class="section" data-od-id="policy"><div class="container prose"><h2>In short</h2><p>{e(summary)}</p><h2>Who we are</h2><p>{e(name)} is published by ONOUR IMPRAM VENTURES LTD, a company registered in the United Kingdom under company number 17429906, which is responsible for the personal data described here. Contact: <a href="mailto:onour@onourimpram.com">onour@onourimpram.com</a>.</p><h2>Data that stays on your device</h2><p>{stored}</p><h2>Service providers</h2><ul><li><strong>Google AdMob</strong> shows ads in the free version. AdMob may collect your device&#x27;s advertising ID, IP address, device and app information, and ad interaction data to serve, measure and, only with your consent, personalise ads. Consent is requested through Google&#x27;s consent form (User Messaging Platform) where the law requires it, and you can change it in Settings.</li><li><strong>RevenueCat</strong> processes an anonymous app user identifier, purchase state and purchase events so that {e(name)} Premium can be bought and restored through Google Play. Your entries and progress are never sent to RevenueCat.</li><li><strong>Google Play</strong> processes the purchase itself under your Google account.</li></ul><p>Google privacy policy: <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>. How Google uses data from partner apps: <a href="https://policies.google.com/technologies/partner-sites">https://policies.google.com/technologies/partner-sites</a>. RevenueCat privacy policy: <a href="https://www.revenuecat.com/privacy">https://www.revenuecat.com/privacy</a>.</p><h2>What we do not do</h2><ul><li>No account, no cloud sync and no analytics service of our own.</li>{never}<li>We do not sell personal data.</li></ul><h2>Permissions</h2><ul><li>Notifications, only if you turn on reminders. Reminders are scheduled on your device.</li><li>Internet and advertising ID, used by the ad and purchase services described above.</li></ul><h2>Your choices and deletion</h2><p>You can reset your data from Settings. Uninstalling the app removes its local data. You can reset or delete your advertising ID in your device settings. Purchase records stay with Google Play and RevenueCat; to ask about those records, email us.</p><h2>Your rights</h2><p>Depending on where you live, you may have rights to access, correct, delete or object to the processing of your personal data. Send requests by email. In the United Kingdom you can also complain to the Information Commissioner&#x27;s Office.</p><h2>Children</h2><p>{e(name)} is intended for adults and is not directed to children under 13.</p><h2 id="terms">Terms of use</h2><ul><li>{first_term}</li><li>{e(name)} Premium is an auto-renewing subscription billed through Google Play. The price and period are shown before you buy. You can cancel at any time in Google Play; access continues until the end of the paid period. Refunds follow Google Play&#x27;s refund policy.</li><li>The app and its content are provided as is. To the extent permitted by law, ONOUR IMPRAM VENTURES LTD is not liable for indirect or consequential loss arising from its use. Nothing in these terms limits rights you have under consumer law.</li><li>These terms are governed by the laws of England and Wales.</li></ul><h2>Changes</h2><p>We update this page before any change to the app&#x27;s data practices is released. The effective date is shown at the top of this page.</p><p class="updated">{DATE} · ONOUR IMPRAM VENTURES LTD</p></div></section></main>"""
 
 
-def page(tpl, pid, name, what):
-    summary, main = main_block(pid, name, what)
+def page(tpl, pid, name, what, kind="selfhelp"):
+    summary, main = main_block(pid, name, what, kind)
     t = re.sub(r"<main id=\"main\".*?</main>", lambda _: main, tpl, flags=re.S)
     title = f"{name} privacy policy and terms | OIV"
     t = re.sub(r"<title>.*?</title>", f"<title>{html.escape(title)}</title>", t)
@@ -58,9 +83,9 @@ def main(argv):
         return 2
     tpl = TEMPLATE.read_text(encoding="utf-8")
     stale = []
-    for pid, name, what in APPS:
+    for pid, name, what, kind in [(*a, "selfhelp") for a in APPS] + [(*a, "finance") for a in FINANCE_APPS]:
         out = ROOT / "docs" / "legal" / pid / "index.html"
-        want = page(tpl, pid, name, what)
+        want = page(tpl, pid, name, what, kind)
         if "--check" in argv:
             if not out.exists() or out.read_text(encoding="utf-8") != want:
                 stale.append(pid)
