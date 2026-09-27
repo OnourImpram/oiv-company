@@ -44,6 +44,28 @@ FINANCE = {
 }
 
 
+# Advertising section, same Google data lines as src/build.py ads_section (2026-09-27). Inserted before
+# "What we do not do" so the page names every AdMob disclosure the Play Data safety form declares.
+def ads_block(name, kind="selfhelp"):
+    keep = "Your budget entries" if kind == "finance" else "Your entries and progress"
+    paras = [
+        f"The free version of {name} shows ads from Google AdMob. {name} Premium removes every ad: while Premium is "
+        "active, the app does not request or show any ad.",
+        "To show, measure and limit ads and to prevent fraud, the Google Mobile Ads SDK collects the following and "
+        "shares it with Google: your device&#x27;s advertising ID; your IP address, from which Google derives an "
+        "approximate location; device and app information such as model, operating system, language and app version; "
+        "diagnostic data such as crash and performance logs; and which ads you were shown and whether you tapped them. "
+        "Google uses this data for advertising, analytics and fraud prevention under its own privacy policy.",
+        "If you are in the European Economic Area, the United Kingdom or Switzerland, the app first shows Google&#x27;s "
+        "consent form (User Messaging Platform) and requests ads only when Google&#x27;s consent status allows it. If you "
+        "do not agree to personalised ads, Google can still show non personalised ads, which use the same technical data "
+        "for delivery, frequency limits, reporting and fraud prevention but are not based on your past activity. Outside "
+        "these regions ads may be personalised.",
+        f"{keep} are never sent to AdMob or to any advertiser.",
+    ]
+    return "<h2>Advertising</h2>" + "".join(f"<p>{p}</p>" for p in paras)
+
+
 def main_block(pid, name, what, kind="selfhelp"):
     e = html.escape
     fin = kind == "finance"
@@ -63,6 +85,8 @@ def main_block(pid, name, what, kind="selfhelp"):
 
 def page(tpl, pid, name, what, kind="selfhelp"):
     summary, main = main_block(pid, name, what, kind)
+    assert main.count("<h2>What we do not do</h2>") == 1, pid
+    main = main.replace("<h2>What we do not do</h2>", ads_block(name, kind) + "<h2>What we do not do</h2>")
     t = re.sub(r"<main id=\"main\".*?</main>", lambda _: main, tpl, flags=re.S)
     title = f"{name} privacy policy and terms | OIV"
     t = re.sub(r"<title>.*?</title>", f"<title>{html.escape(title)}</title>", t)

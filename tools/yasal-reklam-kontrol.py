@@ -83,7 +83,7 @@ def judge(app, lang, status, body):
         return rep
     rep["false_claims"] = [m.group(0) for p in FALSE[rules] for m in re.finditer(p, txt)]
     if app == "kinlore":
-        rep["section"] = bool(re.search(r"<h3>\s*(advertising|reklamlar)\s*</h3>", low))
+        rep["section"] = bool(re.search(r"<h3>\s*(advertising|reklamlar|reklam)\s*</h3>", low))
     else:
         rep["section"] = bool(re.search(SECTION[rules], low))
     rep["missing"] = [k for k, p in REQUIRED[rules].items() if not re.search(p, txt)]
