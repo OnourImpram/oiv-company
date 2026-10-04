@@ -10,11 +10,13 @@ ROOT = Path(os.environ.get("OIV_DOCS") or Path(__file__).resolve().parents[1] / 
 PAGES = {"en": ROOT / "index.html", "tr": ROOT / "tr" / "index.html"}
 IDENTITY = ["ONOUR IMPRAM VENTURES LTD", "17429906", "235117532", "71-75 Shelton Street",
             "WC2H 9JQ", "onour@onourimpram.com"]
-ON_PLAY = {"com.hezarfen.catpulse", "com.hezarfen.dogpulse"}
-NOT_ON_PLAY = ["GraceRhythm", "ADHDFlow", "Clocktopus", "Kinlore"]
-# Created in Play Console 2026-09-24, not published: listed, never linked to a store.
-IN_DEVELOPMENT = ["ManagerGym", "Pathways Lab", "RecallDock", "PlateKind", "Tiny Broadcast",
-                  "One Plan Today", "Backlog Bloom"]
+from expected_apps import APPS, PACKAGES
+
+# 23 of 23 answered HTTP 200 on Google Play on 2026-10-04 (live listing measurement); each is linked to its store page.
+ON_PLAY = set(PACKAGES)
+PUBLISHED_NAMES = [name for _slug, name in APPS.values()]
+# Not among the 23 measured listings: listed, never linked to a store.
+IN_DEVELOPMENT = ["One Plan Today"]
 
 
 class Page(HTMLParser):
@@ -81,7 +83,7 @@ class Contract(unittest.TestCase):
         listing = [Page(ROOT / f) for f in ("index.html", "work.html", "tr/index.html", "tr/calismalar.html")]
         for lang in ("en", "tr"):
             text = " ".join(p.body_text for p in listing if p.all("html")[0].get("lang") == lang)
-            for app in NOT_ON_PLAY + IN_DEVELOPMENT:
+            for app in PUBLISHED_NAMES + IN_DEVELOPMENT:
                 self.assertIn(app, text, f"{lang}: {app} listed")
 
     def test_no_server_submission_no_third_party_code(self):

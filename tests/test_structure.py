@@ -11,8 +11,8 @@ class HTML(HTMLParser):
  def select(self,tag,**attrs):return [a for t,a in self.tags if t==tag and all(a.get(k)==v for k,v in attrs.items())]
 class Release(unittest.TestCase):
  def setUp(self):self.pages=[HTML(p) for p in ROOT.rglob('*.html')]
- # 39 built pages + 11 EN and 11 TR app policies from tools/yasal-sayfa-uret.py.
- def test_all_pages_present(self):self.assertEqual(len(self.pages),61)
+ # 39 built pages + 23 EN and 23 TR Google Play app pages + 11 EN and 11 TR app policies from tools/yasal-sayfa-uret.py.
+ def test_all_pages_present(self):self.assertEqual(len(self.pages),107)
  def test_one_heading_each(self):
   for p in self.pages:self.assertEqual(len(p.select('h1')),1,str(p.path))
  def test_ids_are_unique(self):
@@ -36,7 +36,8 @@ class Release(unittest.TestCase):
   for p in self.pages:
    if p.path.name=='404.html':continue
    self.assertTrue(p.select('link',rel='canonical')[0]['href'].startswith('https://oiv.onourimpram.com/'))
-   self.assertEqual({a['hreflang'] for a in p.select('link',rel='alternate')},{'tr','en'})
+   langs={a['hreflang'] for a in p.select('link',rel='alternate')}
+   self.assertTrue({'tr','en'}<=langs<={'tr','en','x-default'},str(p.path))   # x-default only on the app pages
  def test_all_five_solutions_at_home(self):
   for p in [HTML(ROOT/'index.html'),HTML(ROOT/'tr/index.html')]:
    self.assertEqual(len([a for t,a in p.tags if a.get('class')=='solution-card']),5)
@@ -76,7 +77,8 @@ class Release(unittest.TestCase):
    cycle=json.loads((ROOT.parent/'src/content.json').read_text(encoding='utf-8'))[lang]['aboutCycle']
    self.assertIn('</h2><p class="sr-only">'+cycle+'</p>',text)
  def test_sitemap_is_complete(self):
-  self.assertEqual((ROOT/'sitemap.xml').read_text(encoding='utf-8').count('<url>'),38)
+  # Every page except the 404 is listed (2026-10-04: the 11 tool-made legal pairs were missing before).
+  self.assertEqual((ROOT/'sitemap.xml').read_text(encoding='utf-8').count('<url>'),len(self.pages)-1)
  def test_search_is_offline(self):
   text=(ROOT/'assets/js/site.js').read_text(encoding='utf-8');self.assertNotIn('fetch(',text);self.assertNotIn('localStorage',text);self.assertNotIn('sessionStorage',text)
 if __name__=='__main__':unittest.main(verbosity=2)

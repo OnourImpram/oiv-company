@@ -16,6 +16,10 @@ for lang in ('tr','en'):
 APP_PRIVACY=json.loads((ROOT/'src/app-privacy.json').read_text(encoding='utf-8'))
 for a in APP_PRIVACY['apps']:
  ROUTES['en']['app-'+a['slug']]='legal/'+a['slug']+'/index.html';ROUTES['tr']['app-'+a['slug']]='tr/yasal/'+a['slug']+'/index.html'
+# Google Play app pages (2026-10-04): src/apps.json comes from tools/apps-veri-al.py (measured live listing, no hand-written claims).
+APPS=json.loads((ROOT/'src/apps.json').read_text(encoding='utf-8'))
+for a in APPS['apps']:
+ ROUTES['en']['store-'+a['slug']]='apps/'+a['slug']+'/index.html';ROUTES['tr']['store-'+a['slug']]='tr/uygulamalar/'+a['slug']+'/index.html'
 def page_url(path):return SITE['url']+'/'+re.sub(r'(^|/)index\.html$',r'\1',path)
 esc=lambda s:html.escape(str(s),quote=True)
 plain=lambda s:re.sub('<[^>]+>',' ',s)
@@ -32,8 +36,11 @@ ICONS={
 def icon(name,cls='icon'):
  return f'<svg class="{cls}" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS[name]}</svg>'
 
-def build(lang,key,body,title,summary=None):
+def build(lang,key,body,title,summary=None,extra=None):
  d=DATA[lang];path=ROUTES[lang][key];depth=len(Path(path).parts)-1;root='../'*depth;other='en' if lang=='tr' else 'tr'
+ # App pages also say which URL is the default for other languages and carry their own structured data.
+ xdefault=f'<link rel="alternate" hreflang="x-default" href="{page_url(ROUTES["en"][key])}">' if key.startswith('store-') else ''
+ ld_extra=''.join('<script type="application/ld+json">'+json.dumps(x,ensure_ascii=False).replace('</','<\\/')+'</script>' for x in (extra or []))
  link=lambda k:root+ROUTES[lang][k]
  canonical=page_url(path)
  navkeys=[('home','#solutions'),('work',''),('home','#approach'),('about',''),('resources',''),('contact','')]
@@ -49,10 +56,10 @@ def build(lang,key,body,title,summary=None):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>{esc(title)}</title><meta name="description" content="{esc(summary or d['description'])}"><meta name="theme-color" content="#102431"><meta name="color-scheme" content="dark">
-<link rel="canonical" href="{canonical}"><link rel="alternate" hreflang="en" href="{page_url(ROUTES['en'][key])}"><link rel="alternate" hreflang="tr" href="{page_url(ROUTES['tr'][key])}">
+<link rel="canonical" href="{canonical}"><link rel="alternate" hreflang="en" href="{page_url(ROUTES['en'][key])}"><link rel="alternate" hreflang="tr" href="{page_url(ROUTES['tr'][key])}">{xdefault}
 <meta property="og:type" content="website"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(summary or d['description'])}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{SITE['url']}/assets/img/social-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{root}assets/img/favicon.png"><link rel="stylesheet" href="{root}assets/css/site.css"><script defer src="{root}assets/js/core.js"></script><script defer src="{root}assets/js/search-data.js"></script><script defer src="{root}assets/js/site.js"></script>
-<script type="application/ld+json">{json.dumps(schema,ensure_ascii=False)}</script>
+<script type="application/ld+json">{json.dumps(schema,ensure_ascii=False)}</script>{ld_extra}
 </head>
 <body data-page="{key}" data-root="{root}" data-language="{lang}" id="top">
 <a class="skip-link" href="#main">{d['skip']}</a>
@@ -111,9 +118,10 @@ def home(lang):
 <section class="section philosophy dark" data-od-id="philosophy"><div class="container ethos"><div class="ethos-copy"><h2>{cycle_title(d['aboutTitle'])}</h2><p class="sr-only">{d['aboutCycle']}</p><p>{d['aboutText']}</p></div>{ethos_values(d['aboutValues'])}</div></section>{cta(lang)}'''
  build(lang,'home',body,d['homeTitle'])
 
-def intro(lang,label,title,lead):
+def intro(lang,label,title,lead,mid=None):
  d=DATA[lang]
- return f'<section class="inner-hero dark section" data-od-id="intro"><div class="container"><div class="breadcrumb"><a href="{link(lang,"home")}">{d["home"]}</a><span aria-hidden="true">/</span><span>{label}</span></div><h1>{title}</h1><p class="inner-lead">{lead}</p></div></section>'
+ trail=f'<a href="{mid[1]}">{mid[0]}</a><span aria-hidden="true">/</span>' if mid else ''
+ return f'<section class="inner-hero dark section" data-od-id="intro"><div class="container"><div class="breadcrumb"><a href="{link(lang,"home")}">{d["home"]}</a><span aria-hidden="true">/</span>{trail}<span>{label}</span></div><h1>{title}</h1><p class="inner-lead">{lead}</p></div></section>'
 
 def service(lang,s):
  d=DATA[lang];p=d['servicePage'];related=next(x for x in d['services'] if x['id']==s['related'])
@@ -127,9 +135,10 @@ def work(lang):
  body+=f'<section class="section work-page" data-od-id="portfolio"><div class="container"><div class="filter-bar" hidden><div role="group" aria-label="{p["products"]}"><button type="button" data-filter="all" aria-pressed="true">{p["all"]}</button><button type="button" data-filter="source" aria-pressed="false">{p["openSource"]}</button><button type="button" data-filter="product" aria-pressed="false">{p["products"]}</button></div><p class="filter-count" role="status"></p></div><div class="portfolio-list">'
  for pid,name in [('mergen','Mergen Verdict'),('mneme','mneme Record')]:
   body+=f'''<article class="project-detail" id="{pid}" data-category="source"><div class="project-emblem dark"><img src="{{{{root}}}}assets/img/{pid}.webp" alt="{name}" width="240" height="240" loading="lazy"></div><div><h2>{name}</h2><p class="eyebrow meta">{p['openSource']} / {d[pid+'Role']}</p><p>{d[pid+'Copy']}</p><div class="project-links">{textlink(d['repo'],'https://github.com/OnourImpram/'+pid)}{textlink('Python / PyPI','https://pypi.org/project/'+('mergen-verdict' if pid=='mergen' else 'mneme-core')+'/')}</div><details class="scope-detail"><summary>{'Kapsam ve sınırlar' if lang=='tr' else 'Scope and limitations'}<span aria-hidden="true">+</span></summary><p>{p[pid+'Limit']}</p></details></div></article>'''
- body+='</div><div class="apps-grid">'
- for a in DATA['apps']:
-  body+=f'''<article class="app-card" data-category="product"><img src="{{{{root}}}}assets/img/{a['image']}" alt="" width="176" height="176" loading="lazy"><p class="app-status">{p[a['status']]}</p><h2>{a['name']}</h2><p>{a[lang]}</p>{textlink(p['store'] if a['status']=='published' else p['legal'],a['url'])}</article>'''
+ # Every app below is published on Google Play (23 of 23 measured on 2026-10-04); each card links the store and the app's own page.
+ body+=f'</div><div class="dev-apps" id="apps"><div class="dev-apps-heading"><h2>{p["appsTitle"]}</h2><p>{p["appsNote"]}</p></div></div><div class="apps-grid">'
+ for a in APPS['apps']:
+  body+=f'''<article class="app-card" data-category="product"><img src="{{{{root}}}}assets/img/{a['image']}" alt="" width="176" height="176" loading="lazy"><p class="app-status">{p['published']}</p><h2><a href="{link(lang,'store-'+a['slug'])}">{esc(a['name'])}</a></h2><p>{esc(a[lang]['short'])}</p><div class="app-links">{textlink(p['store'],a['play'])}{textlink(p['appLink'],link(lang,'store-'+a['slug']))}</div></article>'''
  body+=f'</div><p class="footnote">{p["statusNote"]}</p>'
  # Apps still being built: text only, no store link, no product mark (2026-09-24, not published).
  body+=f'<div class="dev-apps" id="in-development"><div class="dev-apps-heading"><h2>{p["devTitle"]}</h2><p>{p["devNote"]}</p></div><ul class="dev-app-list">'
@@ -218,9 +227,61 @@ def app_policies(lang):
   build(lang,'app-'+a['slug'],body,title+' | OIV',c['summary'])
 
 
+MONTHS={'en':['January','February','March','April','May','June','July','August','September','October','November','December'],
+ 'tr':['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']}
+# Play game genres used by this portfolio map to schema.org's GameApplication; every other category keeps Play's own word.
+GAME_GENRES={'Casual','Puzzle','Strategy'}
+def date_text(lang,iso):
+ y,m,day=iso.split('-');return f'{int(day)} {MONTHS[lang][int(m)-1]} {y}'
+def price_line(a,p):
+ # Said only when the measured Play price is 0; "Premium removes ads" only when the listing declares ads and in-app purchases.
+ if a['price']!='0':return ''
+ if a['ads'] and a['iap']:return p['page']['priceAdsPremium']
+ return p['page']['priceAds'] if a['ads'] else p['page']['priceFree']
+def privacy_link(lang,a):
+ # Own legal page first (it also carries the terms); otherwise the privacy URL listed on Play, only if it answered 200.
+ pg=DATA[lang]['projectsPage']['page'];slug=a['legalSlug'];legal=OUT/'legal'/slug/'index.html'
+ if legal.exists():
+  local=lang=='tr' and (OUT/'tr'/'yasal'/slug/'index.html').exists()
+  has_terms='id="terms"' in legal.read_text(encoding='utf-8')
+  return textlink(pg['privacyTerms'] if has_terms else pg['privacy'],('{{root}}tr/yasal/' if local else '{{root}}legal/')+slug+'/')
+ return textlink(pg['privacyPlay'],a['privacyUrl']) if a.get('privacyUrl') else ''
+
+def store_pages(lang):
+ d=DATA[lang];p=d['projectsPage'];pg=p['page']
+ for a in APPS['apps']:
+  c=a[lang];key='store-'+a['slug'];name=esc(a['name'])
+  body=intro(lang,name,esc(c['title']),esc(c['short']),mid=(d['nav'][1],link(lang,'work')))
+  facts=price_line(a,p)
+  plat=pg['platform'].replace('Android','<span lang="en">Android</span>')   # keeps the Turkish upper-casing from turning Android into ANDROİD
+  # No paragraph is invented: when the store text has none to publish (Block Zen's Turkish long text is ASCII-degraded), the heading is left out too.
+  main_col='<div>'+(f'<h2>{pg["about"]}</h2>'+''.join('<p>'+esc(x)+'</p>' for x in c['about']) if c['about'] else '')+f'<p class="footnote">{esc(pg["source"].format(date=date_text(lang,a["checked"])))}</p><div class="app-more">{textlink(pg["all"],link(lang,"work","#apps"))}</div></div>'
+  side=f'<aside class="founder-panel" aria-label="{name}"><img class="app-icon" src="{{{{root}}}}assets/img/{a["image"]}" alt="{esc(pg["icon"].format(name=a["name"]))}" width="176" height="176"><p class="eyebrow meta">{esc(c["category"])} / {plat}</p>'+(f'<p>{esc(facts)}</p>' if facts else '')+btn(p['store'],a['play'],'ink')+privacy_link(lang,a)+'</aside>'
+  body+=f'<section class="section app-page" data-od-id="app"><div class="container about-layout">{main_col}{side}</div></section>{cta(lang)}'
+  cat='GameApplication' if a['en']['category'] in GAME_GENRES else c['category']
+  app_ld={'@context':'https://schema.org','@type':'SoftwareApplication','name':c['title'],'description':c['short'],'operatingSystem':'Android','applicationCategory':cat,'url':page_url(ROUTES[lang][key]),'installUrl':a['play'],'image':SITE['url']+'/assets/img/'+a['image'],'inLanguage':lang,'publisher':{'@type':'Organization','name':SITE['legalName'],'url':SITE['url']}}
+  if a['price']=='0' and a.get('priceCurrency'):app_ld['offers']={'@type':'Offer','price':'0','priceCurrency':a['priceCurrency']}
+  crumbs={'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':i+1,'name':n,'item':u} for i,(n,u) in enumerate([(d['home'],page_url(ROUTES[lang]['home'])),(d['nav'][1],page_url(ROUTES[lang]['work'])),(a['name'],page_url(ROUTES[lang][key]))])]}
+  build(lang,key,body,c['title']+' '+pg['titleSuffix']+' | OIV',c['short']+' '+pg['descSuffix'],[app_ld,crumbs])
+
+def sitemap():
+ # Every route, plus every legal folder on disk (tools/yasal-sayfa-uret.py writes those without a route), each with its language twin.
+ pairs=[(en,ROUTES['tr'][k]) for k,en in ROUTES['en'].items()];seen={x for pr in pairs for x in pr}
+ for f in sorted((OUT/'legal').glob('*/index.html')):
+  en='legal/'+f.parent.name+'/index.html';tr='tr/yasal/'+f.parent.name+'/index.html'
+  if en not in seen:pairs.append((en,tr if (OUT/tr).exists() else None));seen.update([en,tr])
+ for f in sorted((OUT/'tr'/'yasal').glob('*/index.html')):
+  tr='tr/yasal/'+f.parent.name+'/index.html'
+  if tr not in seen:pairs.append((None,tr));seen.add(tr)
+ out=[]
+ for en,tr in pairs:
+  alt=(f'<xhtml:link rel="alternate" hreflang="en" href="{page_url(en)}"/><xhtml:link rel="alternate" hreflang="tr" href="{page_url(tr)}"/><xhtml:link rel="alternate" hreflang="x-default" href="{page_url(en)}"/>' if en and tr else '')
+  out+=[f'<url><loc>{page_url(x)}</loc>{alt}</url>\n' for x in (en,tr) if x]
+ return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'+''.join(out)+'</urlset>\n'
+
 def main():
  for lang in ('en','tr'):
-  home(lang);work(lang);about(lang);resources(lang);contact(lang);policies(lang);app_policies(lang)
+  home(lang);work(lang);about(lang);resources(lang);contact(lang);policies(lang);app_policies(lang);store_pages(lang)
   d=DATA[lang]
   build(lang,'solutions',intro(lang,d['nav'][0],d['solutionsTitle'],d['solutionsText'])+'<section class="section" data-od-id="all-solutions"><div class="container"><h2 class="sr-only">'+d['solutionsLabel']+'</h2>'+solution_cards(lang)+'</div></section>'+cta(lang),d['nav'][0]+' | OIV')
   for s in DATA[lang]['services']:service(lang,s)
@@ -230,6 +291,7 @@ def main():
   d=DATA[lang];records[lang]=[{'title':s['title'],'text':s['intro']+' '+s['lead'],'href':ROUTES[lang][s['id']]} for s in d['services']]
   records[lang]+=[{'title':name,'text':d[pid+'Copy'],'href':ROUTES[lang]['work']+'#'+pid} for pid,name in [('mergen','Mergen Verdict'),('mneme','mneme Record')]]
   records[lang]+=[{'title':d['nav'][i],'text':d['description'],'href':ROUTES[lang][k]} for i,k in [(3,'about'),(4,'resources'),(5,'contact')]]
+  records[lang]+=[{'title':a['name'],'text':a[lang]['short'],'href':ROUTES[lang]['store-'+a['slug']]} for a in APPS['apps']]
  (OUT/'assets/js/search-data.js').write_text('window.OIV_SEARCH = '+json.dumps(records,ensure_ascii=False)+';\n',encoding='utf-8')
  (OUT/'downloads').mkdir(exist_ok=True)
  for lang in ('en','tr'):
@@ -239,8 +301,7 @@ def main():
   lines+=['onour@onourimpram.com',SITE['url'],d['contactPage']['helper']]
   (OUT/f'downloads/oiv-discussion-{lang}.txt').write_text('\n'.join(lines),encoding='utf-8')
  paths=[v for m in ROUTES.values() for v in m.values()]
- sitemap='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('<url><loc>'+page_url(p)+'</loc></url>\n' for p in paths)+'</urlset>\n'
- (OUT/'sitemap.xml').write_text(sitemap,encoding='utf-8')
+ (OUT/'sitemap.xml').write_text(sitemap(),encoding='utf-8')
  (OUT/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+SITE['url']+'/sitemap.xml\n',encoding='utf-8')
  (OUT/'.nojekyll').touch()
  if not (OUT/'CNAME').exists():(OUT/'CNAME').write_text(SITE['url'].split('//')[1],encoding='utf-8')

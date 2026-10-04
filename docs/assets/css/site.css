@@ -577,3 +577,18 @@ h1,h2,h3,h4 {color:var(--ink)}
 .motion .process-list.is-done li:nth-child(4) span::after,.motion .process-list.is-done li:nth-child(3) b::before {transition-delay:.45s}
 .motion .process-list.is-done li:nth-child(5) span::after,.motion .process-list.is-done li:nth-child(4) b::before {transition-delay:.6s}
 .motion .cycle.is-done .cycle-w:nth-child(3)::after {transition:transform .5s var(--ease-out)}
+
+/* apps-2026-10-04: Google Play cards and app pages. Existing tokens and layouts only (about-layout, founder-panel). */
+.app-links {display:flex;flex-wrap:wrap;gap:0 26px;margin-top:auto}
+.app-card .app-links .text-link {margin-top:0}
+.app-card h2 a:hover {color:var(--gold-ink)}
+.app-icon {display:block;width:88px;height:88px;border-radius:19px;margin-bottom:24px}
+.app-page .founder-panel {display:flex;flex-direction:column;align-items:flex-start;padding-block:36px 40px}
+.founder-panel .eyebrow.meta {margin-top:0}
+.founder-panel .button {margin-top:22px}
+.app-more {margin-top:26px}
+@media(max-width:1000px){
+  .app-page .about-layout {display:flex;flex-direction:column-reverse;gap:40px}
+  .app-page .founder-panel {border-left:0;border-top:0;padding:28px 24px 32px;margin-top:0}
+}
+@media(max-width:700px){.app-links {margin-top:4px}.app-icon {width:72px;height:72px;border-radius:16px}}

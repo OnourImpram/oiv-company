@@ -1,0 +1,767 @@
+{
+ "_meta": {
+  "measured": "2026-10-04T21:40:48+03:00",
+  "source": "canli-listing-olcumu.json (live Google Play listing, 23 of 23 published)",
+  "extra": "price, privacy URL and icon read from the public Play page; see tools/apps-veri-al.py"
+ },
+ "apps": [
+  {
+   "package": "com.hezarfen.adhdflow",
+   "slug": "adhdflow",
+   "name": "ADHDFlow",
+   "image": "adhdflow.png",
+   "legalSlug": "adhdflow",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.adhdflow",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.com/legal/adhdflow/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "ADHDFlow: Workday Planner",
+    "short": "Break work into 25-minute boxes, keep one step on screen, share a weekly report.",
+    "category": "Productivity",
+    "about": [
+     "ADHDFlow is a work-day planner for adults with ADHD who work with their heads: writing, meetings, research, admin. It does one thing on purpose: show you the single next step and protect the time to do it."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "ADHDFlow: İş Günü Planlayıcı",
+    "short": "İşi 25 dakikalık kutulara böl, ekranda tek adım tut, haftalık rapor paylaş.",
+    "category": "Verimlilik",
+    "about": [
+     "ADHDFlow, kafasıyla çalışan DEHB'li yetişkinler için bir iş günü planlayıcısıdır: yazı, toplantı, araştırma, idari iş. Bilerek tek bir şey yapar: sana tek sonraki adımı gösterir ve onu yapacak zamanı korur."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.aqualog",
+   "slug": "aqualog",
+   "name": "AquaLog",
+   "image": "aqualog.png",
+   "legalSlug": "aqualog",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.aqualog",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.github.io/portfolio-41/privacy-policy",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "AquaLog: Aquarium Tracker",
+    "short": "Aquarium water parameter tracker, fish care log, and maintenance reminders.",
+    "category": "Lifestyle",
+    "about": [
+     "AquaLog is the complete aquarium tracker with water parameter logging, fish care records, and maintenance reminders. Track pH, ammonia, nitrite, nitrate, and temperature for your freshwater or saltwater aquarium."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "AquaLog: Akvaryum Takibi",
+    "short": "Akvaryum su parametreleri, balık bakım günlüğü ve bakım hatırlatıcıları.",
+    "category": "Yaşam Tarzı",
+    "about": [
+     "AquaLog, su parametresi takibi, balık bakım kayıtları ve bakım hatırlatıcıları ile eksiksiz bir akvaryum takip uygulamasıdır. Tatlı su veya tuzlu su akvaryumunuz için pH, amonyak, nitrit, nitrat ve sıcaklığı takip edin."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.backlogbloom",
+   "slug": "backlogbloom",
+   "name": "Backlog Bloom",
+   "image": "backlogbloom.png",
+   "legalSlug": "backlogbloom",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.backlogbloom",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/backlogbloom/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "Backlog Bloom",
+    "short": "Keep a calm game backlog, pick what fits tonight and grow a completion garden.",
+    "category": "Entertainment",
+    "about": [
+     "Backlog Bloom is a calm place for the games you want to experience. Nothing here is overdue."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "Backlog Bloom",
+    "short": "Sakin bir oyun listesi tutun, bu akşama uyanı seçip bahçenizi büyütün.",
+    "category": "Eğlence",
+    "about": [
+     "Backlog Bloom, deneyimlemek istediğiniz oyunlar için sakin bir alandır. Burada hiçbir şeyin vadesi geçmez."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.blockzen",
+   "slug": "blockzen",
+   "name": "Block Zen",
+   "image": "blockzen.png",
+   "legalSlug": "blockzen",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.blockzen",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.github.io/portfolio-41/privacy-policy",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "Block Zen: Grid Puzzle",
+    "short": "Place blocks, clear lines, keep your calm. Classic, Daily, and Zen modes.",
+    "category": "Casual",
+    "about": [
+     "Block Zen is a calm, focused block-placement puzzle. Each turn you're offered three shapes; drag your attention to one, drop it onto the 10x10 board, and clear full rows or columns to keep the board breathing."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "Block Zen: Izgara Bulmaca",
+    "short": "Blok yerleştir, sıraları temizle, sakin kal. Klasik, Günlük, Zen modları.",
+    "category": "Gündelik",
+    "about": [],
+    "aboutDropped": true
+   }
+  },
+  {
+   "package": "com.hezarfen.bloombyte",
+   "slug": "bloombyte",
+   "name": "BloomByte",
+   "image": "bloombyte.png",
+   "legalSlug": "bloombyte",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.bloombyte",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/bloombyte/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "BloomByte: Notification Calm",
+    "short": "Sort sample alerts into now, later or quiet, then shape your own rules.",
+    "category": "Productivity",
+    "about": [
+     "Not every signal belongs to the same flower."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "BloomByte: Sakin Bildirimler",
+    "short": "Örnek bildirimleri şimdi, sonra ya da sessiz diye ayır; kendi kuralını kur.",
+    "category": "Verimlilik",
+    "about": [
+     "Her sinyal aynı çiçeğe ait değil."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.carnivorouslog",
+   "slug": "carnivorouslog",
+   "name": "CarnivorousLog",
+   "image": "carnivorouslog.png",
+   "legalSlug": "carnivorouslog",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.carnivorouslog",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.github.io/portfolio-41/privacy-policy",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "CarnivorousLog: Plant Tracker",
+    "short": "Track feeding, watering and dormancy for Venus flytraps, sundews and more.",
+    "category": "Lifestyle",
+    "about": [
+     "CarnivorousLog is the specialist care app for carnivorous plant enthusiasts. Managing these fascinating and demanding plants requires precise tracking of feedings, watering quality, humidity, and dormancy cycles."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "CarnivorousLog: Etçil Bitki",
+    "short": "Venüs sinekkıranı, sundew ve daha fazlası için besleme, sulama ve uyku takibi.",
+    "category": "Yaşam Tarzı",
+    "about": [
+     "CarnivorousLog, etçil bitki tutkunlarına yönelik uzman bakım uygulamasıdır. Bu büyüleyici ve özel bitkiler beslenme, sulama kalitesi, nem ve uyku dönemlerinin hassas şekilde takip edilmesini gerektirir."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.catpulse",
+   "slug": "catpulse",
+   "name": "CatPulse",
+   "image": "catpulse.png",
+   "legalSlug": "catpulse",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.catpulse",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.github.io/portfolio-41/privacy-policy",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "CatPulse: Cat Health Tracker",
+    "short": "Cat health & care tracker: medication reminders, vet records, weight, 80 breeds.",
+    "category": "Lifestyle",
+    "about": [
+     "CatPulse is a cat health tracker and cat care app for one cat or a multi-cat home. Log medication, cat weight, appetite, litter box and symptoms, keep vet records and vaccination dates, set care reminders and prepare for the vet visit."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "CatPulse: Kedi Sağlık Takibi",
+    "short": "Kedi sağlık takibi ve kedi bakımı: ilaç hatırlatıcı, kilo takibi, 80 ırk.",
+    "category": "Yaşam Tarzı",
+    "about": [
+     "CatPulse, tek kedi veya çok kedili evler için bir kedi sağlık takibi ve kedi bakımı uygulamasıdır."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.brilliant.wellbeing",
+   "slug": "clocktopus",
+   "name": "Clocktopus",
+   "image": "clocktopus.png",
+   "legalSlug": "clocktopus",
+   "play": "https://play.google.com/store/apps/details?id=com.brilliant.wellbeing",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.com/legal/clocktopus/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "Clocktopus — Focus Habits",
+    "short": "One small move tonight, a check-in tomorrow. Focus habits with Mr. Clocktopus.",
+    "category": "Productivity",
+    "about": [
+     "Mr. Clocktopus has eight arms. Somehow, he is always behind."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "Clocktopus — Odak Alışkanlığı",
+    "short": "Bu akşam küçük bir hamle, yarın bir kayıt. Bay Clocktopus'la odak alışkanlığı.",
+    "category": "Verimlilik",
+    "about": [
+     "Bay Clocktopus'un sekiz kolu var. Nedense hep geride kalıyor."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.dogpulse",
+   "slug": "dogpulse",
+   "name": "DogPulse",
+   "image": "dogpulse.png",
+   "legalSlug": "dogpulse",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.dogpulse",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.github.io/portfolio-41/privacy-policy",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "DogPulse: Dog Health Tracker",
+    "short": "Dog health & walk tracker: medication reminders, vaccines, training, 205 breeds.",
+    "category": "Lifestyle",
+    "about": [
+     "DogPulse is a dog health tracker and dog care app with a dog walk tracker, training journal, medication reminders, vaccination records, puppy tracker, vet visit prep, documents and expenses in one private timeline. It works offline on your device."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "DogPulse: Köpek Sağlık Takibi",
+    "short": "Köpek sağlık takibi ve köpek yürüyüş takibi: ilaç hatırlatıcı, eğitim, 205 ırk.",
+    "category": "Yaşam Tarzı",
+    "about": [
+     "DogPulse; köpek sağlık takibi ve köpek bakımı için geliştirilmiş kapsamlı bir uygulamadır."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.doomscroll",
+   "slug": "doomscroll",
+   "name": "Doom Scroll",
+   "image": "doomscroll.png",
+   "legalSlug": "doomscroll",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.doomscroll",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.github.io/portfolio-41/privacy-policy",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "Doom Scroll: Dodge Runner",
+    "short": "Tap to jump, dodge obstacles, run far. The doom scroll that knows when to stop.",
+    "category": "Casual",
+    "about": [
+     "Doom Scroll is an endless runner built around a single tap."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "Doom Scroll: Engel Koşusu",
+    "short": "Dokun, zıpla, engelleri aş, uzağa koş. Ne zaman duracağını bilen doom scroll.",
+    "category": "Gündelik",
+    "about": [
+     "Doom Scroll, tek dokunuşla oynanan sonsuz bir koşu oyunudur. Adını aldığı kaydırmanın aksine ne zaman duracağını bilir: on dakika oynadıktan sonra — ya da başlamadan önce seçtiğiniz oturum sınırında — bir kez, bugünlük bu kadar mı diye sorar."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.echoharbor",
+   "slug": "echoharbor",
+   "name": "EchoHarbor",
+   "image": "echoharbor.png",
+   "legalSlug": "echoharbor",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.echoharbor",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/echoharbor/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "EchoHarbor: Work Boundaries",
+    "short": "Check urgency and context first, then draft a work boundary message.",
+    "category": "Productivity",
+    "about": [
+     "First read the situation. Then shape your sentence."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "EchoHarbor: İş Sınırları",
+    "short": "Önce aciliyeti ve bağlamı netleştir, sonra iş için bir sınır mesajı taslağı yaz.",
+    "category": "Verimlilik",
+    "about": [
+     "Önce durumu anla. Sonra cümleni kur."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.glowfox",
+   "slug": "glowfox",
+   "name": "GlowFox",
+   "image": "glowfox.png",
+   "legalSlug": "glowfox",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.glowfox",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/glowfox/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "GlowFox: Evening Wind-Down",
+    "short": "Build your own evening ritual, step by step and lantern by lantern.",
+    "category": "Health & Fitness",
+    "about": [
+     "You don't have to win the night. Just dim it slowly."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "GlowFox: Sakin Akşam Ritüeli",
+    "short": "Kendi akşam ritüelini adım adım, fener fener kur.",
+    "category": "Sağlık ve Fitness",
+    "about": [
+     "Geceyi kazanmak zorunda değilsin. Yavaşça kıs, yeter."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.gracerhythm",
+   "slug": "gracerhythm",
+   "name": "GraceRhythm",
+   "image": "gracerhythm.png",
+   "legalSlug": "gracerhythm",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.gracerhythm",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.com/legal/gracerhythm/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "GraceRhythm — Christian Prayer",
+    "short": "Morning, noon, evening, night: guided prayer, silence and a private journal.",
+    "category": "Lifestyle",
+    "about": [
+     "GraceRhythm is a Christian prayer app built around a rhythm you can keep: morning, noon, evening and night, with guided sessions, silence and a private journal. You choose your tradition, and the app keeps your rhythm, not someone else's."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "GraceRhythm — Hristiyan Dua",
+    "short": "Sabah, öğle, akşam, gece: rehberli dua, sessizlik ve size özel bir günce.",
+    "category": "Yaşam Tarzı",
+    "about": [
+     "GraceRhythm, sürdürülebilir bir ritim üzerine kurulmuş bir Hristiyan dua uygulamasıdır: sabah, öğle, akşam ve gece; rehberli dualar, sessizlik ve size özel bir günce. Geleneğinizi siz seçersiniz; uygulama sizin ritminizi tutar, başkasınınkini değil."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.kinlore.app",
+   "slug": "kinlore",
+   "name": "Kinlore",
+   "image": "kinlore.png",
+   "legalSlug": "kinlore",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.kinlore.app",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.com/legal/kinlore/en",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "Kinlore — Memory Book",
+    "short": "28 prompts, 28 pages. One book of your memories for someone you love.",
+    "category": "Lifestyle",
+    "about": [
+     "Kinlore turns your memories into a book, one page at a time."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "Kinlore — Hatıra Kitabı",
+    "short": "28 istem, 28 sayfa. Sevdiğin biri için anılarından bir kitap.",
+    "category": "Yaşam Tarzı",
+    "about": [
+     "Kinlore anılarını sayfa sayfa bir kitaba dönüştürür."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.managergym",
+   "slug": "leadrehearse",
+   "name": "LeadRehearse",
+   "image": "leadrehearse.png",
+   "legalSlug": "managergym",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.managergym",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/managergym/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "LeadRehearse: Manager Talks",
+    "short": "Practice the conversation before it matters.",
+    "category": "Education",
+    "about": [
+     "Rehearse difficult workplace conversations in a private, practical simulator.",
+     "LeadRehearse helps new managers, team leads, founders, and senior contributors rehearse difficult workplace conversations."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "LeadRehearse: Manager Talks",
+    "short": "Önemli hale gelmeden önce konuşmayı prova et.",
+    "category": "Eğitim",
+    "about": [
+     "Zor iş yeri konuşmalarını özel ve uygulamalı bir simülatörde prova et."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.nestnote",
+   "slug": "nestnote",
+   "name": "NestNote",
+   "image": "nestnote.png",
+   "legalSlug": "nestnote",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.nestnote",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/nestnote/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "NestNote: Talk & Boundaries",
+    "short": "Practice everyday talks in branching dialogues: listen, ask, say no kindly.",
+    "category": "Education",
+    "about": [
+     "Pick a reply and watch the conversation change."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "NestNote: Sohbet ve Sınırlar",
+    "short": "Dallanan diyaloglarla gündelik konuşma provası: dinle, iste, kibarca hayır de.",
+    "category": "Eğitim",
+    "about": [
+     "Bir cevap seç, konuşmanın nasıl değiştiğini gör."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.pathwayslab",
+   "slug": "pathwayslab",
+   "name": "Pathways Lab",
+   "image": "pathwayslab.png",
+   "legalSlug": "pathwayslab",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.pathwayslab",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/pathwayslab/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "Pathways Lab",
+    "short": "Try a possible career through seven days of small, low risk actions.",
+    "category": "Education",
+    "about": [
+     "Pathways Lab helps students with limited access to career services test a possible career before deciding. It turns a career question into a seven day experiment made of small, concrete actions."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "Pathways Lab",
+    "short": "Yedi günlük küçük, risksiz adımlarla olası bir mesleği deneyin.",
+    "category": "Eğitim",
+    "about": [
+     "Pathways Lab, kariyer hizmetlerine erişimi kısıtlı olan öğrencilerin karar vermeden önce olası bir kariyeri test etmelerine yardımcı olur. Bir kariyer sorusunu küçük, somut adımlardan oluşan yedi günlük bir deneye dönüştürür."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.platekind",
+   "slug": "platekind",
+   "name": "PlateKind",
+   "image": "platekind.png",
+   "legalSlug": "platekind",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.platekind",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/platekind/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "PlateKind",
+    "short": "Add one or two simple ideas to the meal you already have. No calorie counts.",
+    "category": "Food & Drink",
+    "about": [
+     "PlateKind starts with the meal you already have and suggests up to two simple additions alongside it, or none at all. There are no calories, macros, food scores or restrictive plans."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "PlateKind",
+    "short": "Mevcut yemeğinize bir iki sade fikir ekleyin. Kalori sayımı yok.",
+    "category": "Yeme İçme",
+    "about": [
+     "PlateKind, mevcut yemeğinizle başlar ve yanına en fazla iki sade ekleme önerir ya da hiçbir şey önermez. Kalori, makro, besin puanı veya kısıtlayıcı planlar yoktur."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.pulsepatch",
+   "slug": "pulsepatch",
+   "name": "PulsePatch",
+   "image": "pulsepatch.png",
+   "legalSlug": "pulsepatch",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.pulsepatch",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/pulsepatch/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "PulsePatch: Name Your Feelings",
+    "short": "Name a feeling, notice your surroundings and choose your next small step.",
+    "category": "Health & Fitness",
+    "about": [
+     "One word, one observation, one choice."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "PulsePatch: Duygunu Adlandır",
+    "short": "Duyguna bir ad ver, çevrene yönel ve atacağın küçük adımı sen seç.",
+    "category": "Sağlık ve Fitness",
+    "about": [
+     "Bir kelime, bir gözlem, bir seçim."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.recalldock",
+   "slug": "recalldock",
+   "name": "RecallDock",
+   "image": "recalldock.png",
+   "legalSlug": "recalldock",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.recalldock",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/recalldock/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "RecallDock",
+    "short": "Save text, links, photos and files once. Find them when it matters.",
+    "category": "Productivity",
+    "about": [
+     "RecallDock is a private, local first vault for the things you want to find again: notes, links, photos, documents and files."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "RecallDock",
+    "short": "Metin, bağlantı, fotoğraf ve dosyaları kaydedin. Gerektiğinde bulun.",
+    "category": "Verimlilik",
+    "about": [
+     "RecallDock; notlar, bağlantılar, fotoğraflar, belgeler ve dosyalar gibi yeniden bulmak istediğiniz her şey için gizlilik odaklı, yerel öncelikli bir kasadır."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.stroopsprint",
+   "slug": "stroopsprint",
+   "name": "Stroop Sprint",
+   "image": "stroopsprint.png",
+   "legalSlug": "stroopsprint",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.stroopsprint",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://onourimpram.github.io/portfolio-41/privacy-policy",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "Stroop Sprint: Brain Game",
+    "short": "Tap the ink color, not the word. Beat the Stroop effect under pressure.",
+    "category": "Puzzle",
+    "about": [
+     "Stroop Sprint is a timed version of the classic Stroop test. A color word appears on screen printed in a different ink color, for example the word RED printed in blue ink. Your job is to tap the color of the ink, not the word it spells."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "Stroop Sprint: Beyin Oyunu",
+    "short": "Kelimeyi değil mürekkep rengini seç. Stroop etkisini baskı altında yen.",
+    "category": "Bulmaca",
+    "about": [
+     "Stroop Sprint, klasik Stroop testinin zamanlı bir versiyonudur. Ekranda farklı bir renkte basılmış bir renk kelimesi belirir, örneğin mavi mürekkeple basılmış KIRMIZI kelimesi. Göreviniz, kelimenin yazdığını değil mürekkebin rengini seçmektir."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.tidemind",
+   "slug": "tidemind",
+   "name": "TideMind",
+   "image": "tidemind.png",
+   "legalSlug": "tidemind",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.tidemind",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/tidemind/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "TideMind: Calm Day Planner",
+    "short": "Set your minutes for today, pick tasks that fit, and let the rest wait.",
+    "category": "Productivity",
+    "about": [
+     "How many minutes do you really have today? TideMind starts there, not with a longer list."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "TideMind: Sakin Gün Planlayıcı",
+    "short": "Bugün kaç dakikan var? Sığan işleri seç, gerisi kıyıda beklesin.",
+    "category": "Verimlilik",
+    "about": [
+     "Bugün gerçekten kaç dakikan var? TideMind daha uzun bir listeyle değil, bu soruyla başlar."
+    ],
+    "aboutDropped": false
+   }
+  },
+  {
+   "package": "com.hezarfen.tinybroadcast",
+   "slug": "tinybroadcast",
+   "name": "Tiny Broadcast",
+   "image": "tinybroadcast.png",
+   "legalSlug": "tinybroadcast",
+   "play": "https://play.google.com/store/apps/details?id=com.hezarfen.tinybroadcast",
+   "ads": true,
+   "iap": true,
+   "price": "0",
+   "priceCurrency": "USD",
+   "privacyUrl": "https://oiv.onourimpram.com/legal/tinybroadcast/",
+   "privacyHttp": 200,
+   "checked": "2026-10-04",
+   "en": {
+    "title": "Tiny Broadcast",
+    "short": "Program a cozy town radio station and choose what your broadcasts stand for.",
+    "category": "Strategy",
+    "about": [
+     "Tiny Broadcast is a short session strategy game about running a small town radio station for one seven day season."
+    ],
+    "aboutDropped": false
+   },
+   "tr": {
+    "title": "Tiny Broadcast",
+    "short": "Sıcak bir kasaba radyosu programlayın ve yayın çizginizi seçin.",
+    "category": "Strateji",
+    "about": [
+     "Tiny Broadcast, küçük bir kasaba radyosunu yedi günlük tek bir sezon boyunca yönettiğiniz, kısa oturumlu bir strateji oyunudur."
+    ],
+    "aboutDropped": false
+   }
+  }
+ ]
+}

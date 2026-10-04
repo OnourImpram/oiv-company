@@ -9,27 +9,27 @@
  "apps": [
   {
    "slug": "managergym",
-   "name": "ManagerGym",
+   "name": "LeadRehearse",
    "package": "com.hezarfen.managergym",
    "en": {
-    "summary": "ManagerGym is a private rehearsal app for difficult workplace conversations. You can use it without an account. Your practice data stays on your device. The free version shows ads from Google AdMob; ManagerGym Pro removes them. We do not sell data.",
+    "summary": "LeadRehearse is a private rehearsal app for difficult workplace conversations. You can use it without an account. Your practice data stays on your device. The free version shows ads from Google AdMob; LeadRehearse Pro removes them. We do not sell data.",
     "device": ["Your profile name, role and practice goals", "Scenario transcripts, local coach feedback, scores and voice rehearsal self checks (audio is never recorded)", "Custom scenarios, lesson progress, language, theme and reminder settings"],
-    "processors": ["RevenueCat processes an anonymous app user identifier, purchase state and purchase events so that ManagerGym Pro can be bought and restored through Google Play. Transcripts and practice content are never sent to RevenueCat.", "Google Play processes the purchase itself under your Google account."],
+    "processors": ["RevenueCat processes an anonymous app user identifier, purchase state and purchase events so that LeadRehearse Pro can be bought and restored through Google Play. Transcripts and practice content are never sent to RevenueCat.", "Google Play processes the purchase itself under your Google account."],
     "never": ["Practice transcripts are not sent to any AI service in the production app.", "Product analytics is off by default. No analytics service is connected in the current version.", "We do not ask for your employer, colleagues' names, health information or confidential company files.", "No data sale and no audio recording."],
     "permissions": ["Notifications, only if you turn on practice reminders. Reminders are scheduled on your device.", "Internet and advertising ID (AD_ID), used by Google AdMob and RevenueCat as described above."],
-    "adsWhere": "The free version of ManagerGym shows ads from Google AdMob: a banner at the bottom of the main tabs and, at most once every three minutes, a full-screen ad after a rehearsal summary.",
-    "adsPremium": "ManagerGym Pro removes every ad. While Pro is active, the app does not load, request or show any ad.",
+    "adsWhere": "The free version of LeadRehearse shows ads from Google AdMob: a banner at the bottom of the main tabs and, at most once every three minutes, a full-screen ad after a rehearsal summary.",
+    "adsPremium": "LeadRehearse Pro removes every ad. While Pro is active, the app does not load, request or show any ad.",
     "adsKeep": "Your transcripts, scenarios, scores and practice content are never sent to AdMob or to any advertiser.",
     "controls": "You can export your local data as a file and delete it from Settings. Deleting removes your profile, sessions, custom scenarios, settings and reminders from the device. Uninstalling the app also removes its local data. Purchase records stay with Google Play and RevenueCat; to ask about those records, email us."
    },
    "tr": {
-    "summary": "ManagerGym, zor iş yeri konuşmalarını prova etmek için gizlilik odaklı bir uygulamadır. Hesap açmadan kullanabilirsiniz. Pratik verileriniz cihazınızda kalır. Ücretsiz sürüm Google AdMob reklamları gösterir; ManagerGym Pro reklamları kaldırır. Veri satmayız.",
+    "summary": "LeadRehearse, zor iş yeri konuşmalarını prova etmek için gizlilik odaklı bir uygulamadır. Hesap açmadan kullanabilirsiniz. Pratik verileriniz cihazınızda kalır. Ücretsiz sürüm Google AdMob reklamları gösterir; LeadRehearse Pro reklamları kaldırır. Veri satmayız.",
     "device": ["Profil adınız, rolünüz ve pratik hedefleriniz", "Senaryo dökümleri, yerel koç geri bildirimi, puanlar ve sesli prova öz değerlendirmeleri (ses asla kaydedilmez)", "Özel senaryolar, ders ilerlemesi, dil, tema ve hatırlatıcı ayarları"],
-    "processors": ["RevenueCat, ManagerGym Pro'nun Google Play üzerinden satın alınabilmesi ve geri yüklenebilmesi için anonim bir uygulama kullanıcı kimliğini, satın alma durumunu ve satın alma olaylarını işler. Dökümler ve pratik içeriği RevenueCat'e hiçbir zaman gönderilmez.", "Satın alma işleminin kendisini Google Play, Google hesabınız kapsamında işler."],
+    "processors": ["RevenueCat, LeadRehearse Pro'nun Google Play üzerinden satın alınabilmesi ve geri yüklenebilmesi için anonim bir uygulama kullanıcı kimliğini, satın alma durumunu ve satın alma olaylarını işler. Dökümler ve pratik içeriği RevenueCat'e hiçbir zaman gönderilmez.", "Satın alma işleminin kendisini Google Play, Google hesabınız kapsamında işler."],
     "never": ["Üretim sürümünde pratik dökümleri hiçbir yapay zekâ hizmetine gönderilmez.", "Ürün analitiği varsayılan olarak kapalıdır. Mevcut sürümde bağlı bir analitik hizmeti yoktur.", "İşvereninizi, iş arkadaşlarınızın adlarını, sağlık bilgisini veya gizli şirket belgelerini istemeyiz.", "Veri satışı yok, ses kaydı yok."],
     "permissions": ["Bildirimler, yalnızca pratik hatırlatıcılarını açarsanız. Hatırlatıcılar cihazınızda planlanır.", "İnternet ve reklam kimliği (AD_ID); yukarıda açıklandığı gibi Google AdMob ve RevenueCat tarafından kullanılır."],
-    "adsWhere": "ManagerGym'in ücretsiz sürümü Google AdMob reklamları gösterir: ana sekmelerin altında bir banner ve en fazla üç dakikada bir, prova özetinden sonra tam ekran bir reklam.",
-    "adsPremium": "ManagerGym Pro tüm reklamları kaldırır. Pro etkinken uygulama hiçbir reklamı yüklemez, istemez ve göstermez.",
+    "adsWhere": "LeadRehearse'in ücretsiz sürümü Google AdMob reklamları gösterir: ana sekmelerin altında bir banner ve en fazla üç dakikada bir, prova özetinden sonra tam ekran bir reklam.",
+    "adsPremium": "LeadRehearse Pro tüm reklamları kaldırır. Pro etkinken uygulama hiçbir reklamı yüklemez, istemez ve göstermez.",
     "adsKeep": "Dökümleriniz, senaryolarınız, puanlarınız ve pratik içeriğiniz AdMob'a ya da herhangi bir reklamverene hiçbir zaman gönderilmez.",
     "controls": "Yerel verilerinizi Ayarlar'dan dosya olarak dışa aktarabilir ve silebilirsiniz. Silme işlemi profilinizi, oturumlarınızı, özel senaryolarınızı, ayarlarınızı ve hatırlatıcılarınızı cihazdan kaldırır. Uygulamayı kaldırmak da yerel verilerini siler. Satın alma kayıtları Google Play ve RevenueCat'te kalır; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin."
    }
