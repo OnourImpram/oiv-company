@@ -204,10 +204,10 @@ def ads_section(c,tr,L):
  return ''.join('<p>'+p+'</p>' for p in [esc(c['adsWhere']),esc(c['adsPremium']),data,consent,esc(c['adsKeep']),links])
 
 def app_policies(lang):
- d=DATA[lang];tr=lang=='tr';L=APP_PRIVACY['links'];eff=APP_PRIVACY['effective'][lang]
+ d=DATA[lang];tr=lang=='tr';L=APP_PRIVACY['links']
  ul=lambda items:'<ul>'+''.join('<li>'+esc(i)+'</li>' for i in items)+'</ul>'
  for a in APP_PRIVACY['apps']:
-  c=a[lang];name=esc(a['name'])
+  c=a[lang];name=esc(a['name']);eff=a.get('effective',APP_PRIVACY['effective'])[lang]
   title=(f'{name} gizlilik politikası' if tr else f'{name} privacy policy')
   lead=(f'Yürürlük tarihi: {eff}. Google Play paket kimliği: {a["package"]}.' if tr else f'Effective {eff}. Google Play package: {a["package"]}.')
   body=intro(lang,d['privacy'],title,lead)
