@@ -76,9 +76,32 @@ class Release(unittest.TestCase):
    # The cycle's meaning reaches screen readers as one sentence inside the values band.
    cycle=json.loads((ROOT.parent/'src/content.json').read_text(encoding='utf-8'))[lang]['aboutCycle']
    self.assertIn('</h2><p class="sr-only">'+cycle+'</p>',text)
+ # Legal pages (app privacy policies and terms, both languages) stay public but out of search (2026-10-06, decision a7177e8b):
+ # <meta name="robots" content="noindex"> on every one, no sitemap entry, no link added to the home page, robots.txt still open.
+ def legal_pages(self):return [p for p in self.pages if p.path.name=='index.html' and p.path.parent.parent.name in ('legal','yasal')]
+ def robots(self,p):return [a.get('content') for a in p.select('meta',name='robots')]
+ def test_legal_pages_are_noindex(self):
+  legal=self.legal_pages()
+  self.assertEqual(len(legal),34)   # 17 EN + 17 TR; a glob that finds nothing must not pass
+  for p in legal:self.assertEqual(self.robots(p),['noindex'],str(p.path))
+ def test_other_pages_stay_indexable(self):
+  legal={id(p) for p in self.legal_pages()}
+  for p in self.pages:
+   if id(p) in legal or p.path.name=='404.html':continue   # the 404 is noindex by design
+   self.assertEqual(self.robots(p),[],str(p.path))
  def test_sitemap_is_complete(self):
-  # Every page except the 404 is listed (2026-10-04: the 11 tool-made legal pairs were missing before).
-  self.assertEqual((ROOT/'sitemap.xml').read_text(encoding='utf-8').count('<url>'),len(self.pages)-1)
+  # Every page except the 404 and the noindex legal pages is listed (a noindex URL in a sitemap contradicts itself).
+  self.assertEqual((ROOT/'sitemap.xml').read_text(encoding='utf-8').count('<url>'),len(self.pages)-1-len(self.legal_pages()))
+ def test_sitemap_has_no_legal_entries(self):
+  locs=re.findall(r'<loc>([^<]+)</loc>',(ROOT/'sitemap.xml').read_text(encoding='utf-8'))
+  for u in ['https://oiv.onourimpram.com/','https://oiv.onourimpram.com/tr/','https://oiv.onourimpram.com/apps/platekind/']:self.assertIn(u,locs)   # positive arm: the rest is still listed
+  self.assertEqual([u for u in locs if '/legal/' in u or '/yasal/' in u],[])
+ def test_robots_txt_still_lets_crawlers_read_the_noindex(self):
+  # A Disallow would hide the noindex from crawlers and leave the URLs indexable by link.
+  self.assertNotIn('Disallow',(ROOT/'robots.txt').read_text(encoding='utf-8'))
+ def test_home_pages_add_no_link_to_legal(self):
+  for rel in ['index.html','tr/index.html']:
+   for t,a in HTML(ROOT/rel).tags:self.assertNotRegex(a.get('href',''),r'(^|/)(legal|yasal)/',rel)
  def test_search_is_offline(self):
   text=(ROOT/'assets/js/site.js').read_text(encoding='utf-8');self.assertNotIn('fetch(',text);self.assertNotIn('localStorage',text);self.assertNotIn('sessionStorage',text)
 if __name__=='__main__':unittest.main(verbosity=2)

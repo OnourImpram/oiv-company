@@ -21,6 +21,10 @@ APPS=json.loads((ROOT/'src/apps.json').read_text(encoding='utf-8'))
 for a in APPS['apps']:
  ROUTES['en']['store-'+a['slug']]='apps/'+a['slug']+'/index.html';ROUTES['tr']['store-'+a['slug']]='tr/uygulamalar/'+a['slug']+'/index.html'
 def page_url(path):return SITE['url']+'/'+re.sub(r'(^|/)index\.html$',r'\1',path)
+# Legal pages (app privacy policies and terms, EN legal/ and TR tr/yasal/) stay public but out of search (2026-10-06, decision a7177e8b):
+# build() adds noindex, sitemap() leaves them out, and robots.txt must keep allowing them or crawlers never read the noindex.
+# tools/yasal-sayfa-uret.py copies its head from docs/legal/managergym, so rerun it after this script to carry noindex to its pages.
+is_legal=lambda path:path.startswith(('legal/','tr/yasal/'))
 esc=lambda s:html.escape(str(s),quote=True)
 plain=lambda s:re.sub('<[^>]+>',' ',s)
 ARROW='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5"/></svg>'
@@ -43,6 +47,7 @@ def build(lang,key,body,title,summary=None,extra=None):
  ld_extra=''.join('<script type="application/ld+json">'+json.dumps(x,ensure_ascii=False).replace('</','<\\/')+'</script>' for x in (extra or []))
  link=lambda k:root+ROUTES[lang][k]
  canonical=page_url(path)
+ robots='<meta name="robots" content="noindex">' if is_legal(path) else ''
  navkeys=[('home','#solutions'),('work',''),('home','#approach'),('about',''),('resources',''),('contact','')]
  nav=''.join(f'<a href="{link(k)+a}"'+(' aria-current="page"' if key==k and k!='home' else '')+f'>{label}</a>' for (k,a),label in zip(navkeys,d['nav']))
  schema={'@context':'https://schema.org','@type':'Organization','name':SITE['legalName'],'alternateName':SITE['name'],'url':SITE['url'],'email':SITE['email'],'logo':SITE['url']+'/assets/img/oiv-logo.png','identifier':SITE['companyNumber'],'founder':{'@type':'Person','name':'Onour Impram'},'sameAs':['https://find-and-update.company-information.service.gov.uk/company/'+SITE['companyNumber']]}
@@ -55,7 +60,7 @@ def build(lang,key,body,title,summary=None,extra=None):
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
-<title>{esc(title)}</title><meta name="description" content="{esc(summary or d['description'])}"><meta name="theme-color" content="#102431"><meta name="color-scheme" content="dark">
+<title>{esc(title)}</title><meta name="description" content="{esc(summary or d['description'])}"><meta name="theme-color" content="#102431"><meta name="color-scheme" content="dark">{robots}
 <link rel="canonical" href="{canonical}"><link rel="alternate" hreflang="en" href="{page_url(ROUTES['en'][key])}"><link rel="alternate" hreflang="tr" href="{page_url(ROUTES['tr'][key])}">{xdefault}
 <meta property="og:type" content="website"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(summary or d['description'])}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{SITE['url']}/assets/img/social-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{root}assets/img/favicon.png"><link rel="stylesheet" href="{root}assets/css/site.css"><script defer src="{root}assets/js/core.js"></script><script defer src="{root}assets/js/search-data.js"></script><script defer src="{root}assets/js/site.js"></script>
@@ -265,18 +270,12 @@ def store_pages(lang):
   build(lang,key,body,c['title']+' '+pg['titleSuffix']+' | OIV',c['short']+' '+pg['descSuffix'],[app_ld,crumbs])
 
 def sitemap():
- # Every route, plus every legal folder on disk (tools/yasal-sayfa-uret.py writes those without a route), each with its language twin.
- pairs=[(en,ROUTES['tr'][k]) for k,en in ROUTES['en'].items()];seen={x for pr in pairs for x in pr}
- for f in sorted((OUT/'legal').glob('*/index.html')):
-  en='legal/'+f.parent.name+'/index.html';tr='tr/yasal/'+f.parent.name+'/index.html'
-  if en not in seen:pairs.append((en,tr if (OUT/tr).exists() else None));seen.update([en,tr])
- for f in sorted((OUT/'tr'/'yasal').glob('*/index.html')):
-  tr='tr/yasal/'+f.parent.name+'/index.html'
-  if tr not in seen:pairs.append((None,tr));seen.add(tr)
+ # Every indexable route with its language twin. Legal pages (routed app policies and the tool-made folders on disk) are noindex and stay out.
+ pairs=[(en,ROUTES['tr'][k]) for k,en in ROUTES['en'].items() if not is_legal(en)]
  out=[]
  for en,tr in pairs:
-  alt=(f'<xhtml:link rel="alternate" hreflang="en" href="{page_url(en)}"/><xhtml:link rel="alternate" hreflang="tr" href="{page_url(tr)}"/><xhtml:link rel="alternate" hreflang="x-default" href="{page_url(en)}"/>' if en and tr else '')
-  out+=[f'<url><loc>{page_url(x)}</loc>{alt}</url>\n' for x in (en,tr) if x]
+  alt=f'<xhtml:link rel="alternate" hreflang="en" href="{page_url(en)}"/><xhtml:link rel="alternate" hreflang="tr" href="{page_url(tr)}"/><xhtml:link rel="alternate" hreflang="x-default" href="{page_url(en)}"/>'
+  out+=[f'<url><loc>{page_url(x)}</loc>{alt}</url>\n' for x in (en,tr)]
  return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'+''.join(out)+'</urlset>\n'
 
 def main():

@@ -179,10 +179,12 @@ class AppPages(unittest.TestCase):
             for rel in (f"{EN_DIR}/{slug}/", f"{TR_DIR}/{slug}/"):
                 self.assertIn(f"<loc>{SITE}/{rel}</loc>", sm, rel)
         self.assertEqual(sm.count("<loc>"), sm.count("<url>"))
-        # Every legal folder on disk is listed, in both languages.
+        # Legal pages are noindex since 2026-10-06 (decision a7177e8b), so no legal folder on disk is listed, in either language.
         for kind in ("legal", "tr/yasal"):
-            for d in (ROOT / kind).iterdir():
-                self.assertIn(f"<loc>{SITE}/{kind}/{d.name}/</loc>", sm, f"{kind}/{d.name}")
+            folders = list((ROOT / kind).iterdir())
+            self.assertTrue(folders, kind)
+            for d in folders:
+                self.assertNotIn(f"/{kind}/{d.name}/", sm, f"{kind}/{d.name}")
 
 
 if __name__ == "__main__":
