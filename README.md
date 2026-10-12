@@ -2,6 +2,10 @@
 
 English and Turkish OIV website. Precision refines the existing Continuum direction rather than starting another unrelated theme. GitHub Pages serves only `docs/` from `main` at https://oiv.onourimpram.com/. The former address https://onourimpram.github.io/oiv-company/ redirects there.
 
+## Startup support
+
+OIV is supported by [E2B for Startups](https://e2b.dev/startups) through usage credits and sandbox infrastructure, and by [Microsoft for Startups](https://www.microsoft.com/en-us/startups) through US$5,000 in approved Azure startup credits.
+
 ## What changed
 
 A more controlled sculptural hero, larger small text and controls, asymmetric project plates, two visible published-product records, an optional project brief builder and a branded 404. Existing legal identifiers, store-status dates, source links, artwork and publication covers remain intact.
