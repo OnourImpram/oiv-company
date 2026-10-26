@@ -37,6 +37,14 @@ DEL_OVERRIDE = {
         "tr": "Yerel verilerinizin tümünü Ayarlar'dan kalıcı olarak silebilirsiniz. Satın alma kayıtları Google Play ve RevenueCat'te kalır; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin.",
     }
 }
+# Effective date of the page, per app (Addendum 134 item 3, 2026-10-27): DogPulse's new release takes effect on 27 October 2026, so its page
+# says so; the shared source copy keeps 2026-10-26 and DoomScroll's pages keep reading it. One exact substitution per language, asserted.
+EFFECTIVE = {
+    "dogpulse": {
+        "en": ("Effective 2026-10-26.", "Effective 27 October 2026."),
+        "tr": ("Yürürlük tarihi 2026-10-26.", "Yürürlük tarihi 27 Ekim 2026."),
+    }
+}
 CRUMB = {"en": '<a href="../../index.html">Home</a><span aria-hidden="true">/</span><span>Privacy</span>',
          "tr": '<a href="../../../tr/index.html">Ana sayfa</a><span aria-hidden="true">/</span><span>Gizlilik</span>'}
 TITLE = {"en": "{n} privacy policy", "tr": "{n} gizlilik politikası"}
@@ -123,6 +131,10 @@ def md_to_html(md, lang, slug):
 def page(tpl, slug, lang):
     name = SLUGS[slug]
     md = SRC[lang].read_text(encoding="utf-8").replace("{{EMAIL}}", EMAIL)
+    if slug in EFFECTIVE:
+        old, new = EFFECTIVE[slug][lang]
+        assert md.count(old) == 1, (slug, lang, old)
+        md = md.replace(old, new)
     lead, body = md_to_html(md, lang, slug)
     title = TITLE[lang].format(n=name)
     main = (f'<main id="main" tabindex="-1"><section class="inner-hero dark section" data-od-id="intro"><div class="container">'
