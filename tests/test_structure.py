@@ -11,9 +11,9 @@ class HTML(HTMLParser):
  def select(self,tag,**attrs):return [a for t,a in self.tags if t==tag and all(a.get(k)==v for k,v in attrs.items())]
 class Release(unittest.TestCase):
  def setUp(self):self.pages=[HTML(p) for p in ROOT.rglob('*.html')]
- # 27 site pages + 23 EN and 23 TR Google Play app pages + 24 EN and 24 TR app policies (1 pair from tools/yasal-sayfa-tasi.py, 11 pairs from tools/yasal-sayfa-uret.py,
+ # 27 site pages + 23 EN and 23 TR Google Play app pages + 26 EN and 26 TR app policies (3 pairs from tools/yasal-sayfa-tasi.py, 11 pairs from tools/yasal-sayfa-uret.py,
  # 12 pairs from src/app-privacy.json; 2026-10-20 added AquaLog, Block Zen, CarnivorousLog, Clocktopus, Stroop Sprint).
- def test_all_pages_present(self):self.assertEqual(len(self.pages),121)
+ def test_all_pages_present(self):self.assertEqual(len(self.pages),125)
  def test_one_heading_each(self):
   for p in self.pages:self.assertEqual(len(p.select('h1')),1,str(p.path))
  def test_ids_are_unique(self):
@@ -83,7 +83,7 @@ class Release(unittest.TestCase):
  def robots(self,p):return [a.get('content') for a in p.select('meta',name='robots')]
  def test_legal_pages_are_noindex(self):
   legal=self.legal_pages()
-  self.assertEqual(len(legal),48)   # 24 EN + 24 TR; a glob that finds nothing must not pass
+  self.assertEqual(len(legal),52)   # 26 EN + 26 TR; a glob that finds nothing must not pass
   for p in legal:self.assertEqual(self.robots(p),['noindex'],str(p.path))
  def test_other_pages_stay_indexable(self):
   legal={id(p) for p in self.legal_pages()}
@@ -104,9 +104,9 @@ class Release(unittest.TestCase):
   for rel in ['index.html','tr/index.html']:
    for t,a in HTML(ROOT/rel).tags:self.assertNotRegex(a.get('href',''),r'(^|/)(legal|yasal)/',rel)
  def test_moved_pages_carry_the_sibling_deletion_sentence(self):
-  # ADHDFlow moved from the personal site (2026-10-26); GraceRhythm and Kinlore are held by the gate (tools/yasal-sayfa-tasi.py HELD): sibling sentence, company address, no personal address.
+  # ADHDFlow, GraceRhythm, Kinlore moved from the personal site (2026-10-26): sibling sentence, company address, no personal address.
   want={'legal':'ask about those records, email us.','tr/yasal':'bize e-posta gönderin.'}
-  for slug in ['adhdflow']:
+  for slug in ['adhdflow','gracerhythm','kinlore']:
    for d,s in want.items():
     t=(ROOT/d/slug/'index.html').read_text(encoding='utf-8')
     self.assertIn(s,t,f'{d}/{slug}');self.assertIn('mailto:onour@onourimpram.com',t);self.assertNotIn('gmail',t.lower());self.assertNotIn('email-protection',t)

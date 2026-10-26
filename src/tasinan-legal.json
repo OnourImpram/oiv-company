@@ -208,7 +208,7 @@
      },
      {
       "h": "Reklam",
-      "html": "<p>Ücretsiz sürüm reklamı tek bir yerde gösterir: oturum kataloğu. Dua ettiğin, yazdığın ya da gününü gözden geçirdiğin ekranlarda reklam yoktur; abonelik ekranında da yoktur.</p><p>Reklamlar Google AdMob tarafından sunulur ve seçim için cihazının reklam tanımlayıcısı kullanılabilir. iOS'ta sistem bu tanımlayıcı kullanılmadan önce senden izin ister; reddetmek eksiksiz bir cevaptır — uygulama iki durumda da aynı şekilde çalışır. Abone olmak tüm reklamları kaldırır.</p>"
+      "html": "<p>Ücretsiz sürüm reklamı tek bir yerde gösterir: oturum kataloğu. Reklamları göstermek, ölçmek ve sınırlamak ve sahteciliği önlemek için Google Mobile Ads SDK şu verileri toplar ve Google ile paylaşır: cihazınızın reklam kimliği; Google’ın yaklaşık konum çıkardığı IP adresiniz; cihaz modeli, işletim sistemi, dil ve uygulama sürümü gibi cihaz ve uygulama bilgileri; çökme ve performans kayıtları gibi tanılama verileri; size hangi reklamların gösterildiği ve onlara dokunup dokunmadığınız. Google bu verileri reklamcılık, analiz ve sahtecilik önleme amacıyla kendi gizlilik politikası kapsamında kullanır.</p><p>Reklamlar Google AdMob tarafından sunulur ve seçim için cihazının reklam tanımlayıcısı kullanılabilir. iOS'ta sistem bu tanımlayıcı kullanılmadan önce senden izin ister; reddetmek eksiksiz bir cevaptır — uygulama iki durumda da aynı şekilde çalışır. Abone olmak tüm reklamları kaldırır.</p>"
      },
      {
       "h": "Yapmadıklarımız",
@@ -279,7 +279,7 @@
      },
      {
       "h": "Children",
-      "html": "<p>Kinlore is made for adults writing for the people they love and is not directed at children. Kinlore itself collects no personal data from anyone; in the free version, Google AdMob processes the advertising data described above.</p>"
+      "html": "<p>Kinlore is made for adults writing for the people they love and is not directed at children. To show, measure and limit ads and to prevent fraud, the Google Mobile Ads SDK collects the following and shares it with Google: your device’s advertising ID; your IP address, from which Google derives an approximate location; device and app information such as model, operating system, language and app version; diagnostic data such as crash and performance logs; and which ads you were shown and whether you tapped them. Google uses this data for advertising, analytics and fraud prevention under its own privacy policy.</p>"
      },
      {
       "h": "Contact",

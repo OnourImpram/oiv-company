@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Move three policy pages from the founder's personal site to the company site (2026-10-26).
 
-Apps: ADHDFlow (published), GraceRhythm and Kinlore (held, see HELD). Source text: src/tasinan-legal.json, the card text of the personal-site pages
+Apps: ADHDFlow, GraceRhythm, Kinlore. Source text: src/tasinan-legal.json, the card text of the personal-site pages
 (https://onourimpram.com/legal/<slug>/<lang>), copied verbatim; only the Cloudflare-obfuscated address link was replaced by its
 decoded value, which equals the company address; the data file carries {{EMAIL}} and this tool fills it from src/content.json (site.email).
 Added: one deletion-request sentence per language, copied from the existing oiv sibling pages (tinybroadcast, managergym).
@@ -24,12 +24,9 @@ TEMPLATE = {"en": ROOT / "docs" / "legal" / "managergym" / "index.html",
             "tr": ROOT / "docs" / "tr" / "yasal" / "managergym" / "index.html"}
 SRC = ROOT / "src" / "tasinan-legal.json"
 SITE_EMAIL = json.loads((ROOT / "src" / "content.json").read_text(encoding="utf-8"))["site"]["email"]   # the address is never written into the data file
-SLUGS = ("adhdflow",)
-# HELD (2026-10-26): canli-iddia-kapisi gave rc 1 on the verbatim text, so these are not published until the owner rules on the sentence:
-#   gracerhythm TR  GIZLILIK_REKLAMSIZ_IDDIA "Dua ettiğin, yazdığın ya da gününü gözden geçirdiğin ekranlarda reklam yoktur;"
-#   kinlore EN      VERI_IDDIASI "collects no personal data"  (the TR page passes)
-# Their text stays in src/tasinan-legal.json; add the slug to SLUGS to publish.
-HELD = ("gracerhythm", "kinlore")
+SLUGS = ("adhdflow", "gracerhythm", "kinlore")
+# 2026-10-26 ruling (revenubrain): GraceRhythm TR "Dua ettiğin ... reklam yoktur" and Kinlore EN "collects no personal data" were replaced
+# verbatim by the sibling pages' Google data lines (src/build.py ads_section), so canli-iddia gives rc 0; everything else stays verbatim.
 # Verbatim from the sibling pages (src/app-privacy.json, tinybroadcast and managergym, "controls" field).
 DELETION = {
     "en": "Purchase records stay with Google Play and RevenueCat; to ask about those records, email us.",
