@@ -262,8 +262,8 @@
     "sub": "Kinlore — Memory Book · Last updated: 27 September 2026",
     "cards": [
      {
-      "h": "Everything stays on your phone",
-      "html": "<p>Your book — every page, name and setting — is stored only on this device. Kinlore has no account, no server and no analytics, and never sends your writing anywhere.</p><p>Export and Share hand the text to the app you choose; from that moment it is that app's copy, under that app's rules.</p>"
+      "h": "Your writing stays on your phone",
+      "html": "<p>Your book — every page, name and setting — is stored only on this device. Kinlore has no account and never sends your writing anywhere; the free version shows ads from Google AdMob.</p><p>Export and Share hand the text to the app you choose; from that moment it is that app's copy, under that app's rules.</p>"
      },
      {
       "h": "The one-time purchase",
@@ -271,11 +271,11 @@
      },
      {
       "h": "Advertising",
-      "html": "<p>The free version shows ads from Google AdMob: a banner on the Book tab and, now and then, a full-screen ad after a page is bound — never while you write. To show, measure and limit ads and to prevent fraud, Google AdMob collects your device's advertising ID, your IP address (from which Google derives an approximate location), device and app information, diagnostic data such as crash and performance logs, and which ads you see and tap, and shares them with Google for advertising, analytics and fraud prevention. If you are in the European Economic Area, the United Kingdom or Switzerland, Google's consent form (User Messaging Platform) asks you first and you can refuse personalised ads; non-personalised ads still use this technical data, but not a profile of you. Premium removes every ad. Nothing you write is ever shared with an advertiser.</p>"
+      "html": "<p>The free version shows ads from Google AdMob: banner ads in the app and, now and then, a full-screen ad after a page is bound — never while you write. To show, measure and limit ads and to prevent fraud, Google AdMob collects your device's advertising ID, your IP address (from which Google derives an approximate location), device and app information, diagnostic data such as crash and performance logs, and which ads you see and tap, and shares them with Google for advertising, analytics and fraud prevention. If you are in the European Economic Area, the United Kingdom or Switzerland, Google's consent form (User Messaging Platform) asks you first and you can refuse personalised ads; non-personalised ads still use this technical data, but not a profile of you. Premium removes every ad. Nothing you write is ever shared with an advertiser.</p>"
      },
      {
       "h": "What Kinlore does not do",
-      "html": "<p>No profiling of your writing, no location, no contacts, no microphone. Notifications, if you turn them on, are scheduled on the phone itself and carry only the next prompt.</p>"
+      "html": "<p>No profiling of your writing; Kinlore asks for no location, contacts or microphone permission. Notifications, if you turn them on, are scheduled on the phone itself and carry only the next prompt.</p>"
      },
      {
       "h": "Children",
@@ -322,8 +322,8 @@
     "sub": "Kinlore — Hatıra Kitabı · Son güncelleme: 27 Eylül 2026",
     "cards": [
      {
-      "h": "Her şey telefonunda kalır",
-      "html": "<p>Kitabın — her sayfa, ad ve ayar — yalnız bu cihazda saklanır. Kinlore'un hesabı, sunucusu ve analitiği yoktur; yazdıklarını hiçbir yere göndermez.</p><p>Dışa aktarma ve Paylaşma, metni seçtiğin uygulamaya verir; o andan itibaren o uygulamanın kopyasıdır ve o uygulamanın kurallarına tabidir.</p>"
+      "h": "Yazdıkların telefonunda kalır",
+      "html": "<p>Kitabın — her sayfa, ad ve ayar — yalnız bu cihazda saklanır. Kinlore'un hesabı yoktur; yazdıklarını hiçbir yere göndermez. Ücretsiz sürüm Google AdMob reklamları gösterir.</p><p>Dışa aktarma ve Paylaşma, metni seçtiğin uygulamaya verir; o andan itibaren o uygulamanın kopyasıdır ve o uygulamanın kurallarına tabidir.</p>"
      },
      {
       "h": "Tek seferlik satın alım",
@@ -331,11 +331,11 @@
      },
      {
       "h": "Reklam",
-      "html": "<p>Ücretsiz sürüm Google AdMob reklamları gösterir: Kitap sekmesinde bir banner ve ara sıra, bir sayfa ciltlendikten sonra tam ekran bir reklam — yazarken asla. Google AdMob, reklamları göstermek, ölçmek ve sınırlamak ve sahteciliği önlemek için cihazının reklam kimliğini, IP adresini (Google bundan yaklaşık konumunu çıkarır), cihaz ve uygulama bilgilerini, çökme ve performans kayıtları gibi tanılama verilerini ve hangi reklamları görüp dokunduğunu toplar; bunları reklamcılık, analiz ve sahtecilik önleme amacıyla Google ile paylaşır. Avrupa Ekonomik Alanı, Birleşik Krallık ya da İsviçre'deysen Google'ın onay formu (User Messaging Platform) önce sana sorar ve kişiselleştirilmiş reklamı reddedebilirsin; kişiselleştirilmemiş reklamlar da bu teknik verileri kullanır ama senin hakkında bir profil kullanmaz. Premium bütün reklamları kaldırır. Yazdığın hiçbir şey bir reklamverenle paylaşılmaz.</p>"
+      "html": "<p>Ücretsiz sürüm Google AdMob reklamları gösterir: uygulamada banner reklamlar ve ara sıra, bir sayfa ciltlendikten sonra tam ekran bir reklam — yazarken asla. Google AdMob, reklamları göstermek, ölçmek ve sınırlamak ve sahteciliği önlemek için cihazının reklam kimliğini, IP adresini (Google bundan yaklaşık konumunu çıkarır), cihaz ve uygulama bilgilerini, çökme ve performans kayıtları gibi tanılama verilerini ve hangi reklamları görüp dokunduğunu toplar; bunları reklamcılık, analiz ve sahtecilik önleme amacıyla Google ile paylaşır. Avrupa Ekonomik Alanı, Birleşik Krallık ya da İsviçre'deysen Google'ın onay formu (User Messaging Platform) önce sana sorar ve kişiselleştirilmiş reklamı reddedebilirsin; kişiselleştirilmemiş reklamlar da bu teknik verileri kullanır ama senin hakkında bir profil kullanmaz. Premium bütün reklamları kaldırır. Yazdığın hiçbir şey bir reklamverenle paylaşılmaz.</p>"
      },
      {
       "h": "Kinlore'un yapmadıkları",
-      "html": "<p>Yazdıkların profillenmez; konum yok, kişiler yok, mikrofon yok. Bildirimleri açarsan telefonun kendisinde planlanır ve yalnız sıradaki istemi taşır.</p>"
+      "html": "<p>Yazdıkların profillenmez; Kinlore konum, kişiler ya da mikrofon izni istemez. Bildirimleri açarsan telefonun kendisinde planlanır ve yalnız sıradaki istemi taşır.</p>"
      },
      {
       "h": "Çocuklar",
