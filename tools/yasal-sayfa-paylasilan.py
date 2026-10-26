@@ -45,6 +45,62 @@ EFFECTIVE = {
         "tr": ("Yürürlük tarihi 2026-10-26.", "Yürürlük tarihi 27 Ekim 2026."),
     }
 }
+# Which kind of ads the app requests, per app (Addendum 137 item 2, 2026-10-27). The shared source copy lists six apps as "non-personalised only";
+# that is no longer true for DogPulse and CatPulse, and DoomScroll's live and upgrade builds differ, so each page now states only its own app.
+# The three npa sentences of the source (the two bullets under "Sent to Google AdMob" and the "Right to withdraw consent" sentence) are
+# replaced per page; every other line of the copy is kept. Exact line prefixes are asserted once per language.
+#  - DogPulse: the same consent paragraph src/build.py ads_section renders for the other AdMob apps (verbatim; true for the live build and
+#    the candidate: ads may be personalised, in the EEA, UK and Switzerland the consent form asks first).
+#  - DoomScroll: true for both builds. Live vc8 (rewarded request with requestNonPersonalizedAdsOnly: true, ads.ts:191 at e854b4f where
+#    versionCode became 8, ads.ts:226 at e2f7efb, the last commit with the key) and the upgrade tip 2dd8ef3e (request without options,
+#    ads.ts:277, comment :274-276) differ, so the page says what holds for both: personalised ads only when Google's consent status allows
+#    it; the consent form is shown first (ads.ts:96-97 at e854b4f, :142-143 at the tip); one optional rewarded ad on the game-over screen
+#    (SessionSummaryScreen.tsx:62,128), no banner (AdBanner.tsx:15).
+BUILD_CONSENT = {
+    "en": ("If you are in the European Economic Area, the United Kingdom or Switzerland, the app first shows Google’s consent form (User Messaging Platform) and requests ads only when Google’s consent status allows it. "
+           "If you do not agree to personalised ads, Google can still show non personalised ads, which use the same technical data for delivery, frequency limits, reporting and fraud prevention but are not based on your past activity. "
+           "Outside these regions ads may be personalised. To change or withdraw your consent, email us; you can reset or delete your advertising ID in Android settings."),
+    "tr": ("Avrupa Ekonomik Alanı, Birleşik Krallık veya İsviçre’deyseniz uygulama önce Google’ın User Messaging Platform onay formunu gösterir ve reklamı yalnızca Google’ın onay durumu izin verdiğinde ister. "
+           "Kişiselleştirilmiş reklamları kabul etmezseniz Google yine kişiselleştirilmemiş reklamlar gösterebilir; bunlar aynı teknik verileri gösterim, sıklık sınırı, raporlama ve sahtecilik önleme için kullanır ama geçmiş etkinliğinize dayanmaz. "
+           "Bu bölgelerin dışında reklamlar kişiselleştirilebilir. Onayınızı değiştirmek veya geri çekmek için bize e-posta gönderin; reklam kimliğinizi Android ayarlarından sıfırlayabilir veya silebilirsiniz."),
+}
+ADS_BULLET = {
+    "dogpulse": {"en": "* **DogPulse: consent decides.** " + BUILD_CONSENT["en"], "tr": "* **DogPulse: onay belirler.** " + BUILD_CONSENT["tr"]},
+    "doomscroll": {
+        "en": ("* **DoomScroll.** DoomScroll shows one kind of ad: an optional rewarded ad that you start yourself on the game-over screen to earn a hint. It never shows a banner. "
+               "Personalised ads are requested only when Google’s consent status allows it. If you are in the European Economic Area, the United Kingdom or Switzerland, "
+               "the app first shows Google’s consent form (User Messaging Platform). To change or withdraw your consent, email us."),
+        "tr": ("* **DoomScroll.** DoomScroll tek tür reklam gösterir: oyun bitiş ekranında bir ipucu kazanmak için kendiniz başlattığınız, isteğe bağlı bir ödüllü reklam. Hiçbir zaman banner göstermez. "
+               "Kişiselleştirilmiş reklamlar yalnızca Google’ın onay durumu izin verdiğinde istenir. Avrupa Ekonomik Alanı, Birleşik Krallık veya İsviçre’deyseniz "
+               "uygulama önce Google’ın User Messaging Platform onay formunu gösterir. Onayınızı değiştirmek veya geri çekmek için bize e-posta gönderin."),
+    },
+}
+WITHDRAW = {
+    "dogpulse": {"en": "To change or withdraw your consent for personalised ads, email us at **{EMAIL}**.",
+                 "tr": "Kişiselleştirilmiş reklamlar için onayınızı değiştirmek veya geri çekmek için **{EMAIL}** adresine e-posta gönderin."},
+    "doomscroll": {"en": "In DoomScroll, personalised ads are requested only when Google’s consent status allows it; to change or withdraw your consent, email us at **{EMAIL}**.",
+                   "tr": "DoomScroll’da kişiselleştirilmiş reklamlar yalnızca Google’ın onay durumu izin verdiğinde istenir; onayınızı değiştirmek veya geri çekmek için **{EMAIL}** adresine e-posta gönderin."},
+}
+ADS_PREFIX = {"en": ("* **Only non-personalised ads (", "* **Consent decides (", "In the apps that ask for personalisation consent ("),
+              "tr": ("* **Yalnızca kişiselleştirilmemiş reklamlar (", "* **Onay belirler (", "Kişiselleştirme onayı isteyen uygulamalarda (")}
+WITHDRAW_TAIL = {"en": " You can stop sending crash reports", "tr": " Mevcut olduğunda Ayarlar"}
+
+
+def per_app_ads(md, slug, lang):
+    if slug not in ADS_BULLET:
+        return md
+    npa_p, consent_p, withdraw_p = ADS_PREFIX[lang]
+    lines = md.split("\n")
+    i = [k for k, l in enumerate(lines) if l.startswith(npa_p)]
+    j = [k for k, l in enumerate(lines) if l.startswith(consent_p)]
+    w = [k for k, l in enumerate(lines) if l.startswith(withdraw_p)]
+    assert len(i) == len(j) == len(w) == 1 and j[0] == i[0] + 1, (slug, lang, i, j, w)
+    tail = lines[w[0]][lines[w[0]].index(WITHDRAW_TAIL[lang]):]          # raises if the tail sentence is not there
+    lines[w[0]] = WITHDRAW[slug][lang].replace("{EMAIL}", EMAIL) + tail   # later line first, so the earlier indices stay valid
+    lines[i[0]:j[0] + 1] = [ADS_BULLET[slug][lang]]
+    return "\n".join(lines)
+
+
 CRUMB = {"en": '<a href="../../index.html">Home</a><span aria-hidden="true">/</span><span>Privacy</span>',
          "tr": '<a href="../../../tr/index.html">Ana sayfa</a><span aria-hidden="true">/</span><span>Gizlilik</span>'}
 TITLE = {"en": "{n} privacy policy", "tr": "{n} gizlilik politikası"}
@@ -135,6 +191,7 @@ def page(tpl, slug, lang):
         old, new = EFFECTIVE[slug][lang]
         assert md.count(old) == 1, (slug, lang, old)
         md = md.replace(old, new)
+    md = per_app_ads(md, slug, lang)
     lead, body = md_to_html(md, lang, slug)
     title = TITLE[lang].format(n=name)
     main = (f'<main id="main" tabindex="-1"><section class="inner-hero dark section" data-od-id="intro"><div class="container">'
