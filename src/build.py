@@ -225,10 +225,11 @@ def app_policies(lang):
    (('Yapmadıklarımız' if tr else 'What we do not do'),ul(c['never'])),
    (('İzinler' if tr else 'Permissions'),ul(c['permissions'])),
    (('Seçimleriniz ve silme' if tr else 'Your choices and deletion'),'<p>'+esc(c['controls'])+'</p>'),
+   *([(('Veri silme' if tr else 'Data deletion'),'<p>'+esc(c['deletion'])+'</p>')] if 'deletion' in c else []),
    (('Haklarınız' if tr else 'Your rights'),'<p>'+('Bulunduğunuz yerdeki veri koruma kurallarına göre kişisel verilerinize erişme, düzeltme, silme ve itiraz etme haklarınız olabilir. Taleplerinizi e-postayla iletin; yanıt vermek için gerekenden fazla bilgi istemeyiz. Birleşik Krallık’ta Information Commissioner’s Office’e şikâyette bulunma hakkınız da vardır.' if tr else 'Depending on where you live, you may have rights to access, correct, delete or object to the processing of your personal data. Send requests by email; we will not ask for more information than we need to respond. In the United Kingdom you can also complain to the Information Commissioner’s Office.')+'</p>'),
    (('Çocuklar' if tr else 'Children'),'<p>'+(f'{name} 13 yaşın altındaki çocuklara yönelik değildir ve onlardan bilerek kişisel veri toplamaz.' if tr else f'{name} is not directed to children under 13 and does not knowingly collect personal data from them.')+'</p>'),
    (('Değişiklikler' if tr else 'Changes'),'<p>'+('Bu politikayı uygulamanın veri uygulamaları değiştiğinde, değişiklik yayımlanmadan önce güncelleriz. Yürürlük tarihi sayfanın başında yer alır.' if tr else 'We update this policy before any change to the app’s data practices is released. The effective date is shown at the top of this page.')+'</p>')]
-  body+='<section class="section" data-od-id="policy"><div class="container prose">'+''.join('<h2>'+h+'</h2>'+v for h,v in sec)+f'<p class="updated">{eff} · {SITE["legalName"]}</p></div></section>'
+  body+='<section class="section" data-od-id="policy"><div class="container prose">'+''.join('<h2'+(' id="data-deletion"' if h in ('Data deletion','Veri silme') else '')+'>'+h+'</h2>'+v for h,v in sec)+f'<p class="updated">{eff} · {SITE["legalName"]}</p></div></section>'
   build(lang,'app-'+a['slug'],body,title+' | OIV',c['summary'])
 
 

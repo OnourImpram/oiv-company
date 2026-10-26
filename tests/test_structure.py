@@ -11,9 +11,9 @@ class HTML(HTMLParser):
  def select(self,tag,**attrs):return [a for t,a in self.tags if t==tag and all(a.get(k)==v for k,v in attrs.items())]
 class Release(unittest.TestCase):
  def setUp(self):self.pages=[HTML(p) for p in ROOT.rglob('*.html')]
- # 27 site pages + 23 EN and 23 TR Google Play app pages + 26 EN and 26 TR app policies (3 pairs from tools/yasal-sayfa-tasi.py, 11 pairs from tools/yasal-sayfa-uret.py,
+ # 27 site pages + 23 EN and 23 TR Google Play app pages + 27 EN and 27 TR app policies (1 pair from tools/yasal-sayfa-paylasilan.py, 3 pairs from tools/yasal-sayfa-tasi.py, 11 pairs from tools/yasal-sayfa-uret.py,
  # 12 pairs from src/app-privacy.json; 2026-10-20 added AquaLog, Block Zen, CarnivorousLog, Clocktopus, Stroop Sprint).
- def test_all_pages_present(self):self.assertEqual(len(self.pages),125)
+ def test_all_pages_present(self):self.assertEqual(len(self.pages),127)
  def test_one_heading_each(self):
   for p in self.pages:self.assertEqual(len(p.select('h1')),1,str(p.path))
  def test_ids_are_unique(self):
@@ -83,7 +83,7 @@ class Release(unittest.TestCase):
  def robots(self,p):return [a.get('content') for a in p.select('meta',name='robots')]
  def test_legal_pages_are_noindex(self):
   legal=self.legal_pages()
-  self.assertEqual(len(legal),52)   # 26 EN + 26 TR; a glob that finds nothing must not pass
+  self.assertEqual(len(legal),54)   # 27 EN + 27 TR; a glob that finds nothing must not pass
   for p in legal:self.assertEqual(self.robots(p),['noindex'],str(p.path))
  def test_other_pages_stay_indexable(self):
   legal={id(p) for p in self.legal_pages()}
@@ -114,6 +114,11 @@ class Release(unittest.TestCase):
   for d in ['legal','tr/yasal']:
    for slug in ['blockzen','stroopsprint']:
     t=(ROOT/d/slug/'index.html').read_text(encoding='utf-8');self.assertNotRegex(t,r'(?i)sentry');self.assertRegex(t,r'Android vitals')
+ def test_data_deletion_section_on_catpulse_and_dogpulse(self):
+  # Addendum 90 (2026-10-26): a #data-deletion anchor with the local-delete and the email-for-third-party sentences, EN and TR.
+  for d,h,s in [('legal','Data deletion','ask about those records, email us.'),('tr/yasal','Veri silme','bize e-posta gönderin.')]:
+   for slug in ['catpulse','dogpulse']:
+    t=(ROOT/d/slug/'index.html').read_text(encoding='utf-8');self.assertEqual(t.count('id="data-deletion"'),1,f'{d}/{slug}');self.assertIn(h,t);self.assertIn(s,t)
  def test_search_is_offline(self):
   text=(ROOT/'assets/js/site.js').read_text(encoding='utf-8');self.assertNotIn('fetch(',text);self.assertNotIn('localStorage',text);self.assertNotIn('sessionStorage',text)
 if __name__=='__main__':unittest.main(verbosity=2)
