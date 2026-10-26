@@ -1,2 +1,4 @@
 google.com, pub-6564045764068405, DIRECT, f08c47fec0942fa0
 google.com, pub-6270968022636212, DIRECT, f08c47fec0942fa0
+smartadserver.com, 4194-OB, RESELLER, 060d053dcf45cbf3
+smartadserver.com, 4194, RESELLER, 060d053dcf45cbf3
