@@ -28,6 +28,15 @@ DEL_TEXT = {
     "en": "You can export, restore or permanently delete your local records from Settings. Deleting local records does not remove records held by RevenueCat, Google Play, Sentry or Google AdMob; to ask about those records, email us.",
     "tr": "Yerel kayıtlarınızı Ayarlar'dan dışa aktarabilir, geri yükleyebilir veya kalıcı olarak silebilirsiniz. Yerel kayıtları silmek RevenueCat, Google Play, Sentry veya Google AdMob'da tutulan kayıtları silmez; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin.",
 }
+# DoomScroll (live vc8, read statically from the Play-generated universal APK, 2026-10-26): Settings has "Reset All Data" (confirm text "This will
+# permanently delete all data"); the Export/Import rows are gone (settings.tsx comment HUKUM M2). So no export/restore claim. The first sentence
+# in each language is NEW (reader list); the second is verbatim from the sibling pages (tinybroadcast, managergym).
+DEL_OVERRIDE = {
+    "doomscroll": {
+        "en": "You can permanently delete all your local data from Settings. Purchase records stay with Google Play and RevenueCat; to ask about those records, email us.",
+        "tr": "Yerel verilerinizin tümünü Ayarlar'dan kalıcı olarak silebilirsiniz. Satın alma kayıtları Google Play ve RevenueCat'te kalır; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin.",
+    }
+}
 CRUMB = {"en": '<a href="../../index.html">Home</a><span aria-hidden="true">/</span><span>Privacy</span>',
          "tr": '<a href="../../../tr/index.html">Ana sayfa</a><span aria-hidden="true">/</span><span>Gizlilik</span>'}
 TITLE = {"en": "{n} privacy policy", "tr": "{n} gizlilik politikası"}
@@ -50,7 +59,7 @@ def anchor(t):
     return SLUG_RE.sub("", t.lower().translate(FOLD)).strip().replace(" ", "-")
 
 
-def md_to_html(md, lang):
+def md_to_html(md, lang, slug):
     lines = md.replace("\r\n", "\n").split("\n")
     assert lines[0].startswith("# ")
     out, i, para, lst = [], 1, [], None
@@ -81,7 +90,7 @@ def md_to_html(md, lang):
             flush()
             lvl = len(m.group(1))
             if lvl == 2 and m.group(2).startswith(("Changes to this policy", "Bu politikadaki değişiklikler", "Politika değişiklikleri")) and not deleted:
-                out.append(f'<h2 id="data-deletion">{DEL_HEAD[lang]}</h2><p>{html.escape(DEL_TEXT[lang], quote=False)}</p>')
+                out.append(f'<h2 id="data-deletion">{DEL_HEAD[lang]}</h2><p>{html.escape(DEL_OVERRIDE.get(slug, DEL_TEXT)[lang], quote=False)}</p>')
                 deleted = True
             a = anchor(m.group(2)); base = a; n = 2
             while a in used or a == "data-deletion":
@@ -114,7 +123,7 @@ def md_to_html(md, lang):
 def page(tpl, slug, lang):
     name = SLUGS[slug]
     md = SRC[lang].read_text(encoding="utf-8").replace("{{EMAIL}}", EMAIL)
-    lead, body = md_to_html(md, lang)
+    lead, body = md_to_html(md, lang, slug)
     title = TITLE[lang].format(n=name)
     main = (f'<main id="main" tabindex="-1"><section class="inner-hero dark section" data-od-id="intro"><div class="container">'
             f'<div class="breadcrumb">{CRUMB[lang]}</div><h1>{html.escape(title)}</h1><p class="inner-lead">{lead}</p></div></section>'
