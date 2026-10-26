@@ -11,6 +11,7 @@
    "slug": "managergym",
    "name": "LeadRehearse",
    "package": "com.hezarfen.managergym",
+   "privacyOptionsEntry": true,
    "en": {
     "summary": "LeadRehearse is a private rehearsal app for difficult workplace conversations. You can use it without an account. Your practice data stays on your device. The free version shows ads from Google AdMob; LeadRehearse Pro removes them. We do not sell data.",
     "device": ["Your profile name, role and practice goals", "Scenario transcripts, local coach feedback, scores and voice rehearsal self checks (audio is never recorded)", "Custom scenarios, lesson progress, language, theme and reminder settings"],
@@ -38,6 +39,7 @@
    "slug": "recalldock",
    "name": "RecallDock",
    "package": "com.hezarfen.recalldock",
+   "privacyOptionsEntry": true,
    "effective": {"en": "6 October 2026", "tr": "6 Ekim 2026"},
    "en": {
     "summary": "RecallDock is a local first vault for text, links, images, documents and files. You can use it without an account. Your vault stays on your device. The free version shows ads from Google AdMob; RecallDock Pro removes them. We do not sell data.",
@@ -66,6 +68,7 @@
    "slug": "tinybroadcast",
    "name": "Tiny Broadcast",
    "package": "com.hezarfen.tinybroadcast",
+   "privacyOptionsEntry": true,
    "effective": {"en": "6 October 2026", "tr": "6 Ekim 2026"},
    "en": {
     "summary": "Tiny Broadcast is a short session strategy game about running a small town radio station. You can play without an account. Your season is stored on your device. The free version can show one non personalised ad from Google AdMob, only after you choose to accept a sponsor break; the ad-free purchase removes it. We do not sell data.",
@@ -96,6 +99,7 @@
    "slug": "pathwayslab",
    "name": "Pathways Lab",
    "package": "com.hezarfen.pathwayslab",
+   "privacyOptionsEntry": true,
    "effective": {"en": "6 October 2026", "tr": "6 Ekim 2026"},
    "en": {
     "summary": "Pathways Lab helps students test a possible career through a seven day experiment. You can use it without an account and the core experiment works offline. Your workspace stays on your device. The free version shows ads from Google AdMob; the optional Supporter Pack removes them. The app contains no analytics of its own and we do not sell data.",
@@ -124,6 +128,7 @@
    "slug": "platekind",
    "name": "PlateKind",
    "package": "com.hezarfen.platekind",
+   "privacyOptionsEntry": true,
    "effective": {"en": "6 October 2026", "tr": "6 Ekim 2026"},
    "en": {
     "summary": "PlateKind suggests up to two simple additions to a meal you already have. You can use it without an account. Your meal notes stay on your device. The free version shows ads from Google AdMob; the premium purchase removes them. We do not sell data.",
@@ -152,6 +157,7 @@
    "slug": "backlogbloom",
    "name": "Backlog Bloom",
    "package": "com.hezarfen.backlogbloom",
+   "privacyOptionsEntry": true,
    "effective": {"en": "6 October 2026", "tr": "6 Ekim 2026"},
    "en": {
     "summary": "Backlog Bloom is a calm library for the games you want to play. You can use it without an account. Your library stays on your device. The free version shows ads from Google AdMob; Backlog Bloom Pro removes them. We do not sell data.",
@@ -180,6 +186,7 @@
    "slug": "catpulse",
    "name": "CatPulse",
    "package": "com.hezarfen.catpulse",
+   "privacyOptionsEntry": true,
    "effective": {"en": "11 October 2026", "tr": "11 Ekim 2026"},
    "en": {
     "summary": "CatPulse is a care companion for cat owners: daily care tasks, medication times, observations, veterinary visits and documents. You can use it without an account. Your cat profiles and care records are stored on your device. The free version shows ads from Google AdMob; Premium removes them. We do not sell data.",
@@ -212,6 +219,7 @@
    "slug": "aqualog",
    "name": "AquaLog",
    "package": "com.hezarfen.aqualog",
+   "privacyOptionsEntry": true,
    "effective": {"en": "20 October 2026", "tr": "20 Ekim 2026"},
    "en": {
     "summary": "AquaLog is an aquarium tracker for water readings, tank inhabitants and care reminders. You can use it without an account. Your records are stored on your device. The free version shows ads from Google AdMob; Premium removes them. We do not sell data.",
@@ -242,6 +250,7 @@
    "slug": "blockzen",
    "name": "Block Zen",
    "package": "com.hezarfen.blockzen",
+   "privacyOptionsEntry": true,
    "effective": {"en": "26 October 2026", "tr": "26 Ekim 2026"},
    "en": {
     "summary": "Block Zen is a block puzzle game with Classic, Daily and Zen modes. You can play without an account. Your game progress is stored on your device. The free version shows ads from Google AdMob; Premium removes them. We do not sell data.",
@@ -272,6 +281,7 @@
    "slug": "carnivorouslog",
    "name": "CarnivorousLog",
    "package": "com.hezarfen.carnivorouslog",
+   "privacyOptionsEntry": true,
    "effective": {"en": "20 October 2026", "tr": "20 Ekim 2026"},
    "en": {
     "summary": "CarnivorousLog is a care log for carnivorous plants: your pots, what you grow in them, care readings and reminders. You can use it without an account. Your records are stored on your device. The free version shows ads from Google AdMob; Premium removes them. We do not sell data.",
@@ -300,6 +310,7 @@
    "slug": "clocktopus",
    "name": "Clocktopus",
    "package": "com.brilliant.wellbeing",
+   "privacyOptionsEntry": true,
    "effective": {"en": "20 October 2026", "tr": "20 Ekim 2026"},
    "en": {
     "summary": "Clocktopus is a set of short lessons about everyday focus habits, told through a cartoon octopus. You can use it without an account. Your answers and progress stay on your device. The free version shows ads from Google AdMob; Premium removes them.",
@@ -328,6 +339,7 @@
    "slug": "stroopsprint",
    "name": "Stroop Sprint",
    "package": "com.hezarfen.stroopsprint",
+   "privacyOptionsEntry": true,
    "effective": {"en": "26 October 2026", "tr": "26 Ekim 2026"},
    "en": {
     "summary": "Stroop Sprint is a timed brain game in which you tap the ink colour, not the word, in Classic, Daily and Zen modes. You can play without an account. Your game progress is stored on your device. The free version shows ads from Google AdMob; Premium removes them. We do not sell data.",

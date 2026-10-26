@@ -196,7 +196,7 @@ def policies(lang):
 
 # Advertising disclosure shared by every app that shows AdMob ads (2026-09-27). App-specific lines come from
 # src/app-privacy.json (adsWhere, adsPremium, adsKeep, adsNonPersonalised); the Google data lines are the same for all.
-def ads_section(c,tr,L):
+def ads_section(c,tr,L,privacy_options=False):
  data=('Reklamları göstermek, ölçmek ve sınırlamak ve sahteciliği önlemek için Google Mobile Ads SDK şu verileri toplar ve Google ile paylaşır: cihazınızın reklam kimliği; Google’ın yaklaşık konum çıkardığı IP adresiniz; cihaz modeli, işletim sistemi, dil ve uygulama sürümü gibi cihaz ve uygulama bilgileri; çökme ve performans kayıtları gibi tanılama verileri; size hangi reklamların gösterildiği ve onlara dokunup dokunmadığınız. Google bu verileri reklamcılık, analiz ve sahtecilik önleme amacıyla kendi gizlilik politikası kapsamında kullanır.' if tr else
   'To show, measure and limit ads and to prevent fraud, the Google Mobile Ads SDK collects the following and shares it with Google: your device’s advertising ID; your IP address, from which Google derives an approximate location; device and app information such as model, operating system, language and app version; diagnostic data such as crash and performance logs; and which ads you were shown and whether you tapped them. Google uses this data for advertising, analytics and fraud prevention under its own privacy policy.')
  if c.get('adsNonPersonalised'):
@@ -205,6 +205,8 @@ def ads_section(c,tr,L):
  else:
   consent=('Avrupa Ekonomik Alanı, Birleşik Krallık veya İsviçre’deyseniz uygulama önce Google’ın User Messaging Platform onay formunu gösterir ve reklamı yalnızca Google’ın onay durumu izin verdiğinde ister. Kişiselleştirilmiş reklamları kabul etmezseniz Google yine kişiselleştirilmemiş reklamlar gösterebilir; bunlar aynı teknik verileri gösterim, sıklık sınırı, raporlama ve sahtecilik önleme için kullanır ama geçmiş etkinliğinize dayanmaz. Bu bölgelerin dışında reklamlar kişiselleştirilebilir. Onayınızı değiştirmek veya geri çekmek için bize e-posta gönderin; reklam kimliğinizi Android ayarlarından sıfırlayabilir veya silebilirsiniz.' if tr else
    'If you are in the European Economic Area, the United Kingdom or Switzerland, the app first shows Google’s consent form (User Messaging Platform) and requests ads only when Google’s consent status allows it. If you do not agree to personalised ads, Google can still show non personalised ads, which use the same technical data for delivery, frequency limits, reporting and fraud prevention but are not based on your past activity. Outside these regions ads may be personalised. To change or withdraw your consent, email us; you can reset or delete your advertising ID in Android settings.')
+  # Said only for an app whose product source has a privacy-options entry on its upgrade tip (src/app-privacy.json privacyOptionsEntry, measured 2026-10-27, Addendum 129 item 2).
+  if privacy_options:consent+=(' Seçiminizi daha sonra uygulamadaki gizlilik seçeneklerinden gözden geçirebilir veya değiştirebilirsiniz.' if tr else ' You can review or change your choice later from the privacy options in the app.')
  links=(f'Google’ın iş ortağı uygulamalardan gelen verileri nasıl kullandığı: <a href="{L["googlePartners"]}">{L["googlePartners"]}</a>.' if tr else f'How Google uses data from partner apps: <a href="{L["googlePartners"]}">{L["googlePartners"]}</a>.')
  return ''.join('<p>'+p+'</p>' for p in [esc(c['adsWhere']),esc(c['adsPremium']),data,consent,esc(c['adsKeep']),links])
 
@@ -221,7 +223,7 @@ def app_policies(lang):
    (('Kimiz' if tr else 'Who we are'),'<p>'+who+'</p>'),
    (('Cihazınızda kalan veriler' if tr else 'Data that stays on your device'),'<p>'+('Aşağıdaki bilgiler yalnızca cihazınızdaki uygulama depolamasında tutulur ve bize gönderilmez:' if tr else 'The following is stored only in the app’s storage on your device and is not sent to us:')+'</p>'+ul(c['device'])),
    (('Hizmet sağlayıcılar' if tr else 'Service providers'),ul(([('Google AdMob, ücretsiz sürümde reklam gösterir. Hangi verileri işlediği aşağıdaki Reklamlar bölümünde yazılıdır.' if tr else 'Google AdMob shows ads in the free version. The data it processes is described under Advertising below.')] if 'adsWhere' in c else [])+c['processors'])+'<p>'+(f'RevenueCat gizlilik politikası: <a href="{L["revenuecat"]}">{L["revenuecat"]}</a>. Google gizlilik politikası: <a href="{L["google"]}">{L["google"]}</a>.' if tr else f'RevenueCat privacy policy: <a href="{L["revenuecat"]}">{L["revenuecat"]}</a>. Google privacy policy: <a href="{L["google"]}">{L["google"]}</a>.')+'</p>'),
-   *([(('Reklamlar' if tr else 'Advertising'),ads_section(c,tr,L))] if 'adsWhere' in c else []),
+   *([(('Reklamlar' if tr else 'Advertising'),ads_section(c,tr,L,a.get('privacyOptionsEntry') is True))] if 'adsWhere' in c else []),
    (('Yapmadıklarımız' if tr else 'What we do not do'),ul(c['never'])),
    (('İzinler' if tr else 'Permissions'),ul(c['permissions'])),
    (('Seçimleriniz ve silme' if tr else 'Your choices and deletion'),'<p>'+esc(c['controls'])+'</p>'),
