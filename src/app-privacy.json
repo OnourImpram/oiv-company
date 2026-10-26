@@ -11,7 +11,7 @@
    "slug": "managergym",
    "name": "LeadRehearse",
    "package": "com.hezarfen.managergym",
-   "privacyOptionsEntry": true,
+   "privacyOptionsEntry": false,
    "en": {
     "summary": "LeadRehearse is a private rehearsal app for difficult workplace conversations. You can use it without an account. Your practice data stays on your device. The free version shows ads from Google AdMob; LeadRehearse Pro removes them. We do not sell data.",
     "device": ["Your profile name, role and practice goals", "Scenario transcripts, local coach feedback, scores and voice rehearsal self checks (audio is never recorded)", "Custom scenarios, lesson progress, language, theme and reminder settings"],
