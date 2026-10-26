@@ -148,7 +148,7 @@
      },
      {
       "h": "Advertising",
-      "html": "<p>The free version shows advertising in one place: the session catalogue. There is no advertising on the screens where you pray, write, or examine your day, and none on the subscription screen.</p><p>Ads are served by Google AdMob, which may use your device advertising identifier to choose them. On iOS, the system asks your permission before that identifier is used, and declining is a complete answer — the app works the same either way. Subscribing removes all advertising.</p>"
+      "html": "<p>The free version shows advertising in one place: the session catalogue. There is no advertising on the screens where you pray, write, or examine your day, and none on the subscription screen.</p><p>Ads are served by Google AdMob, which may use your device advertising identifier to choose them. On iOS, the system asks your permission before that identifier is used, and declining is a complete answer — the app works the same either way. Subscribing removes all advertising.</p><p>To show, measure and limit ads and to prevent fraud, the Google Mobile Ads SDK collects the following and shares it with Google: your device’s advertising ID; your IP address, from which Google derives an approximate location; device and app information such as model, operating system, language and app version; diagnostic data such as crash and performance logs; and which ads you were shown and whether you tapped them. Google uses this data for advertising, analytics and fraud prevention under its own privacy policy.</p>"
      },
      {
       "h": "What we do not do",
@@ -208,7 +208,7 @@
      },
      {
       "h": "Reklam",
-      "html": "<p>Ücretsiz sürüm reklamı tek bir yerde gösterir: oturum kataloğu. Reklamları göstermek, ölçmek ve sınırlamak ve sahteciliği önlemek için Google Mobile Ads SDK şu verileri toplar ve Google ile paylaşır: cihazınızın reklam kimliği; Google’ın yaklaşık konum çıkardığı IP adresiniz; cihaz modeli, işletim sistemi, dil ve uygulama sürümü gibi cihaz ve uygulama bilgileri; çökme ve performans kayıtları gibi tanılama verileri; size hangi reklamların gösterildiği ve onlara dokunup dokunmadığınız. Google bu verileri reklamcılık, analiz ve sahtecilik önleme amacıyla kendi gizlilik politikası kapsamında kullanır.</p><p>Reklamlar Google AdMob tarafından sunulur ve seçim için cihazının reklam tanımlayıcısı kullanılabilir. iOS'ta sistem bu tanımlayıcı kullanılmadan önce senden izin ister; reddetmek eksiksiz bir cevaptır — uygulama iki durumda da aynı şekilde çalışır. Abone olmak tüm reklamları kaldırır.</p>"
+      "html": "<p>Ücretsiz sürüm reklamı tek bir yerde gösterir: oturum kataloğu. Reklamları göstermek, ölçmek ve sınırlamak, ayrıca sahteciliği önlemek için Google Mobile Ads SDK şu verileri toplar ve Google ile paylaşır: cihazının reklam tanımlayıcısı; Google'ın yaklaşık konumunu çıkardığı IP adresin; cihaz modeli, işletim sistemi, dil ve uygulama sürümü gibi cihaz ve uygulama bilgileri; çökme ve performans kayıtları gibi tanılama verileri; sana hangi reklamların gösterildiği ve onlara dokunup dokunmadığın. Google bu verileri reklamcılık, analiz ve sahtecilik önleme amacıyla kendi gizlilik politikası kapsamında kullanır.</p><p>Reklamlar Google AdMob tarafından sunulur ve seçim için cihazının reklam tanımlayıcısı kullanılabilir. iOS'ta sistem bu tanımlayıcı kullanılmadan önce senden izin ister; reddetmek eksiksiz bir cevaptır — uygulama iki durumda da aynı şekilde çalışır. Abone olmak tüm reklamları kaldırır.</p>"
      },
      {
       "h": "Yapmadıklarımız",
@@ -279,7 +279,7 @@
      },
      {
       "h": "Children",
-      "html": "<p>Kinlore is made for adults writing for the people they love and is not directed at children. To show, measure and limit ads and to prevent fraud, the Google Mobile Ads SDK collects the following and shares it with Google: your device’s advertising ID; your IP address, from which Google derives an approximate location; device and app information such as model, operating system, language and app version; diagnostic data such as crash and performance logs; and which ads you were shown and whether you tapped them. Google uses this data for advertising, analytics and fraud prevention under its own privacy policy.</p>"
+      "html": "<p>Kinlore is made for adults writing for the people they love and is not directed at children.</p>"
      },
      {
       "h": "Contact",
