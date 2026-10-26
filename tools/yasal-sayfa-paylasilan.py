@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Move the shared portfolio policy to the company site as a per-app page (2026-10-26, Addendum 90).
 
-App: DogPulse. Source: the shared policy that the Play listing links to, https://onourimpram.github.io/portfolio-41/privacy-policy
+Apps: DogPulse, DoomScroll (same shared policy, same source files). Source: the shared policy that the Play listing links to, https://onourimpram.github.io/portfolio-41/privacy-policy
 (EN) and privacy-policy.tr (TR), file docs/privacy-policy.md and docs/privacy-policy.tr.md of OnourImpram/portfolio-41 at commit
 74b41b527b733b0d5989c7ffbb6ac75e1b36cb53. Copies: src/paylasilan-politika.en.md and .tr.md. The text is copied verbatim; the only
 substitutions are the heading (page title names the app), the address (the files carry {{EMAIL}}, filled from src/content.json)
@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SLUGS = {"dogpulse": "DogPulse"}
+SLUGS = {"dogpulse": "DogPulse", "doomscroll": "DoomScroll"}
 TEMPLATE = {"en": ROOT / "docs" / "legal" / "managergym" / "index.html", "tr": ROOT / "docs" / "tr" / "yasal" / "managergym" / "index.html"}
 SRC = {"en": ROOT / "src" / "paylasilan-politika.en.md", "tr": ROOT / "src" / "paylasilan-politika.tr.md"}
 EMAIL = json.loads((ROOT / "src" / "content.json").read_text(encoding="utf-8"))["site"]["email"]
