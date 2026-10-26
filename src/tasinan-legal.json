@@ -1,0 +1,379 @@
+{
+ "adhdflow": {
+  "name": "ADHDFlow",
+  "en": {
+   "title": "ADHDFlow — Privacy Policy / Terms of Use",
+   "privacy": {
+    "h1": "Privacy Policy",
+    "sub": "ADHDFlow · ONOUR IMPRAM VENTURES LTD · Last updated 14 September 2026",
+    "cards": [
+     {
+      "h": "What stays on your device",
+      "html": "<p>Your tasks, steps, time boxes and settings are stored only on your device. They are not uploaded, not backed up by us and not readable by us. Deleting the app deletes them; Export gives you a copy first if you want one.</p><p>Your language and workday hours are stored the same way and never leave the device.</p>"
+     },
+     {
+      "h": "Subscriptions",
+      "html": "<p>Subscriptions are handled by RevenueCat, which works with Apple and Google to confirm what you have bought. RevenueCat receives an anonymous identifier for your installation and the purchase history attached to it. It does not receive your tasks or your plan.</p><p>Payment itself happens in the App Store or Google Play. We never see your card details.</p>"
+     },
+     {
+      "h": "Advertising",
+      "html": "<p>The free version shows one banner in one place: the Report tab. There is no advertising on the Today screen, in the focus timer, in the task wizard, in the calendar, in insights, in settings or on the subscription screen.</p><p>Ads are served by Google AdMob, which may use your device advertising identifier to choose them. On iOS the system asks your permission first, and declining is a complete answer: the app works the same either way. Subscribing removes all advertising.</p>"
+     },
+     {
+      "h": "Reminders",
+      "html": "<p>Reminders are scheduled on your device and never pass through a server. They are off until you turn them on, respect the quiet hours you set, and can be switched off in the app or in your system settings at any time.</p>"
+     },
+     {
+      "h": "What we do not do",
+      "html": "<p>There is no analytics tool in this app. We do not track which tasks you add, how many boxes you complete, or when you work. There are no accounts, so there is nothing to sign in to and nothing to leak.</p>"
+     },
+     {
+      "h": "Children",
+      "html": "<p>This app is not directed at children under 13, and we do not knowingly collect information from them.</p>"
+     },
+     {
+      "h": "Contact",
+      "html": "<p>This app is published by ONOUR IMPRAM VENTURES LTD (Company No. 17429906, registered in England and Wales), 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Questions about this policy: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a></p>"
+     }
+    ]
+   },
+   "terms": {
+    "h1": "Terms of Use",
+    "sub": "ADHDFlow · ONOUR IMPRAM VENTURES LTD · Last updated 14 September 2026",
+    "cards": [
+     {
+      "h": "Subscriptions",
+      "html": "<p>ADHDFlow offers a monthly and an annual subscription. The price shown on the subscription screen is the price you pay, in your own currency, and it is the price the store charges. If a free trial is offered on the annual plan, the store's purchase screen states its length before you confirm; you can cancel during the trial and pay nothing.</p><p>Subscriptions renew automatically at the end of each period unless you cancel at least 24 hours before it ends. Your account is charged for renewal within the 24 hours before the period ends.</p><p>You can cancel at any time in your App Store or Google Play account settings. Cancelling stops the next renewal; it does not end the period you have already paid for, and you keep everything until that period runs out. The subscription screen has a Manage button that takes you straight there.</p>"
+     },
+     {
+      "h": "What a subscription changes",
+      "html": "<p>It removes advertising, opens every breakdown template, lifts the daily box limit, extends insights to four weeks, and lets the weekly report be shared and exported. Nothing you have already planned is ever behind it: your tasks and history stay yours whether you subscribe or not, and they stay if you cancel.</p>"
+     },
+     {
+      "h": "Refunds",
+      "html": "<p>Refunds are handled by Apple and Google under their own policies, not by us. We cannot issue them directly, but we will not stand in the way of one.</p>"
+     },
+     {
+      "h": "What this app is not",
+      "html": "<p>ADHDFlow is a planning tool for your workday. It is not a medical device, it does not diagnose ADHD, and it is not a substitute for a clinician's advice or treatment. Decisions about medication or care belong with a qualified professional.</p><p>The app is provided as it is. We work to keep it reliable, but we cannot promise that it will always be available or free of errors, and it is not designed for situations where a missed reminder could cause harm.</p>"
+     },
+     {
+      "h": "Contact",
+      "html": "<p>This app is published by ONOUR IMPRAM VENTURES LTD (Company No. 17429906, registered in England and Wales), 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Questions about this policy: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a></p>"
+     }
+    ]
+   },
+   "fine": "This text is available in every language the app speaks. If a translation and the English version ever disagree, the English version is the one that applies."
+  },
+  "tr": {
+   "title": "ADHDFlow — Gizlilik Politikası / Kullanım Koşulları",
+   "privacy": {
+    "h1": "Gizlilik Politikası",
+    "sub": "ADHDFlow · ONOUR IMPRAM VENTURES LTD · Son güncelleme 14 Eylül 2026",
+    "cards": [
+     {
+      "h": "Cihazında kalanlar",
+      "html": "<p>Görevlerin, adımların, zaman kutuların ve ayarların yalnızca cihazında saklanır. Yüklenmez, tarafımızca yedeklenmez ve tarafımızca okunamaz. Uygulamayı silmek bunları da siler; istersen Dışa Aktar önce bir kopya verir.</p><p>Dilin ve iş günü saatlerin de aynı şekilde saklanır ve cihazdan asla çıkmaz.</p>"
+     },
+     {
+      "h": "Abonelikler",
+      "html": "<p>Abonelikler, satın aldıklarını doğrulamak için Apple ve Google ile çalışan RevenueCat tarafından yürütülür. RevenueCat kurulumun için anonim bir tanımlayıcı ve ona bağlı satın alma geçmişini alır. Görevlerini ya da planını almaz.</p><p>Ödemenin kendisi App Store'da ya da Google Play'de gerçekleşir. Kart bilgilerini asla görmeyiz.</p>"
+     },
+     {
+      "h": "Reklam",
+      "html": "<p>Ücretsiz sürüm tek bir yerde tek bir banner gösterir: Rapor sekmesi. Bugün ekranında, odak zamanlayıcısında, görev sihirbazında, takvimde, içgörülerde, ayarlarda ya da abonelik ekranında reklam yoktur.</p><p>Reklamlar, seçim için cihazının reklam tanımlayıcısını kullanabilen Google AdMob tarafından sunulur. iOS'ta sistem önce iznini sorar ve reddetmek tam bir yanıttır: uygulama her iki durumda da aynı çalışır. Abone olmak bütün reklamları kaldırır.</p>"
+     },
+     {
+      "h": "Hatırlatmalar",
+      "html": "<p>Hatırlatmalar cihazında zamanlanır ve asla bir sunucudan geçmez. Sen açana kadar kapalıdır, belirlediğin sessiz saatlere uyar ve uygulamadan ya da sistem ayarlarından her an kapatılabilir.</p>"
+     },
+     {
+      "h": "Yapmadıklarımız",
+      "html": "<p>Bu uygulamada analitik aracı yoktur. Hangi görevleri eklediğini, kaç kutu tamamladığını ya da ne zaman çalıştığını izlemeyiz. Hesap yoktur; dolayısıyla giriş yapılacak ve sızacak bir şey de yoktur.</p>"
+     },
+     {
+      "h": "Çocuklar",
+      "html": "<p>Bu uygulama 13 yaş altı çocuklara yönelik değildir ve onlardan bilerek bilgi toplamayız.</p>"
+     },
+     {
+      "h": "İletişim",
+      "html": "<p>Bu uygulamanın yayıncısı ONOUR IMPRAM VENTURES LTD (Company No. 17429906, registered in England and Wales), 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Bu politikayla ilgili sorularını buraya yazabilirsin: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a></p>"
+     }
+    ]
+   },
+   "terms": {
+    "h1": "Kullanım Koşulları",
+    "sub": "ADHDFlow · ONOUR IMPRAM VENTURES LTD · Son güncelleme 14 Eylül 2026",
+    "cards": [
+     {
+      "h": "Abonelikler",
+      "html": "<p>ADHDFlow aylık ve yıllık abonelik sunar. Abonelik ekranında gösterilen fiyat, kendi para biriminde ödeyeceğin fiyattır ve mağazanın tahsil ettiği fiyattır. Yıllık planda ücretsiz deneme sunuluyorsa mağazanın satın alma ekranı onaylamadan önce süresini belirtir; deneme süresinde iptal edip hiçbir şey ödemeyebilirsin.</p><p>Abonelikler, dönem bitiminden en az 24 saat önce iptal etmedikçe her dönemin sonunda otomatik yenilenir. Yenileme ücreti dönem bitmeden önceki 24 saat içinde hesabından tahsil edilir.</p><p>App Store ya da Google Play hesap ayarlarından istediğin zaman iptal edebilirsin. İptal, bir sonraki yenilemeyi durdurur; zaten ödediğin dönemi bitirmez ve o dönem bitene kadar her şey sende kalır. Abonelik ekranındaki Yönet düğmesi seni doğrudan oraya götürür.</p>"
+     },
+     {
+      "h": "Aboneliğin değiştirdikleri",
+      "html": "<p>Reklamları kaldırır, bütün parçalama şablonlarını açar, günlük kutu sınırını kaldırır, içgörüleri dört haftaya uzatır ve haftalık raporun paylaşılıp dışa aktarılmasına izin verir. Zaten planladığın hiçbir şey aboneliğin arkasında değildir: görevlerin ve geçmişin, abone olsan da olmasan da senindir; iptal etsen de kalır.</p>"
+     },
+     {
+      "h": "İadeler",
+      "html": "<p>İadeler bizim değil, Apple ve Google'ın kendi politikaları uyarınca yürütülür. Doğrudan iade yapamayız; ama bir iadenin önünde de durmayız.</p>"
+     },
+     {
+      "h": "Bu uygulama ne değildir",
+      "html": "<p>ADHDFlow iş günün için bir planlama aracıdır. Tıbbi bir cihaz değildir, DEHB tanısı koymaz ve bir klinisyenin önerisinin ya da tedavisinin yerini tutmaz. İlaç ya da bakımla ilgili kararlar nitelikli bir uzmana aittir.</p><p>Uygulama olduğu gibi sunulur. Güvenilir kalması için çalışırız; ancak her zaman erişilebilir ya da hatasız olacağını vaat edemeyiz ve kaçırılan bir hatırlatmanın zarara yol açabileceği durumlar için tasarlanmamıştır.</p>"
+     },
+     {
+      "h": "İletişim",
+      "html": "<p>Bu uygulamanın yayıncısı ONOUR IMPRAM VENTURES LTD (Company No. 17429906, registered in England and Wales), 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Bu politikayla ilgili sorularını buraya yazabilirsin: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a></p>"
+     }
+    ]
+   },
+   "fine": "Bu metin uygulamanın konuştuğu her dilde mevcuttur. Bir çeviri ile İngilizce sürüm arasında bir uyuşmazlık olursa geçerli olan İngilizce sürümdür."
+  }
+ },
+ "gracerhythm": {
+  "name": "GraceRhythm",
+  "en": {
+   "title": "GraceRhythm — Privacy Policy / Terms of Use",
+   "privacy": {
+    "h1": "Privacy Policy",
+    "sub": "GraceRhythm · Last updated 14 September 2026",
+    "cards": [
+     {
+      "h": "What stays on your device",
+      "html": "<p>Your prayer rule, your prayer list, your journal entries and your session history are stored in a database on your device. They are not uploaded, not backed up to us, and not readable by us. Deleting the app deletes them.</p><p>Your language, tradition and reminder settings are stored the same way. The tradition you choose never leaves the device: it selects which content the app shows you, locally.</p>"
+     },
+     {
+      "h": "Subscriptions",
+      "html": "<p>Subscriptions are handled by RevenueCat, which works with Apple and Google to confirm what you have bought. RevenueCat receives an anonymous identifier for your installation and the purchase history attached to it. It does not receive your journal, your prayers, or your tradition.</p><p>Payment itself happens in the App Store or Google Play. We never see your card details.</p>"
+     },
+     {
+      "h": "Advertising",
+      "html": "<p>The free version shows advertising in one place: the session catalogue. There is no advertising on the screens where you pray, write, or examine your day, and none on the subscription screen.</p><p>Ads are served by Google AdMob, which may use your device advertising identifier to choose them. On iOS, the system asks your permission before that identifier is used, and declining is a complete answer — the app works the same either way. Subscribing removes all advertising.</p>"
+     },
+     {
+      "h": "What we do not do",
+      "html": "<p>There is no analytics tool in this app. We do not track which sessions you open, how often you pray, or whether you keep your rule. We do not have accounts, so there is nothing to sign in to and nothing to leak.</p>"
+     },
+     {
+      "h": "Children",
+      "html": "<p>This app is not directed at children under 13. We do not knowingly collect information from them.</p>"
+     },
+     {
+      "h": "Contact",
+      "html": "<p>This app is published by ONOUR IMPRAM VENTURES LTD (Companies House 17429906), 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Questions about this policy: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a></p>"
+     }
+    ]
+   },
+   "terms": {
+    "h1": "Terms of Use",
+    "sub": "GraceRhythm · Last updated 14 September 2026",
+    "cards": [
+     {
+      "h": "Subscriptions",
+      "html": "<p>GraceRhythm offers a monthly and an annual subscription. The price shown on the subscription screen is the price you pay, in your own currency, and it is the price the store charges.</p><p>Subscriptions renew automatically at the end of each period unless you cancel at least 24 hours before it ends. Your account is charged for renewal within the 24 hours before the period ends.</p><p>You can cancel at any time in your App Store or Google Play account settings. Cancelling stops the next renewal; it does not end the period you have already paid for, and you keep everything until that period runs out. The subscription screen has a Manage button that takes you straight there.</p>"
+     },
+     {
+      "h": "What a subscription changes",
+      "html": "<p>It removes advertising everywhere in the app, and it opens the premium sessions, the seasonal cards and the weekly reflection. Nothing you have already written is ever behind it: your journal, your prayer list and your rule stay yours whether you subscribe or not, and they stay if you cancel.</p>"
+     },
+     {
+      "h": "Refunds",
+      "html": "<p>Refunds are handled by Apple and Google under their own policies, not by us. We cannot issue them directly, but we will not stand in the way of one.</p>"
+     },
+     {
+      "h": "What this app is not",
+      "html": "<p>GraceRhythm is a companion for prayer. It is not pastoral care, not spiritual direction, and not a substitute for professional help of any kind. If you are in crisis, please reach someone who can be with you.</p><p>The app carries material from several Christian traditions and tries to address each reader in the words their own church uses. Where something was not verified, the app withholds it rather than guessing. If you find something wrong about your tradition, we would rather hear it than have you leave.</p>"
+     },
+     {
+      "h": "Contact",
+      "html": "<p>This app is published by ONOUR IMPRAM VENTURES LTD (Companies House 17429906), 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Questions about this policy: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a></p>"
+     }
+    ]
+   },
+   "fine": "This text is available in every language the app speaks. If a translation and the English version ever disagree, the English version is the one that applies."
+  },
+  "tr": {
+   "title": "GraceRhythm — Gizlilik Politikası / Kullanım Koşulları",
+   "privacy": {
+    "h1": "Gizlilik Politikası",
+    "sub": "GraceRhythm · Son güncelleme: 14 Eylül 2026",
+    "cards": [
+     {
+      "h": "Cihazında kalanlar",
+      "html": "<p>Dua kuralın, dua listen, günlük kayıtların ve oturum geçmişin cihazındaki bir veritabanında saklanır. Hiçbir yere yüklenmez, bize yedeklenmez, bizim tarafımızdan okunamaz. Uygulamayı silmek onları da siler.</p><p>Dil, gelenek ve hatırlatma ayarların da aynı şekilde saklanır. Seçtiğin gelenek cihazdan hiç çıkmaz: yalnızca uygulamanın sana hangi içeriği göstereceğini, cihazın içinde belirler.</p>"
+     },
+     {
+      "h": "Abonelikler",
+      "html": "<p>Abonelikler, ne satın aldığını Apple ve Google ile birlikte doğrulayan RevenueCat üzerinden yürütülür. RevenueCat, kurulumuna ait anonim bir tanımlayıcıyı ve ona bağlı satın alma geçmişini alır. Günlüğünü, dualarını ya da geleneğini almaz.</p><p>Ödemenin kendisi App Store ya da Google Play içinde gerçekleşir. Kart bilgilerini biz hiçbir zaman görmeyiz.</p>"
+     },
+     {
+      "h": "Reklam",
+      "html": "<p>Ücretsiz sürüm reklamı tek bir yerde gösterir: oturum kataloğu. Dua ettiğin, yazdığın ya da gününü gözden geçirdiğin ekranlarda reklam yoktur; abonelik ekranında da yoktur.</p><p>Reklamlar Google AdMob tarafından sunulur ve seçim için cihazının reklam tanımlayıcısı kullanılabilir. iOS'ta sistem bu tanımlayıcı kullanılmadan önce senden izin ister; reddetmek eksiksiz bir cevaptır — uygulama iki durumda da aynı şekilde çalışır. Abone olmak tüm reklamları kaldırır.</p>"
+     },
+     {
+      "h": "Yapmadıklarımız",
+      "html": "<p>Bu uygulamada hiçbir analitik araç yok. Hangi oturumları açtığını, ne sıklıkla dua ettiğini ya da kuralına sadık kalıp kalmadığını izlemiyoruz. Hesap sistemimiz yok; yani giriş yapılacak bir şey de, sızdırılacak bir şey de yok.</p>"
+     },
+     {
+      "h": "Çocuklar",
+      "html": "<p>Bu uygulama 13 yaşın altındaki çocuklara yönelik değildir. Onlardan bilerek bilgi toplamıyoruz.</p>"
+     },
+     {
+      "h": "İletişim",
+      "html": "<p>Bu uygulamanın yayıncısı ONOUR IMPRAM VENTURES LTD (Companies House 17429906), 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Bu politikayla ilgili sorularını buraya yazabilirsin: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a></p>"
+     }
+    ]
+   },
+   "terms": {
+    "h1": "Kullanım Koşulları",
+    "sub": "GraceRhythm · Son güncelleme: 14 Eylül 2026",
+    "cards": [
+     {
+      "h": "Abonelikler",
+      "html": "<p>GraceRhythm aylık ve yıllık abonelik sunar. Abonelik ekranında görünen fiyat, kendi para biriminde ödeyeceğin fiyattır ve mağazanın tahsil ettiği fiyattır.</p><p>Abonelikler, dönem bitmeden en az 24 saat önce iptal etmediğin sürece her dönemin sonunda otomatik olarak yenilenir. Yenileme ücreti, dönem bitmeden önceki 24 saat içinde hesabından tahsil edilir.</p><p>İstediğin an App Store ya da Google Play hesap ayarlarından iptal edebilirsin. İptal, bir sonraki yenilemeyi durdurur; hâlihazırda ödediğin dönemi sonlandırmaz ve o dönem bitene kadar her şey sende kalır. Abonelik ekranındaki Yönet düğmesi seni doğrudan oraya götürür.</p>"
+     },
+     {
+      "h": "Abonelik neyi değiştirir",
+      "html": "<p>Uygulamanın her yerinden reklamı kaldırır; premium oturumları, mevsim kartlarını ve haftalık tefekkürü açar. Daha önce yazdığın hiçbir şey bunun ardında değildir: günlüğün, dua listen ve kuralın, abone olsan da olmasan da senindir ve iptal etsen de sende kalır.</p>"
+     },
+     {
+      "h": "İadeler",
+      "html": "<p>İadeler biz tarafımızdan değil, kendi politikaları uyarınca Apple ve Google tarafından yürütülür. Doğrudan iade veremeyiz, ama bir iadenin önünde de durmayız.</p>"
+     },
+     {
+      "h": "Bu uygulama ne değildir",
+      "html": "<p>GraceRhythm dua için bir yol arkadaşıdır. Pastoral bakım değildir, ruhani rehberlik değildir ve hiçbir türden profesyonel yardımın yerini tutmaz. Kriz içindeysen lütfen yanında olabilecek birine ulaş.</p><p>Uygulama birkaç Hristiyan geleneğinden malzeme taşır ve her okuru kendi kilisesinin kullandığı sözcüklerle karşılamaya çalışır. Doğrulanmamış bir şey varsa, uygulama tahmin etmek yerine onu göstermez. Kendi geleneğinle ilgili yanlış bir şey bulursan, bunu bize söylemeni, çekip gitmene tercih ederiz.</p>"
+     },
+     {
+      "h": "İletişim",
+      "html": "<p>Bu uygulamanın yayıncısı ONOUR IMPRAM VENTURES LTD (Companies House 17429906), 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Bu politikayla ilgili sorularını buraya yazabilirsin: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a></p>"
+     }
+    ]
+   },
+   "fine": "Bu metin uygulamanın konuştuğu her dilde mevcut. Bir çeviri ile İngilizce sürüm arasında bir çelişki olursa geçerli olan İngilizce sürümdür."
+  }
+ },
+ "kinlore": {
+  "name": "Kinlore",
+  "en": {
+   "title": "Kinlore — Memory Book — Privacy Policy / Terms of Use",
+   "privacy": {
+    "h1": "Privacy Policy",
+    "sub": "Kinlore — Memory Book · Last updated: 27 September 2026",
+    "cards": [
+     {
+      "h": "Everything stays on your phone",
+      "html": "<p>Your book — every page, name and setting — is stored only on this device. Kinlore has no account, no server and no analytics, and never sends your writing anywhere.</p><p>Export and Share hand the text to the app you choose; from that moment it is that app's copy, under that app's rules.</p>"
+     },
+     {
+      "h": "The one-time purchase",
+      "html": "<p>Kinlore Premium is a single purchase through Google Play or the App Store. Payment is handled entirely by the store; Kinlore never sees your card.</p><p>To know whether the purchase belongs to this installation, Kinlore uses RevenueCat, which stores an anonymous identifier (shown as your Support ID in You) and the purchase record. No name, e-mail or other personal data is attached to it.</p>"
+     },
+     {
+      "h": "Advertising",
+      "html": "<p>The free version shows ads from Google AdMob: a banner on the Book tab and, now and then, a full-screen ad after a page is bound — never while you write. To show, measure and limit ads and to prevent fraud, Google AdMob collects your device's advertising ID, your IP address (from which Google derives an approximate location), device and app information, diagnostic data such as crash and performance logs, and which ads you see and tap, and shares them with Google for advertising, analytics and fraud prevention. If you are in the European Economic Area, the United Kingdom or Switzerland, Google's consent form (User Messaging Platform) asks you first and you can refuse personalised ads; non-personalised ads still use this technical data, but not a profile of you. Premium removes every ad. Nothing you write is ever shared with an advertiser.</p>"
+     },
+     {
+      "h": "What Kinlore does not do",
+      "html": "<p>No profiling of your writing, no location, no contacts, no microphone. Notifications, if you turn them on, are scheduled on the phone itself and carry only the next prompt.</p>"
+     },
+     {
+      "h": "Children",
+      "html": "<p>Kinlore is made for adults writing for the people they love and is not directed at children. Kinlore itself collects no personal data from anyone; in the free version, Google AdMob processes the advertising data described above.</p>"
+     },
+     {
+      "h": "Contact",
+      "html": "<p>Publisher: ONOUR IMPRAM VENTURES LTD · Company No. 17429906 · registered in England and Wales · 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Questions about this policy: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a>.</p>"
+     }
+    ]
+   },
+   "terms": {
+    "h1": "Terms of Use",
+    "sub": "Kinlore — Memory Book · Last updated: 27 September 2026",
+    "cards": [
+     {
+      "h": "Premium",
+      "html": "<p>Kinlore Premium is bought once and is not a subscription: nothing renews and nothing is charged again. It stays available on the store account it was bought with; use Restore purchase on a new phone.</p><p>Volume 1, free pages and export are free and remain free regardless of any purchase.</p>"
+     },
+     {
+      "h": "Changes",
+      "html": "<p>New prompts, themes or layouts may be added over time. Anything already bought stays yours, and the free volume stays free.</p>"
+     },
+     {
+      "h": "Refunds",
+      "html": "<p>Refunds are handled by Google Play or the App Store under their own policies. Kinlore cannot issue or refuse a refund itself.</p>"
+     },
+     {
+      "h": "Your writing is yours",
+      "html": "<p>Everything you write in Kinlore belongs to you. Kinlore claims no rights over it and, because it never leaves your phone, cannot use it in any way.</p>"
+     },
+     {
+      "h": "Contact",
+      "html": "<p>Publisher: ONOUR IMPRAM VENTURES LTD · Company No. 17429906 · registered in England and Wales · 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Questions about this policy: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a>.</p>"
+     }
+    ]
+   },
+   "fine": "If a translation and the English version disagree, the English version is the one that applies."
+  },
+  "tr": {
+   "title": "Kinlore — Hatıra Kitabı — Gizlilik Politikası / Kullanım Koşulları",
+   "privacy": {
+    "h1": "Gizlilik Politikası",
+    "sub": "Kinlore — Hatıra Kitabı · Son güncelleme: 27 Eylül 2026",
+    "cards": [
+     {
+      "h": "Her şey telefonunda kalır",
+      "html": "<p>Kitabın — her sayfa, ad ve ayar — yalnız bu cihazda saklanır. Kinlore'un hesabı, sunucusu ve analitiği yoktur; yazdıklarını hiçbir yere göndermez.</p><p>Dışa aktarma ve Paylaşma, metni seçtiğin uygulamaya verir; o andan itibaren o uygulamanın kopyasıdır ve o uygulamanın kurallarına tabidir.</p>"
+     },
+     {
+      "h": "Tek seferlik satın alım",
+      "html": "<p>Kinlore Premium, Google Play ya da App Store üzerinden tek bir satın alımdır. Ödemeyi bütünüyle mağaza yürütür; Kinlore kartını asla görmez.</p><p>Satın alımın bu kuruluma ait olup olmadığını bilmek için Kinlore, anonim bir tanımlayıcı (Sen bölümünde Destek Kimliği olarak gösterilir) ile satın alım kaydını saklayan RevenueCat'i kullanır. Buna ad, e-posta ya da başka kişisel veri bağlanmaz.</p>"
+     },
+     {
+      "h": "Reklam",
+      "html": "<p>Ücretsiz sürüm Google AdMob reklamları gösterir: Kitap sekmesinde bir banner ve ara sıra, bir sayfa ciltlendikten sonra tam ekran bir reklam — yazarken asla. Google AdMob, reklamları göstermek, ölçmek ve sınırlamak ve sahteciliği önlemek için cihazının reklam kimliğini, IP adresini (Google bundan yaklaşık konumunu çıkarır), cihaz ve uygulama bilgilerini, çökme ve performans kayıtları gibi tanılama verilerini ve hangi reklamları görüp dokunduğunu toplar; bunları reklamcılık, analiz ve sahtecilik önleme amacıyla Google ile paylaşır. Avrupa Ekonomik Alanı, Birleşik Krallık ya da İsviçre'deysen Google'ın onay formu (User Messaging Platform) önce sana sorar ve kişiselleştirilmiş reklamı reddedebilirsin; kişiselleştirilmemiş reklamlar da bu teknik verileri kullanır ama senin hakkında bir profil kullanmaz. Premium bütün reklamları kaldırır. Yazdığın hiçbir şey bir reklamverenle paylaşılmaz.</p>"
+     },
+     {
+      "h": "Kinlore'un yapmadıkları",
+      "html": "<p>Yazdıkların profillenmez; konum yok, kişiler yok, mikrofon yok. Bildirimleri açarsan telefonun kendisinde planlanır ve yalnız sıradaki istemi taşır.</p>"
+     },
+     {
+      "h": "Çocuklar",
+      "html": "<p>Kinlore, sevdikleri için yazan yetişkinler içindir ve çocuklara yönelik değildir. Kinlore'un kendisi hiç kimseden kişisel veri toplamaz; ücretsiz sürümde yukarıda anlatılan reklam verilerini Google AdMob işler.</p>"
+     },
+     {
+      "h": "İletişim",
+      "html": "<p>Yayıncı: ONOUR IMPRAM VENTURES LTD · Company No. 17429906 · registered in England and Wales · 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Bu politikayla ilgili sorular: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a>.</p>"
+     }
+    ]
+   },
+   "terms": {
+    "h1": "Kullanım Koşulları",
+    "sub": "Kinlore — Hatıra Kitabı · Son güncelleme: 27 Eylül 2026",
+    "cards": [
+     {
+      "h": "Premium",
+      "html": "<p>Kinlore Premium bir kez alınır ve abonelik değildir: hiçbir şey yenilenmez, yeniden ücret alınmaz. Alındığı mağaza hesabında kullanılabilir kalır; yeni bir telefonda Satın alımı geri yükle'yi kullan.</p><p>Cilt 1, serbest sayfalar ve dışa aktarma ücretsizdir ve herhangi bir satın alımdan bağımsız olarak ücretsiz kalır.</p>"
+     },
+     {
+      "h": "Değişiklikler",
+      "html": "<p>Zamanla yeni istemler, temalar ya da düzenler eklenebilir. Alınmış olan her şey senin kalır, ücretsiz cilt ücretsiz kalır.</p>"
+     },
+     {
+      "h": "İadeler",
+      "html": "<p>İadeler Google Play ya da App Store tarafından kendi politikalarına göre yürütülür. Kinlore kendisi iade yapamaz ya da reddedemez.</p>"
+     },
+     {
+      "h": "Yazdıkların senindir",
+      "html": "<p>Kinlore'da yazdığın her şey sana aittir. Kinlore bunlar üzerinde hiçbir hak iddia etmez ve telefonundan hiç çıkmadığı için onları hiçbir biçimde kullanamaz.</p>"
+     },
+     {
+      "h": "İletişim",
+      "html": "<p>Yayıncı: ONOUR IMPRAM VENTURES LTD · Company No. 17429906 · registered in England and Wales · 71-75 Shelton Street, Covent Garden, London WC2H 9JQ, United Kingdom. Bu politikayla ilgili sorular: <a href=\"mailto:{{EMAIL}}\">{{EMAIL}}</a>.</p>"
+     }
+    ]
+   },
+   "fine": "Bir çeviri ile İngilizce sürüm çelişirse İngilizce sürüm geçerlidir."
+  }
+ }
+}
