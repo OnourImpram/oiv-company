@@ -99,7 +99,7 @@
    "slug": "pathwayslab",
    "name": "Pathways Lab",
    "package": "com.hezarfen.pathwayslab",
-   "privacyOptionsEntry": true,
+   "privacyOptionsEntry": false,
    "effective": {"en": "6 October 2026", "tr": "6 Ekim 2026"},
    "en": {
     "summary": "Pathways Lab helps students test a possible career through a seven day experiment. You can use it without an account and the core experiment works offline. Your workspace stays on your device. The free version shows ads from Google AdMob; the optional Supporter Pack removes them. The app contains no analytics of its own and we do not sell data.",
@@ -128,7 +128,7 @@
    "slug": "platekind",
    "name": "PlateKind",
    "package": "com.hezarfen.platekind",
-   "privacyOptionsEntry": true,
+   "privacyOptionsEntry": false,
    "effective": {"en": "6 October 2026", "tr": "6 Ekim 2026"},
    "en": {
     "summary": "PlateKind suggests up to two simple additions to a meal you already have. You can use it without an account. Your meal notes stay on your device. The free version shows ads from Google AdMob; the premium purchase removes them. We do not sell data.",
@@ -157,7 +157,7 @@
    "slug": "backlogbloom",
    "name": "Backlog Bloom",
    "package": "com.hezarfen.backlogbloom",
-   "privacyOptionsEntry": true,
+   "privacyOptionsEntry": false,
    "effective": {"en": "6 October 2026", "tr": "6 Ekim 2026"},
    "en": {
     "summary": "Backlog Bloom is a calm library for the games you want to play. You can use it without an account. Your library stays on your device. The free version shows ads from Google AdMob; Backlog Bloom Pro removes them. We do not sell data.",
@@ -279,7 +279,7 @@
    "slug": "carnivorouslog",
    "name": "CarnivorousLog",
    "package": "com.hezarfen.carnivorouslog",
-   "privacyOptionsEntry": true,
+   "privacyOptionsEntry": false,
    "effective": {"en": "20 October 2026", "tr": "20 Ekim 2026"},
    "en": {
     "summary": "CarnivorousLog is a care log for carnivorous plants: your pots, what you grow in them, care readings and reminders. You can use it without an account. Your records are stored on your device. The free version shows ads from Google AdMob; Premium removes them. We do not sell data.",

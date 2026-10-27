@@ -37,13 +37,17 @@ DEL_OVERRIDE = {
         "tr": "Yerel verilerinizin tümünü Ayarlar'dan kalıcı olarak silebilirsiniz. Satın alma kayıtları Google Play ve RevenueCat'te kalır; bu kayıtlarla ilgili talepleriniz için bize e-posta gönderin.",
     }
 }
-# Effective date of the page, per app (Addendum 134 item 3, 2026-10-27): DogPulse's new release takes effect on 27 October 2026, so its page
-# says so; the shared source copy keeps 2026-10-26 and DoomScroll's pages keep reading it. One exact substitution per language, asserted.
+# Effective date of the page, per app (Addendum 134 item 3 for DogPulse, Addendum 140 item 1 for DoomScroll, 2026-10-27): both apps' new releases
+# take effect on 27 October 2026, so their pages say so; the shared source copy keeps 2026-10-26. One exact substitution per language, asserted.
 EFFECTIVE = {
     "dogpulse": {
         "en": ("Effective 2026-10-26.", "Effective 27 October 2026."),
         "tr": ("Yürürlük tarihi 2026-10-26.", "Yürürlük tarihi 27 Ekim 2026."),
-    }
+    },
+    "doomscroll": {
+        "en": ("Effective 2026-10-26.", "Effective 27 October 2026."),
+        "tr": ("Yürürlük tarihi 2026-10-26.", "Yürürlük tarihi 27 Ekim 2026."),
+    },
 }
 # Which kind of ads the app requests, per app (Addendum 137 item 2, 2026-10-27). The shared source copy lists six apps as "non-personalised only";
 # that is no longer true for DogPulse and CatPulse, and DoomScroll's live and upgrade builds differ, so each page now states only its own app.
