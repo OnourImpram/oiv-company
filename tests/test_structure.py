@@ -13,7 +13,7 @@ class Release(unittest.TestCase):
  def setUp(self):self.pages=[HTML(p) for p in ROOT.rglob('*.html')]
  # 27 site pages + 23 EN and 23 TR Google Play app pages + 28 EN and 28 TR app policies (2 pairs from tools/yasal-sayfa-paylasilan.py, 3 pairs from tools/yasal-sayfa-tasi.py, 11 pairs from tools/yasal-sayfa-uret.py,
  # 12 pairs from src/app-privacy.json; 2026-10-20 added AquaLog, Block Zen, CarnivorousLog, Clocktopus, Stroop Sprint).
- def test_all_pages_present(self):self.assertEqual(len(self.pages),129)
+ def test_all_pages_present(self):self.assertEqual(len(self.pages),131)
  def test_one_heading_each(self):
   for p in self.pages:self.assertEqual(len(p.select('h1')),1,str(p.path))
  def test_ids_are_unique(self):
@@ -83,7 +83,7 @@ class Release(unittest.TestCase):
  def robots(self,p):return [a.get('content') for a in p.select('meta',name='robots')]
  def test_legal_pages_are_noindex(self):
   legal=self.legal_pages()
-  self.assertEqual(len(legal),56)   # 28 EN + 28 TR; a glob that finds nothing must not pass
+  self.assertEqual(len(legal),58)   # 29 EN + 29 TR; a glob that finds nothing must not pass
   for p in legal:self.assertEqual(self.robots(p),['noindex'],str(p.path))
  def test_other_pages_stay_indexable(self):
   legal={id(p) for p in self.legal_pages()}
