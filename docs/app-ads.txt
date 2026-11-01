@@ -31,3 +31,4 @@ voisetech.com, 1127, RESELLER, 9009ef0379162448
 # Equativ (Open Bidding) onboarding e-postasi, 2026-10-27
 sharethrough.com, 4194-OB, RESELLER, 060d053dcf45cbf3
 sharethrough.com, 4194, RESELLER, 060d053dcf45cbf3
+openx.com, 642095174, DIRECT, 6a698e2ec38604c6
