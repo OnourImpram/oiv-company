@@ -68,8 +68,20 @@ BUILD_CONSENT = {
            "Kişiselleştirilmiş reklamları kabul etmezseniz Google yine kişiselleştirilmemiş reklamlar gösterebilir; bunlar aynı teknik verileri gösterim, sıklık sınırı, raporlama ve sahtecilik önleme için kullanır ama geçmiş etkinliğinize dayanmaz. "
            "Bu bölgelerin dışında reklamlar kişiselleştirilebilir. Onayınızı değiştirmek veya geri çekmek için bize e-posta gönderin; reklam kimliğinizi Android ayarlarından sıfırlayabilir veya silebilirsiniz."),
 }
+# DogPulse names both ad formats it shows (Addendum 181 item 2, 2026-11-01). Measured at marmara/main 7985b55: <AdBanner /> on the Home, Timeline and Learn
+# screens and on article pages (app/(tabs)/index.tsx, timeline.tsx, learn.tsx, app/library/[id].tsx); one rewarded ad, started only by the button on the Care insights
+# screen (app/insights.tsx, odulluReklamGoster; src/monetization/rewarded.ts: "if the user does not press, nothing is loaded and nothing is played"); the reward is the
+# monthly view for that visit (insights_rewarded_cta, insights_rewarded_note); no interstitial. The live build vc34 carries the same rewarded strings (static scan of
+# com.hezarfen.dogpulse-vc34.apk: insights_rewarded_cta and odulluReklamGoster in the bundle). The sentences are the CatPulse ones (src/app-privacy.json adsWhere), same screen, same flow.
+DOGPULSE_FORMATS = {
+    "en": ("The free version shows banner ads. On the Care insights screen you can also choose to watch one rewarded ad to preview the monthly view for that visit; "
+           "nothing is loaded unless you tap that button."),
+    "tr": ("Ücretsiz sürüm banner reklamlar gösterir. Bakım içgörüleri ekranında, o ziyaret için aylık görünümü önizlemek üzere ödüllü bir reklam izlemeyi de seçebilirsiniz; "
+           "o düğmeye dokunmadıkça hiçbir şey yüklenmez."),
+}
 ADS_BULLET = {
-    "dogpulse": {"en": "* **DogPulse: consent decides.** " + BUILD_CONSENT["en"], "tr": "* **DogPulse: onay belirler.** " + BUILD_CONSENT["tr"]},
+    "dogpulse": {"en": "* **DogPulse: consent decides.** " + DOGPULSE_FORMATS["en"] + " " + BUILD_CONSENT["en"],
+                 "tr": "* **DogPulse: onay belirler.** " + DOGPULSE_FORMATS["tr"] + " " + BUILD_CONSENT["tr"]},
     "doomscroll": {
         "en": ("* **DoomScroll.** DoomScroll shows one kind of ad: an optional rewarded ad that you start yourself on the game-over screen to earn a hint. It never shows a banner. "
                "Personalised ads are requested only when Google’s consent status allows it. If you are in the European Economic Area, the United Kingdom or Switzerland, "
