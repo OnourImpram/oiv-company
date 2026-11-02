@@ -187,7 +187,7 @@
    "name": "CatPulse",
    "package": "com.hezarfen.catpulse",
    "privacyOptionsEntry": true,
-   "effective": {"en": "27 October 2026", "tr": "27 Ekim 2026"},
+   "effective": {"en": "2 November 2026", "tr": "2 Kasım 2026"},
    "en": {
     "summary": "CatPulse is a care companion for cat owners: daily care tasks, medication times, observations, veterinary visits and documents. You can use it without an account. Your cat profiles and care records are stored on your device. The free version shows ads from Google AdMob; Premium removes them. We do not sell data.",
     "device": ["Cat profiles, daily care records, observations, tasks, medications and doses, veterinary visits and appointments, contacts and caregivers, inventory and expenses", "Profile photos and documents you choose, copied into the app's own storage", "Language, theme, onboarding state, reminder settings and a cached copy of your Premium status"],
