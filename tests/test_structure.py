@@ -155,6 +155,10 @@ class Release(unittest.TestCase):
   # In-app source: catpulse src/i18n/en.ts and tr.ts, privacy_subscriptions_body_store (read at AAB commit fe70493).
   for d,s in [('legal','It may process product, transaction, receipt, subscription status and installation or store account identifiers, including an anonymous app user identifier,'),('tr/yasal','ürün, işlem, makbuz, abonelik durumu ve anonim bir uygulama kullanıcı kimliği dahil kurulum ya da mağaza hesabı tanımlayıcılarını işleyebilir')]:
    self.assertIn(s,self.policy(d,'catpulse'),d)
+ def test_catpulse_and_stroopsprint_name_the_samsung_billing_permission_for_the_galaxy_build(self):
+  # The Galaxy APKs of both apps declare com.samsung.android.iap.permission.BILLING beyond the Play AAB; the permission list says so, scoped to the Galaxy Store build.
+  for d,s in [('legal','Samsung In-App Purchase billing (com.samsung.android.iap.permission.BILLING), declared in the Galaxy Store build and used when you buy or restore Premium there.'),('tr/yasal',"Samsung In-App Purchase faturalandırması (com.samsung.android.iap.permission.BILLING): Galaxy Store sürümünde bildirilir; Premium'u orada satın alırken veya geri yüklerken kullanılır.")]:
+   for slug in ['catpulse','stroopsprint']:self.assertIn(s,self.policy(d,slug),f'{d}/{slug}')
  def test_search_is_offline(self):
   text=(ROOT/'assets/js/site.js').read_text(encoding='utf-8');self.assertNotIn('fetch(',text);self.assertNotIn('localStorage',text);self.assertNotIn('sessionStorage',text)
 if __name__=='__main__':unittest.main(verbosity=2)
