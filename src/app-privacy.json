@@ -218,7 +218,7 @@
    "name": "AquaLog",
    "package": "com.hezarfen.aqualog",
    "privacyOptionsEntry": true,
-   "effective": {"en": "20 October 2026", "tr": "20 Ekim 2026"},
+   "effective": {"en": "9 November 2026", "tr": "9 Kasım 2026"},
    "en": {
     "summary": "AquaLog is an aquarium tracker for water readings, tank inhabitants and care reminders. You can use it without an account. Your records are stored on your device. The free version shows ads from Google AdMob; Premium removes them. We do not sell data.",
     "device": ["Your aquariums: name, volume, type and notes", "Water test readings: pH, ammonia, nitrite, nitrate, temperature and salinity, with the date and a note", "The inhabitants you record: name, species, count, type, the date added and a note", "The reminders you set, and any custom trackers you create, with their entries (date, value and note)", "Language, theme and notification settings"],
