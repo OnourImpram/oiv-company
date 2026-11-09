@@ -2,8 +2,12 @@
 from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
-import unittest,json,re
+import unittest,json,re,html
 ROOT=Path(__file__).resolve().parents[1]/'docs'
+# Blanket "every ad request is non personalised" wording, EN and TR (canli-iddia GIZLILIK_NPA_IZINSIZ; class sweep 2026-11-09 removed it from Tiny Broadcast and Block Zen).
+BLANKET_NPA=[re.compile(p) for p in (r'Every ad request is non personali[sz]ed',r'Her reklam isteği kişiselleştirilmemiştir',r'one non personali[sz]ed ad',r'kişiselleştirilmemiş tek bir reklam')]
+def blanket_claims(text):return [p.pattern for p in BLANKET_NPA if p.search(text)]
+def plain(raw):return re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',raw)))
 class HTML(HTMLParser):
  def __init__(self,path):
   super().__init__();self.path=path;self.tags=[];self.feed(path.read_text(encoding='utf-8'))
@@ -119,6 +123,38 @@ class Release(unittest.TestCase):
   for d,h,s in [('legal','Data deletion','ask about those records, email us.'),('tr/yasal','Veri silme','bize e-posta gönderin.')]:
    for slug in ['catpulse','dogpulse','doomscroll']:
     t=(ROOT/d/slug/'index.html').read_text(encoding='utf-8');self.assertEqual(t.count('id="data-deletion"'),1,f'{d}/{slug}');self.assertIn(h,t);self.assertIn(s,t)
+ def policy(self,d,slug):return plain((ROOT/d/slug/'index.html').read_text(encoding='utf-8'))
+ def test_no_policy_claims_that_every_ad_request_is_non_personalised(self):
+  # 2026-11-09 class sweep: the pages must not promise non personalised ads for every request; the Play build follows Google's consent form.
+  legal=self.legal_pages();self.assertEqual(len(legal),60)
+  for p in legal:self.assertEqual(blanket_claims(plain(p.path.read_text(encoding='utf-8'))),[],str(p.path))
+  # negative control: the detector fires on each old wording, so a page that regains the claim fails the loop above
+  for old in ['Every ad request is non personalised: the ad is not chosen','Her reklam isteği kişiselleştirilmemiştir: reklam','The free version can show one non personalised ad from Google AdMob',"Google AdMob'dan kişiselleştirilmemiş tek bir reklam gösterebilir"]:self.assertNotEqual(blanket_claims(old),[],old)
+ def test_google_consent_paragraph_where_the_blanket_claim_was_removed(self):
+  want={'legal':['requests ads only when Google’s consent status allows it','Outside these regions ads may be personalised.'],'tr/yasal':['Google’ın onay durumu izin verdiğinde ister','Bu bölgelerin dışında reklamlar kişiselleştirilebilir.']}
+  for d,sentences in want.items():
+   for slug in ['aqualog','blockzen','catpulse','stroopsprint','tinybroadcast']:
+    t=self.policy(d,slug)
+    for s in sentences:self.assertIn(s,t,f'{d}/{slug}')
+ def test_samsung_iap_sentence_beside_the_google_play_sentence(self):
+  want={'legal':('Google Play processes the purchase itself under your Google account.','If you installed the app from Samsung Galaxy Store, Samsung In-App Purchase processes the purchase under your Samsung account; we receive the purchase status, not your payment details.'),
+        'tr/yasal':('Satın alma işleminin kendisini Google Play, Google hesabınız kapsamında işler.',"Uygulamayı Samsung Galaxy Store'dan yüklediyseniz satın alma işlemini Samsung In-App Purchase, Samsung hesabınız kapsamında işler; biz satın alma durumunu alırız, ödeme bilgilerinizi almayız.")}
+  for d,(play,samsung) in want.items():
+   for slug in ['catpulse','stroopsprint']:
+    t=self.policy(d,slug);self.assertIn(play,t,f'{d}/{slug}');self.assertIn(samsung,t,f'{d}/{slug}')
+ def test_data_deletion_section_names_samsung_iap_and_the_company_address(self):
+  # The Samsung data-deletion link points at #data-deletion: the section itself (up to its closing paragraph) must say what is kept, by whom, and where to write.
+  for d,tail in [('legal',"own policies require"),('tr/yasal','kendi politikalarının gerektirdiği süre boyunca saklanır')]:
+   for slug in ['catpulse','stroopsprint']:
+    raw=(ROOT/d/slug/'index.html').read_text(encoding='utf-8');i=raw.index('id="data-deletion"');sec=plain(raw[i:raw.index('</p>',i)])
+    for s in ['Samsung In-App Purchase','onour@onourimpram.com',tail]:self.assertIn(s,sec,f'{d}/{slug}')
+ def test_stroopsprint_scopes_android_vitals_to_the_play_build(self):
+  for d,scoped,galaxy in [('legal','On the Google Play build, crash and performance data come from Android vitals in Google Play Console.','A Galaxy Store install has no Android vitals data.'),('tr/yasal',"Google Play sürümünde çökme ve performans verileri Google Play Console'daki Android vitals üzerinden gelir.",'Galaxy Store kurulumunun Android vitals verisi yoktur.')]:
+   t=self.policy(d,'stroopsprint');self.assertIn(scoped,t,d);self.assertIn(galaxy,t,d)
+ def test_catpulse_revenuecat_bullet_names_the_in_app_data_kinds(self):
+  # In-app source: catpulse src/i18n/en.ts and tr.ts, privacy_subscriptions_body_store (read at AAB commit fe70493).
+  for d,s in [('legal','It may process product, transaction, receipt, subscription status and installation or store account identifiers, including an anonymous app user identifier,'),('tr/yasal','ürün, işlem, makbuz, abonelik durumu ve anonim bir uygulama kullanıcı kimliği dahil kurulum ya da mağaza hesabı tanımlayıcılarını işleyebilir')]:
+   self.assertIn(s,self.policy(d,'catpulse'),d)
  def test_search_is_offline(self):
   text=(ROOT/'assets/js/site.js').read_text(encoding='utf-8');self.assertNotIn('fetch(',text);self.assertNotIn('localStorage',text);self.assertNotIn('sessionStorage',text)
 if __name__=='__main__':unittest.main(verbosity=2)
